@@ -1,0 +1,20 @@
+services:
+  postgres:
+    image: postgres:17
+    container_name: tfc-skyblock-design-postgres
+    environment:
+      POSTGRES_DB: tfc_skyblock
+      POSTGRES_USER: tfc
+      POSTGRES_PASSWORD: tfc
+    ports:
+      - "5433:5432"
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U tfc -d tfc_skyblock"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+volumes:
+  postgres-data:
