@@ -13,7 +13,11 @@ VALUES
 
 INSERT INTO technology_resource_requirement (technology_id, resource_id)
 VALUES
-    ('bloomery', 'bronze_sheet');
+    ('bloomery', 'bloomery');
+
+INSERT INTO process (id, name, type, technology_required)
+VALUES
+    ('craft_bloomery', 'Craft Bloomery', 'craft', false);
 
 INSERT INTO process (id, name, type)
 VALUES
@@ -23,17 +27,24 @@ VALUES
 
 INSERT INTO process_input (process_id, resource_id)
 VALUES
+    ('craft_bloomery', 'bronze_sheet'),
+
     ('bloom_iron_ore', 'charcoal'),
     ('bloom_iron_ore', 'iron_ore'),
+
     ('bloom_cast_iron', 'charcoal'),
     ('bloom_cast_iron', 'cast_iron_ingot'),
+
     ('forge_wrought_iron_ingot', 'iron_bloom'),
     ('forge_wrought_iron_ingot', 'flux');
 
 INSERT INTO process_output (process_id, resource_id)
 VALUES
+    ('craft_bloomery', 'bloomery'),
+
     ('bloom_iron_ore', 'iron_bloom'),
     ('bloom_cast_iron', 'iron_bloom'),
+
     ('forge_wrought_iron_ingot', 'wrought_iron_ingot');
 
 INSERT INTO technology_process_unlock (technology_id, process_id)
