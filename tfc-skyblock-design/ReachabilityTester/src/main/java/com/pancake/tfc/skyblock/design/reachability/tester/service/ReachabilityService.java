@@ -2,15 +2,13 @@ package com.pancake.tfc.skyblock.design.reachability.tester.service;
 
 import com.pancake.tfc.skyblock.design.reachability.tester.entities.*;
 import com.pancake.tfc.skyblock.design.reachability.tester.entities.Process;
-import com.pancake.tfc.skyblock.design.reachability.tester.repositories.ProcessRepository;
-import com.pancake.tfc.skyblock.design.reachability.tester.repositories.ResourceRepository;
-import com.pancake.tfc.skyblock.design.reachability.tester.repositories.ScenarioRepository;
-import com.pancake.tfc.skyblock.design.reachability.tester.repositories.TechnologyRepository;
+import com.pancake.tfc.skyblock.design.reachability.tester.repositories.*;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -27,35 +25,57 @@ public class ReachabilityService {
     private final ResourceRepository resourceRepository;
     private final ProcessRepository processRepository;
     private final TechnologyRepository technologyRepository;
+    private final ScenarioResourceRepository scenarioResourceRepository;
 
     public ReachabilityService(
             ScenarioRepository scenarioRepository,
             ResourceRepository resourceRepository,
             ProcessRepository processRepository,
-            TechnologyRepository technologyRepository) {
+            TechnologyRepository technologyRepository,
+            ScenarioResourceRepository scenarioResourceRepository) {
 
         this.scenarioRepository = scenarioRepository;
         this.resourceRepository = resourceRepository;
         this.processRepository = processRepository;
         this.technologyRepository = technologyRepository;
-    }
-
-    public ReachabilityResult reachableResources(String scenarioId) {
-
-        Scenario scenario = loadScenario(scenarioId);
-
-        Set<Resource> initialResources = scenario.getResources().stream()
-                .map(ScenarioResource::getResource)
-                .collect(Collectors.toSet());
-
-        LOG.info("Testing reachability for scenario: {}", scenarioId);
-
-        return calculateReachability(initialResources);
+        this.scenarioResourceRepository = scenarioResourceRepository;
     }
 
     public ReachabilityResult infiniteReachableResources(String scenarioId) {
 
         Scenario scenario = loadScenario(scenarioId);
+
+        List<Resource> allResources = resourceRepository.findAll();
+        List<Process> allProcesses = processRepository.findAll();
+        List<Technology> allTechnologies = technologyRepository.findAll();
+
+        List<ModelIssue> issues =
+                validateModel(allResources, allProcesses, allTechnologies);
+
+        if (issues.isEmpty()) {
+            LOG.error("Model validation OK");
+        }
+        else {
+            LOG.error("Model validation failed with {} issue(s)", issues.size());
+
+            issues.forEach(issue ->
+                    LOG.error(
+                            "{} {} ({}): {}",
+                            issue.type(),
+                            issue.id(),
+                            issue.name(),
+                            issue.issue()
+                    )
+            );
+
+            throw new IllegalStateException(
+                    "Model validation failed with " + issues.size() + " issue(s)"
+            );
+        }
+
+        RegularReachabilityResult reachable =
+                calculateReachability(scenario, allResources, allProcesses, allTechnologies);
+
 
         Set<Resource> initialResources = scenario.getResources().stream()
                 .filter(ScenarioResource::isInfinite)
@@ -67,18 +87,17 @@ public class ReachabilityService {
                 scenarioId
         );
 
-        return calculateReachability(initialResources);
-    }
-
-    public ReachabilityResult reachableResourcesFrom(
-            Set<Resource> initialResources) {
-
-        LOG.info(
-                "Testing reachability from {} initial resources",
-                initialResources.size()
+        Set<Resource> infinitelyReachableResources = calculateInfiniteReachability(
+                initialResources,
+                allResources,
+                allProcesses,
+                reachable.reachableTechnologies()
         );
 
-        return calculateReachability(initialResources);
+        return new ReachabilityResult(
+                reachable.reachableResources(),
+                reachable.reachableTechnologies(),
+                infinitelyReachableResources);
     }
 
     private Scenario loadScenario(String scenarioId) {
@@ -92,23 +111,21 @@ public class ReachabilityService {
                 );
     }
 
-    private ReachabilityResult calculateReachability(
-            Set<Resource> initialResources) {
+    private RegularReachabilityResult calculateReachability(
+            Scenario scenario,
+            List<Resource> allResources,
+            List<Process> allProcesses,
+            List<Technology> allTechnologies) {
 
-        List<Resource> allResources = resourceRepository.findAll();
-        List<Process> allProcesses = processRepository.findAll();
-        List<Technology> allTechnologies = technologyRepository.findAll();
+        Set<Resource> initialResources = scenario.getResources().stream()
+                .map(ScenarioResource::getResource)
+                .collect(Collectors.toSet());
 
-        LOG.info("Loaded {} processes", allProcesses.size());
-        LOG.info("Loaded {} technologies", allTechnologies.size());
-        LOG.info("Loaded {} resources", allResources.size());
+        LOG.info("Testing reachability for scenario: {}", scenario.getId());
 
         Set<Resource> reachable = new HashSet<>(initialResources);
 
-        LOG.info(
-                "Starting with {} reachable resources",
-                reachable.size()
-        );
+        Set<Technology> reachableTechnologies = new HashSet<>();
 
         boolean changed = true;
         int iteration = 0;
@@ -119,9 +136,27 @@ public class ReachabilityService {
 
             LOG.debug("Reachability iteration {}", iteration);
 
+            for (Technology technology : allTechnologies) {
+                if (reachableTechnologies.contains(technology)) {
+                    continue;
+                }
+
+                if (reachable.containsAll(technology.getResourceRequirements())) {
+
+                    reachableTechnologies.add(technology);
+
+                    LOG.info(
+                            "Reached technology {}",
+                            technology.getId()
+                    );
+
+                    changed = true;
+                }
+            }
+
             for (Process process : allProcesses) {
                 if (inputsReachable(process, reachable)
-                        && technologyAvailable(process, reachable)){
+                        && technologyAvailable(process, reachableTechnologies)) {
 
                     for (Resource output : process.getOutputs()) {
                         if (reachable.add(output)) {
@@ -138,7 +173,6 @@ public class ReachabilityService {
             }
 
             LOG.info("----");
-
         }
 
         LOG.info(
@@ -164,11 +198,18 @@ public class ReachabilityService {
                         .sorted()
                         .toList()
         );
+        LOG.info(
+                "Found {} reachable technologies",
+                reachableTechnologies.size()
+        );
         LOG.info("----------");
 
-        diagnoseUnreachable(unreachable, allProcesses);
 
-        return new ReachabilityResult(Set.copyOf(reachable));
+        return new RegularReachabilityResult(
+                Set.copyOf(reachable),
+                Set.copyOf(reachableTechnologies)
+        );
+
     }
 
     private boolean inputsReachable(
@@ -180,75 +221,187 @@ public class ReachabilityService {
 
     private boolean technologyAvailable(
             Process process,
-            Set<Resource> reachable) {
+            Set<Technology> availableTechnologies) {
 
         if (!process.isTechnologyRequired()) {
             return true;
         }
 
         return process.getUnlockedBy().stream()
-                .anyMatch(technology ->
-                        technology.getResourceRequirements().stream()
-                                .allMatch(reachable::contains)
-                );
+                .anyMatch(availableTechnologies::contains);
     }
 
-    private void diagnoseUnreachable(
-            Set<Resource> unreachable,
-            List<Process> allProcesses
-    ) {
-        if(!unreachable.isEmpty()) {
-            LOG.info("Diagnosing unreachable resources");
-            LOG.info("----");
+    private Set<Resource> calculateInfiniteReachability(
+            Set<Resource> initialResources,
+            List<Resource> allResources,
+            List<Process> allProcesses,
+            Set<Technology> availableTechnologies) {
 
-            for (Resource resource : unreachable) {
-                List<Process> producingProcesses = allProcesses.stream()
-                        .filter(process -> process.getOutputs().contains(resource))
-                        .toList();
+        LOG.info(
+                "Calculating infinitely reachable resources using {} available resources and {} available technologies",
+                initialResources.size(),
+                availableTechnologies.size()
+        );
 
-                if (producingProcesses.isEmpty()) {
-                    LOG.info(
-                            "{}: no scenario source and no process produces it",
-                            resource.getId()
-                    );
-                }
-                else {
+        Set<Resource> reachable = new HashSet<>(initialResources);
 
-                    for (Process process : producingProcesses) {
-                        LOG.info(
-                                "{}: produced by process {}",
-                                resource.getId(),
-                                process.getId()
-                        );
+        boolean changed = true;
+        int iteration = 0;
 
-                        if (!process.getInputs().isEmpty()) {
+        while (changed) {
+            changed = false;
+            iteration++;
+
+            LOG.debug(
+                    "Infinite reachability iteration {}",
+                    iteration
+            );
+
+            for (Process process : allProcesses) {
+                if (inputsReachable(process, reachable)
+                        && technologyAvailable(
+                        process,
+                        availableTechnologies)) {
+
+                    for (Resource output : process.getOutputs()) {
+                        if (reachable.add(output)) {
                             LOG.info(
-                                    "  inputs: {}",
-                                    process.getInputs().stream()
-                                            .map(Resource::getId)
-                                            .sorted()
-                                            .toList()
+                                    "Reached infinite {} through process {}",
+                                    output.getId(),
+                                    process.getId()
                             );
-                        }
 
-                        if (process.isTechnologyRequired()) {
-                            process.getUnlockedBy().forEach(technology -> {
-                                LOG.info(
-                                        "  technology {} requires: {}",
-                                        technology.getId(),
-                                        technology.getResourceRequirements().stream()
-                                                .map(Resource::getId)
-                                                .sorted()
-                                                .toList()
-                                );
-                            });
+                            changed = true;
                         }
                     }
                 }
+            }
 
-                LOG.info("----");
+            LOG.info("----");
+        }
 
+        LOG.info(
+                "Infinite reachability converged after {} iterations",
+                iteration
+        );
+
+        Set<Resource> unreachable = allResources.stream()
+                .filter(resource -> !reachable.contains(resource))
+                .collect(Collectors.toSet());
+
+        LOG.info(
+                "Infinite reachability reached {} / {} resources",
+                reachable.size(),
+                allResources.size()
+        );
+
+        LOG.info("----------");
+        LOG.info(
+                "Not infinitely reachable: {}",
+                unreachable.stream()
+                        .map(Resource::getId)
+                        .sorted()
+                        .toList()
+        );
+        LOG.info("----------");
+
+        return Set.copyOf(reachable);
+    }
+
+    private List<ModelIssue> validateModel(
+            List<Resource> resources,
+            List<Process> processes,
+            List<Technology> technologies) {
+
+        List<ModelIssue> issues = new ArrayList<>();
+
+        Scenario vanillaScenario = scenarioRepository
+                .findById(ScenarioEnum.VANILLA_TFC.getId())
+                .orElseThrow(() ->
+                        new IllegalStateException(
+                                "Vanilla TFC scenario is missing"
+                        ));
+
+        Set<String> scenarioResourceIds = vanillaScenario.getResources().stream()
+                .map(ScenarioResource::getResource)
+                .map(Resource::getId)
+                .collect(Collectors.toSet());
+
+        Set<String> processOutputResourceIds = processes.stream()
+                .flatMap(process -> process.getOutputs().stream())
+                .map(Resource::getId)
+                .collect(Collectors.toSet());
+
+        Set<String> technologyIds = technologies.stream()
+                .map(Technology::getId)
+                .collect(Collectors.toSet());
+
+        for (Resource resource : resources) {
+            if (!scenarioResourceIds.contains(resource.getId())
+                    && !processOutputResourceIds.contains(resource.getId())
+                    && !technologyIds.contains(resource.getId())) {
+
+                issues.add(new ModelIssue(
+                        "resource",
+                        resource.getId(),
+                        resource.getName(),
+                        "no scenario or process output"
+                ));
             }
         }
+
+        for (Process process : processes) {
+
+            if (process.isTechnologyRequired()
+                    && process.getUnlockedBy().isEmpty()) {
+
+                issues.add(new ModelIssue(
+                        "process",
+                        process.getId(),
+                        process.getName(),
+                        "no technology unlock"
+                ));
+            }
+
+            if (process.getInputs().isEmpty()) {
+                issues.add(new ModelIssue(
+                        "process",
+                        process.getId(),
+                        process.getName(),
+                        "no inputs"
+                ));
+            }
+
+            if (process.getOutputs().isEmpty()) {
+                issues.add(new ModelIssue(
+                        "process",
+                        process.getId(),
+                        process.getName(),
+                        "no outputs"
+                ));
+            }
+        }
+
+        for (Technology technology : technologies) {
+
+            if (technology.getResourceRequirements().isEmpty()
+                    && technology.getUnlockedProcesses().isEmpty()) {
+
+                issues.add(new ModelIssue(
+                        "technology",
+                        technology.getId(),
+                        technology.getName(),
+                        "no prerequisites or process unlocks"
+                ));
+            }
+        }
+
+        return issues;
     }
+
+    private record RegularReachabilityResult(
+            Set<Resource> reachableResources,
+            Set<Technology> reachableTechnologies
+    ) {}
 }
+

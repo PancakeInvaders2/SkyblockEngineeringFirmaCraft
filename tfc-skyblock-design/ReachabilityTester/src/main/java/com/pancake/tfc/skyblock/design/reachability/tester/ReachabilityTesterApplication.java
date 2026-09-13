@@ -3,6 +3,7 @@ package com.pancake.tfc.skyblock.design.reachability.tester;
 import com.pancake.tfc.skyblock.design.reachability.tester.entities.Scenario;
 import com.pancake.tfc.skyblock.design.reachability.tester.entities.ScenarioResource;
 import com.pancake.tfc.skyblock.design.reachability.tester.repositories.ScenarioRepository;
+import com.pancake.tfc.skyblock.design.reachability.tester.service.ReachabilityResult;
 import com.pancake.tfc.skyblock.design.reachability.tester.service.ReachabilityService;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -40,7 +41,9 @@ public class ReachabilityTesterApplication
 	public void run(String... args) {
 		long startNanos = System.nanoTime();
 
-		service.reachableResources("vanilla_tfc");
+		String scenarioId = "vanilla_tfc";
+
+		ReachabilityResult infinite = service.infiniteReachableResources(scenarioId);
 
 		long durationNanos = System.nanoTime() - startNanos;
 

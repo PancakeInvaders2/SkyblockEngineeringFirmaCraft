@@ -4,7 +4,6 @@
 
 INSERT INTO resource (id, name, category)
 VALUES
-    ('firepit', 'Firepit', 'equipment'),
     ('ash', 'Ash', 'material'),
     ('lye', 'Lye', 'material');
 
