@@ -1,6 +1,6 @@
-package com.pancake.tfc.skyblock.design.repositories;
+package com.pancake.tfc.skyblock.design.persistence.repositories;
 
-import com.pancake.tfc.skyblock.design.entities.Technology;
+import com.pancake.tfc.skyblock.design.persistence.entities.Technology;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface TechnologyRepository

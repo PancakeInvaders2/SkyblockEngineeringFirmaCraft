@@ -1,4 +1,4 @@
-package com.pancake.tfc.skyblock.design.entities;
+package com.pancake.tfc.skyblock.design.persistence.entities;
 
 import jakarta.persistence.Embeddable;
 

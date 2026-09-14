@@ -1,4 +1,4 @@
-package com.pancake.tfc.skyblock.design.services.dataimport;
+package com.pancake.tfc.skyblock.design.dataimport.services;
 
 import tools.jackson.databind.JsonNode;
 

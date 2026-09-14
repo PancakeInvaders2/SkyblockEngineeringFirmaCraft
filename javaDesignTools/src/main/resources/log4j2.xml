@@ -9,7 +9,7 @@
     </Appenders>
 
     <Loggers>
-        <Logger name="com.pancake.tfc.skyblock.design.reachability.tester" level="DEBUG"/>
+        <Logger name="com.pancake.tfc.skyblock" level="DEBUG"/>
 
         <Root level="ERROR">
             <AppenderRef ref="Console"/>

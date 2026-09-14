@@ -1,4 +1,4 @@
-package com.pancake.tfc.skyblock.design.services.reachability;
+package com.pancake.tfc.skyblock.design.reachability.services;
 
 public enum ScenarioEnum {
 

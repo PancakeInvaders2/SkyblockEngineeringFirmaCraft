@@ -1,4 +1,4 @@
-package com.pancake.tfc.skyblock.design.services.dataimport;
+package com.pancake.tfc.skyblock.design.dataimport.services;
 
 import org.springframework.stereotype.Service;
 import tools.jackson.databind.JsonNode;
@@ -23,19 +23,19 @@ public class GameDataLoader {
 
     private final ObjectMapper objectMapper;
 
-    public GameDataLoader(ObjectMapper objectMapper) {
-        this.objectMapper = objectMapper;
+    public GameDataLoader() {
+        this.objectMapper = new ObjectMapper();
     }
 
     public GameData load() throws IOException, URISyntaxException {
 
-        URL resource = GameDataLoader.class.getResource("extracted_json_data");
+        URL resource = GameDataLoader.class.getClassLoader().getResource("extracted_json_data");
         assert resource != null;
-        Path debugDirectory = Paths.get(resource.toURI());
+        Path jsonDataDirectory = Paths.get(resource.toURI());
 
-        Path lootTablesDirectory = debugDirectory.resolve("loot_tables");
-        Path recipesDirectory = debugDirectory.resolve("recipes");
-        Path tagsDirectory = debugDirectory.resolve("tags/item");
+        Path lootTablesDirectory = jsonDataDirectory.resolve("loot_tables");
+        Path recipesDirectory = jsonDataDirectory.resolve("recipes");
+        Path tagsDirectory = jsonDataDirectory.resolve("tags/item");
 
         Map<String, JsonNode> lootTables = loadJsonObjects(
                 lootTablesDirectory
