@@ -1,8 +1,10 @@
-package com.pancake.tfc.skyblock.design.reachability.tester.service;
+package com.pancake.tfc.skyblock.design.services.reachability;
 
-import com.pancake.tfc.skyblock.design.reachability.tester.entities.*;
-import com.pancake.tfc.skyblock.design.reachability.tester.entities.Process;
-import com.pancake.tfc.skyblock.design.reachability.tester.repositories.*;
+import com.pancake.tfc.skyblock.design.entities.*;
+import com.pancake.tfc.skyblock.design.entities.Process;
+import com.pancake.tfc.skyblock.design.entities.*;
+import com.pancake.tfc.skyblock.design.repositories.*;
+import com.pancake.tfc.skyblock.design.repositories.*;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.stereotype.Service;

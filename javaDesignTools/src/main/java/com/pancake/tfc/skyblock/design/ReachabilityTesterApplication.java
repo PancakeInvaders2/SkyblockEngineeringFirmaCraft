@@ -1,18 +1,12 @@
-package com.pancake.tfc.skyblock.design.reachability.tester;
+package com.pancake.tfc.skyblock.design;
 
-import com.pancake.tfc.skyblock.design.reachability.tester.entities.Scenario;
-import com.pancake.tfc.skyblock.design.reachability.tester.entities.ScenarioResource;
-import com.pancake.tfc.skyblock.design.reachability.tester.repositories.ScenarioRepository;
-import com.pancake.tfc.skyblock.design.reachability.tester.service.ReachabilityResult;
-import com.pancake.tfc.skyblock.design.reachability.tester.service.ReachabilityService;
+import com.pancake.tfc.skyblock.design.services.reachability.ReachabilityResult;
+import com.pancake.tfc.skyblock.design.services.reachability.ReachabilityService;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.boot.persistence.autoconfigure.EntityScan;
-import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
-import org.springframework.stereotype.Component;
 
 @SpringBootApplication
 public class ReachabilityTesterApplication

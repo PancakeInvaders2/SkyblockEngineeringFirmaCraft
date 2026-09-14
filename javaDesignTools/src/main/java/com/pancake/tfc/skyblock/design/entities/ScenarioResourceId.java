@@ -1,4 +1,4 @@
-package com.pancake.tfc.skyblock.design.reachability.tester.entities;
+package com.pancake.tfc.skyblock.design.entities;
 
 import jakarta.persistence.Embeddable;
 
