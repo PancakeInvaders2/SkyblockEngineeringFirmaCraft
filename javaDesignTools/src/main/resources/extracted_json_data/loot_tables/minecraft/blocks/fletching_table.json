@@ -1,0 +1,17 @@
+{
+	"lootType": "BLOCK",
+	"pools": [
+		{
+			"name": "main",
+			"entries": [
+				{
+					"type": "minecraft:item",
+					"kind": "item",
+					"item": "minecraft:fletching_table",
+					"weight": 1,
+					"quality": 0
+				}
+			]
+		}
+	]
+}

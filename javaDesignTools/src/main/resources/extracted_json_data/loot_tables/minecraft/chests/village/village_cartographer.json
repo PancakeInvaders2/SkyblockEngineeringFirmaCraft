@@ -1,0 +1,45 @@
+{
+	"lootType": "CHEST",
+	"pools": [
+		{
+			"name": "main",
+			"entries": [
+				{
+					"type": "minecraft:item",
+					"kind": "item",
+					"item": "minecraft:map",
+					"weight": 10,
+					"quality": 0
+				},
+				{
+					"type": "minecraft:item",
+					"kind": "item",
+					"item": "minecraft:paper",
+					"weight": 15,
+					"quality": 0
+				},
+				{
+					"type": "minecraft:item",
+					"kind": "item",
+					"item": "minecraft:compass",
+					"weight": 5,
+					"quality": 0
+				},
+				{
+					"type": "minecraft:item",
+					"kind": "item",
+					"item": "minecraft:bread",
+					"weight": 15,
+					"quality": 0
+				},
+				{
+					"type": "minecraft:item",
+					"kind": "item",
+					"item": "minecraft:stick",
+					"weight": 5,
+					"quality": 0
+				}
+			]
+		}
+	]
+}

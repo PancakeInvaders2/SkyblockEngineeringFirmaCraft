@@ -1,0 +1,29 @@
+{
+	"lootType": "ENTITY",
+	"pools": [
+		{
+			"name": "pool0",
+			"entries": [
+				{
+					"type": "minecraft:item",
+					"kind": "item",
+					"item": "minecraft:totem_of_undying",
+					"weight": 1,
+					"quality": 0
+				}
+			]
+		},
+		{
+			"name": "pool1",
+			"entries": [
+				{
+					"type": "minecraft:item",
+					"kind": "item",
+					"item": "minecraft:emerald",
+					"weight": 1,
+					"quality": 0
+				}
+			]
+		}
+	]
+}

@@ -1,0 +1,30 @@
+{
+	"lootType": "BLOCK",
+	"pools": [
+		{
+			"name": "main",
+			"entries": [
+				{
+					"type": "minecraft:alternatives",
+					"kind": "composite",
+					"entries": [
+						{
+							"type": "minecraft:item",
+							"kind": "item",
+							"item": "minecraft:deepslate_coal_ore",
+							"weight": 1,
+							"quality": 0
+						},
+						{
+							"type": "minecraft:item",
+							"kind": "item",
+							"item": "minecraft:coal",
+							"weight": 1,
+							"quality": 0
+						}
+					]
+				}
+			]
+		}
+	]
+}

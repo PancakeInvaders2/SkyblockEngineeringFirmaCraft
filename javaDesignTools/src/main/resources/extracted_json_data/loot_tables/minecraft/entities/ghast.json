@@ -1,0 +1,29 @@
+{
+	"lootType": "ENTITY",
+	"pools": [
+		{
+			"name": "pool0",
+			"entries": [
+				{
+					"type": "minecraft:item",
+					"kind": "item",
+					"item": "minecraft:ghast_tear",
+					"weight": 1,
+					"quality": 0
+				}
+			]
+		},
+		{
+			"name": "pool1",
+			"entries": [
+				{
+					"type": "minecraft:item",
+					"kind": "item",
+					"item": "minecraft:gunpowder",
+					"weight": 1,
+					"quality": 0
+				}
+			]
+		}
+	]
+}

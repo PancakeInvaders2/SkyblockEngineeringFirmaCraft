@@ -1,0 +1,101 @@
+{
+	"lootType": "BLOCK",
+	"pools": [
+		{
+			"name": "loot_pool",
+			"entries": [
+				{
+					"type": "minecraft:item",
+					"kind": "item",
+					"item": "tfc:drying_bricks/podzol",
+					"weight": 1,
+					"quality": 0
+				}
+			]
+		},
+		{
+			"name": "loot_pool",
+			"entries": [
+				{
+					"type": "minecraft:item",
+					"kind": "item",
+					"item": "tfc:mud_brick/podzol",
+					"weight": 1,
+					"quality": 0
+				}
+			]
+		},
+		{
+			"name": "loot_pool",
+			"entries": [
+				{
+					"type": "minecraft:item",
+					"kind": "item",
+					"item": "tfc:drying_bricks/podzol",
+					"weight": 1,
+					"quality": 0
+				}
+			]
+		},
+		{
+			"name": "loot_pool",
+			"entries": [
+				{
+					"type": "minecraft:item",
+					"kind": "item",
+					"item": "tfc:mud_brick/podzol",
+					"weight": 1,
+					"quality": 0
+				}
+			]
+		},
+		{
+			"name": "loot_pool",
+			"entries": [
+				{
+					"type": "minecraft:item",
+					"kind": "item",
+					"item": "tfc:drying_bricks/podzol",
+					"weight": 1,
+					"quality": 0
+				}
+			]
+		},
+		{
+			"name": "loot_pool",
+			"entries": [
+				{
+					"type": "minecraft:item",
+					"kind": "item",
+					"item": "tfc:mud_brick/podzol",
+					"weight": 1,
+					"quality": 0
+				}
+			]
+		},
+		{
+			"name": "loot_pool",
+			"entries": [
+				{
+					"type": "minecraft:item",
+					"kind": "item",
+					"item": "tfc:drying_bricks/podzol",
+					"weight": 1,
+					"quality": 0
+				}
+			]
+		},
+		{
+			"name": "loot_pool",
+			"entries": [
+				{
+					"type": "minecraft:item",
+					"kind": "item",
+					"item": "tfc:mud_brick/podzol",
+					"weight": 1,
+					"quality": 0
+				}
+			]
+		}
+	]
+}

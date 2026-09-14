@@ -1,0 +1,51 @@
+{
+	"lootType": "BLOCK",
+	"pools": [
+		{
+			"name": "main",
+			"entries": [
+				{
+					"type": "minecraft:alternatives",
+					"kind": "composite",
+					"entries": [
+						{
+							"type": "minecraft:item",
+							"kind": "item",
+							"item": "minecraft:pitcher_pod",
+							"weight": 1,
+							"quality": 0
+						},
+						{
+							"type": "minecraft:item",
+							"kind": "item",
+							"item": "minecraft:pitcher_pod",
+							"weight": 1,
+							"quality": 0
+						},
+						{
+							"type": "minecraft:item",
+							"kind": "item",
+							"item": "minecraft:pitcher_pod",
+							"weight": 1,
+							"quality": 0
+						},
+						{
+							"type": "minecraft:item",
+							"kind": "item",
+							"item": "minecraft:pitcher_pod",
+							"weight": 1,
+							"quality": 0
+						},
+						{
+							"type": "minecraft:item",
+							"kind": "item",
+							"item": "minecraft:pitcher_plant",
+							"weight": 1,
+							"quality": 0
+						}
+					]
+				}
+			]
+		}
+	]
+}

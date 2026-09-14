@@ -1,0 +1,52 @@
+{
+	"lootType": "CHEST",
+	"pools": [
+		{
+			"name": "main",
+			"entries": [
+				{
+					"type": "minecraft:item",
+					"kind": "item",
+					"item": "minecraft:redstone",
+					"weight": 2,
+					"quality": 0
+				},
+				{
+					"type": "minecraft:item",
+					"kind": "item",
+					"item": "minecraft:bread",
+					"weight": 7,
+					"quality": 0
+				},
+				{
+					"type": "minecraft:item",
+					"kind": "item",
+					"item": "minecraft:rotten_flesh",
+					"weight": 7,
+					"quality": 0
+				},
+				{
+					"type": "minecraft:item",
+					"kind": "item",
+					"item": "minecraft:lapis_lazuli",
+					"weight": 1,
+					"quality": 0
+				},
+				{
+					"type": "minecraft:item",
+					"kind": "item",
+					"item": "minecraft:gold_ingot",
+					"weight": 1,
+					"quality": 0
+				},
+				{
+					"type": "minecraft:item",
+					"kind": "item",
+					"item": "minecraft:emerald",
+					"weight": 1,
+					"quality": 0
+				}
+			]
+		}
+	]
+}

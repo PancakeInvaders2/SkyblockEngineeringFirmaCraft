@@ -1,0 +1,51 @@
+{
+	"lootType": "UNKNOWN",
+	"pools": [
+		{
+			"name": "loot_pool",
+			"entries": [
+				{
+					"type": "minecraft:alternatives",
+					"kind": "composite",
+					"entries": [
+						{
+							"type": "minecraft:item",
+							"kind": "item",
+							"item": "tfc:ore/small_native_copper",
+							"weight": 1,
+							"quality": 0
+						},
+						{
+							"type": "minecraft:item",
+							"kind": "item",
+							"item": "tfc:ore/small_native_copper",
+							"weight": 1,
+							"quality": 0
+						},
+						{
+							"type": "minecraft:item",
+							"kind": "item",
+							"item": "tfc:rock/loose/rhyolite",
+							"weight": 1,
+							"quality": 0
+						},
+						{
+							"type": "minecraft:item",
+							"kind": "item",
+							"item": "tfc:groundcover/pumice",
+							"weight": 1,
+							"quality": 0
+						},
+						{
+							"type": "minecraft:item",
+							"kind": "item",
+							"item": "tfc:ore/pyrite",
+							"weight": 1,
+							"quality": 0
+						}
+					]
+				}
+			]
+		}
+	]
+}

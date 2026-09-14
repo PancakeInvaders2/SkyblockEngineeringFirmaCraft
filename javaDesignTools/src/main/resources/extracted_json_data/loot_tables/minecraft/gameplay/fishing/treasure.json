@@ -1,0 +1,52 @@
+{
+	"lootType": "FISHING",
+	"pools": [
+		{
+			"name": "main",
+			"entries": [
+				{
+					"type": "minecraft:item",
+					"kind": "item",
+					"item": "minecraft:name_tag",
+					"weight": 1,
+					"quality": 0
+				},
+				{
+					"type": "minecraft:item",
+					"kind": "item",
+					"item": "minecraft:saddle",
+					"weight": 1,
+					"quality": 0
+				},
+				{
+					"type": "minecraft:item",
+					"kind": "item",
+					"item": "minecraft:bow",
+					"weight": 1,
+					"quality": 0
+				},
+				{
+					"type": "minecraft:item",
+					"kind": "item",
+					"item": "minecraft:fishing_rod",
+					"weight": 1,
+					"quality": 0
+				},
+				{
+					"type": "minecraft:item",
+					"kind": "item",
+					"item": "minecraft:book",
+					"weight": 1,
+					"quality": 0
+				},
+				{
+					"type": "minecraft:item",
+					"kind": "item",
+					"item": "minecraft:nautilus_shell",
+					"weight": 1,
+					"quality": 0
+				}
+			]
+		}
+	]
+}

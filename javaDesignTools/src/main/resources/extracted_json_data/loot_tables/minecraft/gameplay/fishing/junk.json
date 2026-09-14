@@ -1,0 +1,101 @@
+{
+	"lootType": "FISHING",
+	"pools": [
+		{
+			"name": "main",
+			"entries": [
+				{
+					"type": "minecraft:item",
+					"kind": "item",
+					"item": "minecraft:lily_pad",
+					"weight": 17,
+					"quality": 0
+				},
+				{
+					"type": "minecraft:item",
+					"kind": "item",
+					"item": "minecraft:leather_boots",
+					"weight": 10,
+					"quality": 0
+				},
+				{
+					"type": "minecraft:item",
+					"kind": "item",
+					"item": "minecraft:leather",
+					"weight": 10,
+					"quality": 0
+				},
+				{
+					"type": "minecraft:item",
+					"kind": "item",
+					"item": "minecraft:bone",
+					"weight": 10,
+					"quality": 0
+				},
+				{
+					"type": "minecraft:item",
+					"kind": "item",
+					"item": "minecraft:potion",
+					"weight": 10,
+					"quality": 0
+				},
+				{
+					"type": "minecraft:item",
+					"kind": "item",
+					"item": "minecraft:string",
+					"weight": 5,
+					"quality": 0
+				},
+				{
+					"type": "minecraft:item",
+					"kind": "item",
+					"item": "minecraft:fishing_rod",
+					"weight": 2,
+					"quality": 0
+				},
+				{
+					"type": "minecraft:item",
+					"kind": "item",
+					"item": "minecraft:bowl",
+					"weight": 10,
+					"quality": 0
+				},
+				{
+					"type": "minecraft:item",
+					"kind": "item",
+					"item": "minecraft:stick",
+					"weight": 5,
+					"quality": 0
+				},
+				{
+					"type": "minecraft:item",
+					"kind": "item",
+					"item": "minecraft:ink_sac",
+					"weight": 1,
+					"quality": 0
+				},
+				{
+					"type": "minecraft:item",
+					"kind": "item",
+					"item": "minecraft:tripwire_hook",
+					"weight": 10,
+					"quality": 0
+				},
+				{
+					"type": "minecraft:item",
+					"kind": "item",
+					"item": "minecraft:rotten_flesh",
+					"weight": 10,
+					"quality": 0
+				},
+				{
+					"type": "minecraft:item",
+					"kind": "item",
+					"item": "minecraft:bamboo",
+					"weight": 10,
+					"quality": 0
+				}
+			]
+		}
+	]
+}

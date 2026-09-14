@@ -1,0 +1,301 @@
+{
+	"lootType": "CHEST",
+	"pools": [
+		{
+			"name": "pool0",
+			"entries": [
+				{
+					"type": "minecraft:item",
+					"kind": "item",
+					"item": "minecraft:diamond_pickaxe",
+					"weight": 6,
+					"quality": 0
+				},
+				{
+					"type": "minecraft:item",
+					"kind": "item",
+					"item": "minecraft:diamond_shovel",
+					"weight": 6,
+					"quality": 0
+				},
+				{
+					"type": "minecraft:item",
+					"kind": "item",
+					"item": "minecraft:crossbow",
+					"weight": 6,
+					"quality": 0
+				},
+				{
+					"type": "minecraft:item",
+					"kind": "item",
+					"item": "minecraft:ancient_debris",
+					"weight": 12,
+					"quality": 0
+				},
+				{
+					"type": "minecraft:item",
+					"kind": "item",
+					"item": "minecraft:netherite_scrap",
+					"weight": 4,
+					"quality": 0
+				},
+				{
+					"type": "minecraft:item",
+					"kind": "item",
+					"item": "minecraft:spectral_arrow",
+					"weight": 10,
+					"quality": 0
+				},
+				{
+					"type": "minecraft:item",
+					"kind": "item",
+					"item": "minecraft:piglin_banner_pattern",
+					"weight": 9,
+					"quality": 0
+				},
+				{
+					"type": "minecraft:item",
+					"kind": "item",
+					"item": "minecraft:music_disc_pigstep",
+					"weight": 5,
+					"quality": 0
+				},
+				{
+					"type": "minecraft:item",
+					"kind": "item",
+					"item": "minecraft:golden_carrot",
+					"weight": 12,
+					"quality": 0
+				},
+				{
+					"type": "minecraft:item",
+					"kind": "item",
+					"item": "minecraft:golden_apple",
+					"weight": 9,
+					"quality": 0
+				},
+				{
+					"type": "minecraft:item",
+					"kind": "item",
+					"item": "minecraft:book",
+					"weight": 10,
+					"quality": 0
+				}
+			]
+		},
+		{
+			"name": "pool1",
+			"entries": [
+				{
+					"type": "minecraft:item",
+					"kind": "item",
+					"item": "minecraft:iron_sword",
+					"weight": 2,
+					"quality": 0
+				},
+				{
+					"type": "minecraft:item",
+					"kind": "item",
+					"item": "minecraft:iron_block",
+					"weight": 2,
+					"quality": 0
+				},
+				{
+					"type": "minecraft:item",
+					"kind": "item",
+					"item": "minecraft:golden_boots",
+					"weight": 1,
+					"quality": 0
+				},
+				{
+					"type": "minecraft:item",
+					"kind": "item",
+					"item": "minecraft:golden_axe",
+					"weight": 1,
+					"quality": 0
+				},
+				{
+					"type": "minecraft:item",
+					"kind": "item",
+					"item": "minecraft:gold_block",
+					"weight": 2,
+					"quality": 0
+				},
+				{
+					"type": "minecraft:item",
+					"kind": "item",
+					"item": "minecraft:crossbow",
+					"weight": 1,
+					"quality": 0
+				},
+				{
+					"type": "minecraft:item",
+					"kind": "item",
+					"item": "minecraft:gold_ingot",
+					"weight": 2,
+					"quality": 0
+				},
+				{
+					"type": "minecraft:item",
+					"kind": "item",
+					"item": "minecraft:iron_ingot",
+					"weight": 2,
+					"quality": 0
+				},
+				{
+					"type": "minecraft:item",
+					"kind": "item",
+					"item": "minecraft:golden_sword",
+					"weight": 1,
+					"quality": 0
+				},
+				{
+					"type": "minecraft:item",
+					"kind": "item",
+					"item": "minecraft:golden_chestplate",
+					"weight": 1,
+					"quality": 0
+				},
+				{
+					"type": "minecraft:item",
+					"kind": "item",
+					"item": "minecraft:golden_helmet",
+					"weight": 1,
+					"quality": 0
+				},
+				{
+					"type": "minecraft:item",
+					"kind": "item",
+					"item": "minecraft:golden_leggings",
+					"weight": 1,
+					"quality": 0
+				},
+				{
+					"type": "minecraft:item",
+					"kind": "item",
+					"item": "minecraft:golden_boots",
+					"weight": 1,
+					"quality": 0
+				},
+				{
+					"type": "minecraft:item",
+					"kind": "item",
+					"item": "minecraft:crying_obsidian",
+					"weight": 2,
+					"quality": 0
+				}
+			]
+		},
+		{
+			"name": "pool2",
+			"entries": [
+				{
+					"type": "minecraft:item",
+					"kind": "item",
+					"item": "minecraft:gilded_blackstone",
+					"weight": 2,
+					"quality": 0
+				},
+				{
+					"type": "minecraft:item",
+					"kind": "item",
+					"item": "minecraft:chain",
+					"weight": 1,
+					"quality": 0
+				},
+				{
+					"type": "minecraft:item",
+					"kind": "item",
+					"item": "minecraft:magma_cream",
+					"weight": 2,
+					"quality": 0
+				},
+				{
+					"type": "minecraft:item",
+					"kind": "item",
+					"item": "minecraft:bone_block",
+					"weight": 1,
+					"quality": 0
+				},
+				{
+					"type": "minecraft:item",
+					"kind": "item",
+					"item": "minecraft:iron_nugget",
+					"weight": 1,
+					"quality": 0
+				},
+				{
+					"type": "minecraft:item",
+					"kind": "item",
+					"item": "minecraft:obsidian",
+					"weight": 1,
+					"quality": 0
+				},
+				{
+					"type": "minecraft:item",
+					"kind": "item",
+					"item": "minecraft:gold_nugget",
+					"weight": 1,
+					"quality": 0
+				},
+				{
+					"type": "minecraft:item",
+					"kind": "item",
+					"item": "minecraft:string",
+					"weight": 1,
+					"quality": 0
+				},
+				{
+					"type": "minecraft:item",
+					"kind": "item",
+					"item": "minecraft:arrow",
+					"weight": 2,
+					"quality": 0
+				},
+				{
+					"type": "minecraft:item",
+					"kind": "item",
+					"item": "minecraft:cooked_porkchop",
+					"weight": 1,
+					"quality": 0
+				}
+			]
+		},
+		{
+			"name": "pool3",
+			"entries": [
+				{
+					"type": "minecraft:empty",
+					"kind": "other",
+					"weight": 11,
+					"quality": 0
+				},
+				{
+					"type": "minecraft:item",
+					"kind": "item",
+					"item": "minecraft:snout_armor_trim_smithing_template",
+					"weight": 1,
+					"quality": 0
+				}
+			]
+		},
+		{
+			"name": "pool4",
+			"entries": [
+				{
+					"type": "minecraft:empty",
+					"kind": "other",
+					"weight": 9,
+					"quality": 0
+				},
+				{
+					"type": "minecraft:item",
+					"kind": "item",
+					"item": "minecraft:netherite_upgrade_smithing_template",
+					"weight": 1,
+					"quality": 0
+				}
+			]
+		}
+	]
+}

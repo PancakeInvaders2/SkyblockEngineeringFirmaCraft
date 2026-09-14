@@ -1,0 +1,17 @@
+{
+	"lootType": "ENTITY",
+	"pools": [
+		{
+			"name": "main",
+			"entries": [
+				{
+					"type": "minecraft:item",
+					"kind": "item",
+					"item": "minecraft:glow_ink_sac",
+					"weight": 1,
+					"quality": 0
+				}
+			]
+		}
+	]
+}

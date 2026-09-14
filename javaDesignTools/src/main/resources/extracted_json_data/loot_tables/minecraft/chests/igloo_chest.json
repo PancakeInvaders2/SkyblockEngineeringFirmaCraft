@@ -1,0 +1,71 @@
+{
+	"lootType": "CHEST",
+	"pools": [
+		{
+			"name": "pool0",
+			"entries": [
+				{
+					"type": "minecraft:item",
+					"kind": "item",
+					"item": "minecraft:apple",
+					"weight": 15,
+					"quality": 0
+				},
+				{
+					"type": "minecraft:item",
+					"kind": "item",
+					"item": "minecraft:coal",
+					"weight": 15,
+					"quality": 0
+				},
+				{
+					"type": "minecraft:item",
+					"kind": "item",
+					"item": "minecraft:gold_nugget",
+					"weight": 10,
+					"quality": 0
+				},
+				{
+					"type": "minecraft:item",
+					"kind": "item",
+					"item": "minecraft:stone_axe",
+					"weight": 2,
+					"quality": 0
+				},
+				{
+					"type": "minecraft:item",
+					"kind": "item",
+					"item": "minecraft:rotten_flesh",
+					"weight": 10,
+					"quality": 0
+				},
+				{
+					"type": "minecraft:item",
+					"kind": "item",
+					"item": "minecraft:emerald",
+					"weight": 1,
+					"quality": 0
+				},
+				{
+					"type": "minecraft:item",
+					"kind": "item",
+					"item": "minecraft:wheat",
+					"weight": 10,
+					"quality": 0
+				}
+			]
+		},
+		{
+			"name": "pool1",
+			"entries": [
+				{
+					"type": "minecraft:item",
+					"kind": "item",
+					"item": "minecraft:golden_apple",
+					"weight": 1,
+					"quality": 0
+				}
+			]
+		}
+	]
+}

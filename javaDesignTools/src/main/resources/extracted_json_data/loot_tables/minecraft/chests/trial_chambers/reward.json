@@ -1,0 +1,44 @@
+{
+	"lootType": "CHEST",
+	"pools": [
+		{
+			"name": "pool0",
+			"entries": [
+				{
+					"type": "minecraft:loot_table",
+					"kind": "reference",
+					"weight": 8,
+					"quality": 0
+				},
+				{
+					"type": "minecraft:loot_table",
+					"kind": "reference",
+					"weight": 2,
+					"quality": 0
+				}
+			]
+		},
+		{
+			"name": "pool1",
+			"entries": [
+				{
+					"type": "minecraft:loot_table",
+					"kind": "reference",
+					"weight": 1,
+					"quality": 0
+				}
+			]
+		},
+		{
+			"name": "pool2",
+			"entries": [
+				{
+					"type": "minecraft:loot_table",
+					"kind": "reference",
+					"weight": 1,
+					"quality": 0
+				}
+			]
+		}
+	]
+}

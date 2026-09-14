@@ -1,0 +1,24 @@
+{
+	"lootType": "GIFT",
+	"pools": [
+		{
+			"name": "main",
+			"entries": [
+				{
+					"type": "minecraft:item",
+					"kind": "item",
+					"item": "minecraft:torchflower_seeds",
+					"weight": 1,
+					"quality": 0
+				},
+				{
+					"type": "minecraft:item",
+					"kind": "item",
+					"item": "minecraft:pitcher_pod",
+					"weight": 1,
+					"quality": 0
+				}
+			]
+		}
+	]
+}

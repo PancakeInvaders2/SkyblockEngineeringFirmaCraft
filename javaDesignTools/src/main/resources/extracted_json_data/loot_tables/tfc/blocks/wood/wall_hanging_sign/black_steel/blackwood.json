@@ -1,0 +1,17 @@
+{
+	"lootType": "BLOCK",
+	"pools": [
+		{
+			"name": "loot_pool",
+			"entries": [
+				{
+					"type": "minecraft:item",
+					"kind": "item",
+					"item": "tfc:wood/hanging_sign/black_steel/blackwood",
+					"weight": 1,
+					"quality": 0
+				}
+			]
+		}
+	]
+}

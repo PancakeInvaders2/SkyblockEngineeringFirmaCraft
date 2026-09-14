@@ -1,0 +1,17 @@
+{
+	"lootType": "BLOCK",
+	"pools": [
+		{
+			"name": "loot_pool",
+			"entries": [
+				{
+					"type": "minecraft:item",
+					"kind": "item",
+					"item": "tfc:wood/planks/aspen_slab",
+					"weight": 1,
+					"quality": 0
+				}
+			]
+		}
+	]
+}

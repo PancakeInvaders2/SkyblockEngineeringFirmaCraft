@@ -1,0 +1,17 @@
+{
+	"lootType": "BLOCK",
+	"pools": [
+		{
+			"name": "main",
+			"entries": [
+				{
+					"type": "minecraft:item",
+					"kind": "item",
+					"item": "minecraft:polished_tuff_slab",
+					"weight": 1,
+					"quality": 0
+				}
+			]
+		}
+	]
+}

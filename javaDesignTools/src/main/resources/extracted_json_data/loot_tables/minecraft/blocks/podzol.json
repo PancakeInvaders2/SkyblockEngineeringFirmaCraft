@@ -1,0 +1,30 @@
+{
+	"lootType": "BLOCK",
+	"pools": [
+		{
+			"name": "main",
+			"entries": [
+				{
+					"type": "minecraft:alternatives",
+					"kind": "composite",
+					"entries": [
+						{
+							"type": "minecraft:item",
+							"kind": "item",
+							"item": "minecraft:podzol",
+							"weight": 1,
+							"quality": 0
+						},
+						{
+							"type": "minecraft:item",
+							"kind": "item",
+							"item": "minecraft:dirt",
+							"weight": 1,
+							"quality": 0
+						}
+					]
+				}
+			]
+		}
+	]
+}

@@ -1,0 +1,17 @@
+{
+	"lootType": "BLOCK",
+	"pools": [
+		{
+			"name": "main",
+			"entries": [
+				{
+					"type": "minecraft:item",
+					"kind": "item",
+					"item": "minecraft:brown_concrete",
+					"weight": 1,
+					"quality": 0
+				}
+			]
+		}
+	]
+}

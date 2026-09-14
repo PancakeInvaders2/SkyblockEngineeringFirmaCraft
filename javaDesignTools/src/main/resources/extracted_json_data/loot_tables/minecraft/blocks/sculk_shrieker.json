@@ -1,0 +1,17 @@
+{
+	"lootType": "BLOCK",
+	"pools": [
+		{
+			"name": "main",
+			"entries": [
+				{
+					"type": "minecraft:item",
+					"kind": "item",
+					"item": "minecraft:sculk_shrieker",
+					"weight": 1,
+					"quality": 0
+				}
+			]
+		}
+	]
+}

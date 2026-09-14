@@ -1,0 +1,17 @@
+{
+	"lootType": "BLOCK",
+	"pools": [
+		{
+			"name": "loot_pool",
+			"entries": [
+				{
+					"type": "minecraft:item",
+					"kind": "item",
+					"item": "tfc:wood/support/white_cedar",
+					"weight": 1,
+					"quality": 0
+				}
+			]
+		}
+	]
+}

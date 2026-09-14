@@ -1,0 +1,42 @@
+{
+	"lootType": "BLOCK",
+	"pools": [
+		{
+			"name": "pool0",
+			"entries": [
+				{
+					"type": "minecraft:alternatives",
+					"kind": "composite",
+					"entries": [
+						{
+							"type": "minecraft:item",
+							"kind": "item",
+							"item": "minecraft:wheat",
+							"weight": 1,
+							"quality": 0
+						},
+						{
+							"type": "minecraft:item",
+							"kind": "item",
+							"item": "minecraft:wheat_seeds",
+							"weight": 1,
+							"quality": 0
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "pool1",
+			"entries": [
+				{
+					"type": "minecraft:item",
+					"kind": "item",
+					"item": "minecraft:wheat_seeds",
+					"weight": 1,
+					"quality": 0
+				}
+			]
+		}
+	]
+}

@@ -1,0 +1,83 @@
+{
+	"lootType": "ENTITY",
+	"pools": [
+		{
+			"name": "pool0",
+			"entries": [
+				{
+					"type": "minecraft:item",
+					"kind": "item",
+					"item": "minecraft:prismarine_shard",
+					"weight": 1,
+					"quality": 0
+				}
+			]
+		},
+		{
+			"name": "pool1",
+			"entries": [
+				{
+					"type": "minecraft:item",
+					"kind": "item",
+					"item": "minecraft:cod",
+					"weight": 3,
+					"quality": 0
+				},
+				{
+					"type": "minecraft:item",
+					"kind": "item",
+					"item": "minecraft:prismarine_crystals",
+					"weight": 2,
+					"quality": 0
+				},
+				{
+					"type": "minecraft:empty",
+					"kind": "other",
+					"weight": 1,
+					"quality": 0
+				}
+			]
+		},
+		{
+			"name": "pool2",
+			"entries": [
+				{
+					"type": "minecraft:item",
+					"kind": "item",
+					"item": "minecraft:wet_sponge",
+					"weight": 1,
+					"quality": 0
+				}
+			]
+		},
+		{
+			"name": "pool3",
+			"entries": [
+				{
+					"type": "minecraft:loot_table",
+					"kind": "reference",
+					"weight": 1,
+					"quality": 0
+				}
+			]
+		},
+		{
+			"name": "pool4",
+			"entries": [
+				{
+					"type": "minecraft:empty",
+					"kind": "other",
+					"weight": 4,
+					"quality": 0
+				},
+				{
+					"type": "minecraft:item",
+					"kind": "item",
+					"item": "minecraft:tide_armor_trim_smithing_template",
+					"weight": 1,
+					"quality": 0
+				}
+			]
+		}
+	]
+}

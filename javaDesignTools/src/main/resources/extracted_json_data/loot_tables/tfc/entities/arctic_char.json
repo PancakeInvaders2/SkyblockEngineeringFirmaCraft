@@ -1,0 +1,17 @@
+{
+	"lootType": "ENTITY",
+	"pools": [
+		{
+			"name": "main",
+			"entries": [
+				{
+					"type": "minecraft:item",
+					"kind": "item",
+					"item": "tfc:food/arctic_char",
+					"weight": 1,
+					"quality": 0
+				}
+			]
+		}
+	]
+}

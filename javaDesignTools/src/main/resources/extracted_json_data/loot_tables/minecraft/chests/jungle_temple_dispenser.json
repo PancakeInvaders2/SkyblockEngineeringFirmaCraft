@@ -1,0 +1,17 @@
+{
+	"lootType": "CHEST",
+	"pools": [
+		{
+			"name": "main",
+			"entries": [
+				{
+					"type": "minecraft:item",
+					"kind": "item",
+					"item": "minecraft:arrow",
+					"weight": 30,
+					"quality": 0
+				}
+			]
+		}
+	]
+}

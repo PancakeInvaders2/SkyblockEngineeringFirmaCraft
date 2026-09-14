@@ -1,0 +1,41 @@
+{
+	"lootType": "BLOCK",
+	"pools": [
+		{
+			"name": "loot_pool",
+			"entries": [
+				{
+					"type": "minecraft:item",
+					"kind": "item",
+					"item": "tfc:food/green_bean",
+					"weight": 1,
+					"quality": 0
+				}
+			]
+		},
+		{
+			"name": "loot_pool",
+			"entries": [
+				{
+					"type": "minecraft:item",
+					"kind": "item",
+					"item": "tfc:seeds/green_bean",
+					"weight": 1,
+					"quality": 0
+				}
+			]
+		},
+		{
+			"name": "loot_pool",
+			"entries": [
+				{
+					"type": "minecraft:item",
+					"kind": "item",
+					"item": "minecraft:stick",
+					"weight": 1,
+					"quality": 0
+				}
+			]
+		}
+	]
+}

@@ -1,0 +1,17 @@
+{
+	"lootType": "BLOCK",
+	"pools": [
+		{
+			"name": "main",
+			"entries": [
+				{
+					"type": "minecraft:item",
+					"kind": "item",
+					"item": "minecraft:mossy_stone_bricks",
+					"weight": 1,
+					"quality": 0
+				}
+			]
+		}
+	]
+}

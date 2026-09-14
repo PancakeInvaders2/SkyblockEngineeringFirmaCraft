@@ -1,0 +1,30 @@
+{
+	"lootType": "BLOCK",
+	"pools": [
+		{
+			"name": "loot_pool",
+			"entries": [
+				{
+					"type": "minecraft:alternatives",
+					"kind": "composite",
+					"entries": [
+						{
+							"type": "minecraft:item",
+							"kind": "item",
+							"item": "minecraft:stick",
+							"weight": 1,
+							"quality": 0
+						},
+						{
+							"type": "minecraft:item",
+							"kind": "item",
+							"item": "tfc:wood/stripped_log/kapok",
+							"weight": 1,
+							"quality": 0
+						}
+					]
+				}
+			]
+		}
+	]
+}

@@ -1,0 +1,29 @@
+{
+	"lootType": "ENTITY",
+	"pools": [
+		{
+			"name": "pool0",
+			"entries": [
+				{
+					"type": "minecraft:item",
+					"kind": "item",
+					"item": "minecraft:salmon",
+					"weight": 1,
+					"quality": 0
+				}
+			]
+		},
+		{
+			"name": "pool1",
+			"entries": [
+				{
+					"type": "minecraft:item",
+					"kind": "item",
+					"item": "minecraft:bone_meal",
+					"weight": 1,
+					"quality": 0
+				}
+			]
+		}
+	]
+}

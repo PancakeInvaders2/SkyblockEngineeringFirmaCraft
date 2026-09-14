@@ -1,0 +1,24 @@
+{
+	"lootType": "ENTITY",
+	"pools": [
+		{
+			"name": "main",
+			"entries": [
+				{
+					"type": "minecraft:item",
+					"kind": "item",
+					"item": "minecraft:slime_ball",
+					"weight": 1,
+					"quality": 0
+				},
+				{
+					"type": "minecraft:item",
+					"kind": "item",
+					"item": "minecraft:slime_ball",
+					"weight": 1,
+					"quality": 0
+				}
+			]
+		}
+	]
+}

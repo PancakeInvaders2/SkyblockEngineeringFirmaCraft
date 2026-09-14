@@ -1,0 +1,28 @@
+{
+	"lootType": "FISHING",
+	"pools": [
+		{
+			"name": "main",
+			"entries": [
+				{
+					"type": "minecraft:loot_table",
+					"kind": "reference",
+					"weight": 10,
+					"quality": -2
+				},
+				{
+					"type": "minecraft:loot_table",
+					"kind": "reference",
+					"weight": 5,
+					"quality": 2
+				},
+				{
+					"type": "minecraft:loot_table",
+					"kind": "reference",
+					"weight": 85,
+					"quality": -1
+				}
+			]
+		}
+	]
+}

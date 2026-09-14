@@ -1,0 +1,23 @@
+{
+	"lootType": "GIFT",
+	"pools": [
+		{
+			"name": "main",
+			"entries": [
+				{
+					"type": "minecraft:item",
+					"kind": "item",
+					"item": "minecraft:slime_ball",
+					"weight": 1,
+					"quality": 0
+				},
+				{
+					"type": "minecraft:empty",
+					"kind": "other",
+					"weight": 699,
+					"quality": 0
+				}
+			]
+		}
+	]
+}

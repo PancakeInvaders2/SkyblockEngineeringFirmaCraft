@@ -1,0 +1,17 @@
+{
+	"lootType": "BLOCK",
+	"pools": [
+		{
+			"name": "main",
+			"entries": [
+				{
+					"type": "minecraft:item",
+					"kind": "item",
+					"item": "minecraft:creeper_head",
+					"weight": 1,
+					"quality": 0
+				}
+			]
+		}
+	]
+}

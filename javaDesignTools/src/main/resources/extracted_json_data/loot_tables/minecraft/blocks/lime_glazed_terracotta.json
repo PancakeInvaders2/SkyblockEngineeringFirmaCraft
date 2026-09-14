@@ -1,0 +1,17 @@
+{
+	"lootType": "BLOCK",
+	"pools": [
+		{
+			"name": "main",
+			"entries": [
+				{
+					"type": "minecraft:item",
+					"kind": "item",
+					"item": "minecraft:lime_glazed_terracotta",
+					"weight": 1,
+					"quality": 0
+				}
+			]
+		}
+	]
+}

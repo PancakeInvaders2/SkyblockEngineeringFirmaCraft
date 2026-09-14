@@ -1,0 +1,29 @@
+{
+	"lootType": "BLOCK",
+	"pools": [
+		{
+			"name": "pool0",
+			"entries": [
+				{
+					"type": "minecraft:item",
+					"kind": "item",
+					"item": "minecraft:flower_pot",
+					"weight": 1,
+					"quality": 0
+				}
+			]
+		},
+		{
+			"name": "pool1",
+			"entries": [
+				{
+					"type": "minecraft:item",
+					"kind": "item",
+					"item": "minecraft:allium",
+					"weight": 1,
+					"quality": 0
+				}
+			]
+		}
+	]
+}

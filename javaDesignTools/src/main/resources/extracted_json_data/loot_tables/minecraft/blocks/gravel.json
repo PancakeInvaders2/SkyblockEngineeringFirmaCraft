@@ -1,0 +1,43 @@
+{
+	"lootType": "BLOCK",
+	"pools": [
+		{
+			"name": "main",
+			"entries": [
+				{
+					"type": "minecraft:alternatives",
+					"kind": "composite",
+					"entries": [
+						{
+							"type": "minecraft:item",
+							"kind": "item",
+							"item": "minecraft:gravel",
+							"weight": 1,
+							"quality": 0
+						},
+						{
+							"type": "minecraft:alternatives",
+							"kind": "composite",
+							"entries": [
+								{
+									"type": "minecraft:item",
+									"kind": "item",
+									"item": "minecraft:flint",
+									"weight": 1,
+									"quality": 0
+								},
+								{
+									"type": "minecraft:item",
+									"kind": "item",
+									"item": "minecraft:gravel",
+									"weight": 1,
+									"quality": 0
+								}
+							]
+						}
+					]
+				}
+			]
+		}
+	]
+}

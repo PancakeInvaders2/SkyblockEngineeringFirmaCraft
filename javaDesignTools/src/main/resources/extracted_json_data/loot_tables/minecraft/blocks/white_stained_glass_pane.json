@@ -1,0 +1,17 @@
+{
+	"lootType": "BLOCK",
+	"pools": [
+		{
+			"name": "loot_pool",
+			"entries": [
+				{
+					"type": "minecraft:item",
+					"kind": "item",
+					"item": "minecraft:white_stained_glass_pane",
+					"weight": 1,
+					"quality": 0
+				}
+			]
+		}
+	]
+}

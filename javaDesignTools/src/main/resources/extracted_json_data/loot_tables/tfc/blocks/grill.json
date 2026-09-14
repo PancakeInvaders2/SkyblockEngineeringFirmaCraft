@@ -1,0 +1,29 @@
+{
+	"lootType": "BLOCK",
+	"pools": [
+		{
+			"name": "loot_pool",
+			"entries": [
+				{
+					"type": "minecraft:item",
+					"kind": "item",
+					"item": "tfc:powder/wood_ash",
+					"weight": 1,
+					"quality": 0
+				}
+			]
+		},
+		{
+			"name": "loot_pool",
+			"entries": [
+				{
+					"type": "minecraft:item",
+					"kind": "item",
+					"item": "tfc:wrought_iron_grill",
+					"weight": 1,
+					"quality": 0
+				}
+			]
+		}
+	]
+}

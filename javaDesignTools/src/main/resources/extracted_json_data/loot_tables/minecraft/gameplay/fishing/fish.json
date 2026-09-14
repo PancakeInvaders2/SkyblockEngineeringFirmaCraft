@@ -1,0 +1,38 @@
+{
+	"lootType": "FISHING",
+	"pools": [
+		{
+			"name": "main",
+			"entries": [
+				{
+					"type": "minecraft:item",
+					"kind": "item",
+					"item": "minecraft:cod",
+					"weight": 60,
+					"quality": 0
+				},
+				{
+					"type": "minecraft:item",
+					"kind": "item",
+					"item": "minecraft:salmon",
+					"weight": 25,
+					"quality": 0
+				},
+				{
+					"type": "minecraft:item",
+					"kind": "item",
+					"item": "minecraft:tropical_fish",
+					"weight": 2,
+					"quality": 0
+				},
+				{
+					"type": "minecraft:item",
+					"kind": "item",
+					"item": "minecraft:pufferfish",
+					"weight": 13,
+					"quality": 0
+				}
+			]
+		}
+	]
+}

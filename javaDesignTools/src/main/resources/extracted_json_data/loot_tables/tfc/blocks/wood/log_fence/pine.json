@@ -1,0 +1,17 @@
+{
+	"lootType": "BLOCK",
+	"pools": [
+		{
+			"name": "loot_pool",
+			"entries": [
+				{
+					"type": "minecraft:item",
+					"kind": "item",
+					"item": "tfc:wood/log_fence/pine",
+					"weight": 1,
+					"quality": 0
+				}
+			]
+		}
+	]
+}

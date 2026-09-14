@@ -1,0 +1,29 @@
+{
+	"lootType": "BLOCK",
+	"pools": [
+		{
+			"name": "loot_pool",
+			"entries": [
+				{
+					"type": "minecraft:item",
+					"kind": "item",
+					"item": "tfc:wood/sapling/white_cedar",
+					"weight": 1,
+					"quality": 0
+				}
+			]
+		},
+		{
+			"name": "loot_pool",
+			"entries": [
+				{
+					"type": "minecraft:item",
+					"kind": "item",
+					"item": "minecraft:flower_pot",
+					"weight": 1,
+					"quality": 0
+				}
+			]
+		}
+	]
+}

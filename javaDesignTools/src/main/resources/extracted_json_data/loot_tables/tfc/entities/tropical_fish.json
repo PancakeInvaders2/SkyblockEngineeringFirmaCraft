@@ -1,0 +1,17 @@
+{
+	"lootType": "ENTITY",
+	"pools": [
+		{
+			"name": "main",
+			"entries": [
+				{
+					"type": "minecraft:item",
+					"kind": "item",
+					"item": "tfc:food/tropical_fish",
+					"weight": 1,
+					"quality": 0
+				}
+			]
+		}
+	]
+}

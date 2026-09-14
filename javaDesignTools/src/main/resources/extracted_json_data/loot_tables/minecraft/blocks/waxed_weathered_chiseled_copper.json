@@ -1,0 +1,17 @@
+{
+	"lootType": "BLOCK",
+	"pools": [
+		{
+			"name": "main",
+			"entries": [
+				{
+					"type": "minecraft:item",
+					"kind": "item",
+					"item": "minecraft:waxed_weathered_chiseled_copper",
+					"weight": 1,
+					"quality": 0
+				}
+			]
+		}
+	]
+}

@@ -1,0 +1,17 @@
+{
+	"lootType": "CHEST",
+	"pools": [
+		{
+			"name": "main",
+			"entries": [
+				{
+					"type": "minecraft:item",
+					"kind": "item",
+					"item": "minecraft:water_bucket",
+					"weight": 1,
+					"quality": 0
+				}
+			]
+		}
+	]
+}

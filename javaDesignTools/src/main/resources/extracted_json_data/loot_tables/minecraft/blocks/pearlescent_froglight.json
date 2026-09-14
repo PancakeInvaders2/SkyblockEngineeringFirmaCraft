@@ -1,0 +1,17 @@
+{
+	"lootType": "BLOCK",
+	"pools": [
+		{
+			"name": "main",
+			"entries": [
+				{
+					"type": "minecraft:item",
+					"kind": "item",
+					"item": "minecraft:pearlescent_froglight",
+					"weight": 1,
+					"quality": 0
+				}
+			]
+		}
+	]
+}

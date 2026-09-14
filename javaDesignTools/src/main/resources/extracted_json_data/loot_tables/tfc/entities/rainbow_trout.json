@@ -1,0 +1,17 @@
+{
+	"lootType": "ENTITY",
+	"pools": [
+		{
+			"name": "main",
+			"entries": [
+				{
+					"type": "minecraft:item",
+					"kind": "item",
+					"item": "tfc:food/rainbow_trout",
+					"weight": 1,
+					"quality": 0
+				}
+			]
+		}
+	]
+}

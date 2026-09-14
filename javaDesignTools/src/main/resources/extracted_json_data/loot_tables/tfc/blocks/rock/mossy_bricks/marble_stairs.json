@@ -1,0 +1,17 @@
+{
+	"lootType": "BLOCK",
+	"pools": [
+		{
+			"name": "loot_pool",
+			"entries": [
+				{
+					"type": "minecraft:item",
+					"kind": "item",
+					"item": "tfc:rock/mossy_bricks/marble_stairs",
+					"weight": 1,
+					"quality": 0
+				}
+			]
+		}
+	]
+}

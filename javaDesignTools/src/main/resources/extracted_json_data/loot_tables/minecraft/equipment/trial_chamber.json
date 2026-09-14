@@ -1,0 +1,28 @@
+{
+	"lootType": "EQUIPMENT",
+	"pools": [
+		{
+			"name": "main",
+			"entries": [
+				{
+					"type": "minecraft:loot_table",
+					"kind": "reference",
+					"weight": 4,
+					"quality": 0
+				},
+				{
+					"type": "minecraft:loot_table",
+					"kind": "reference",
+					"weight": 2,
+					"quality": 0
+				},
+				{
+					"type": "minecraft:loot_table",
+					"kind": "reference",
+					"weight": 1,
+					"quality": 0
+				}
+			]
+		}
+	]
+}

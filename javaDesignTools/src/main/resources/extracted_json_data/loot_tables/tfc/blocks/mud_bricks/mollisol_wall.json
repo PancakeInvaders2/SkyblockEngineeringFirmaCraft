@@ -1,0 +1,17 @@
+{
+	"lootType": "BLOCK",
+	"pools": [
+		{
+			"name": "loot_pool",
+			"entries": [
+				{
+					"type": "minecraft:item",
+					"kind": "item",
+					"item": "tfc:mud_bricks/mollisol_wall",
+					"weight": 1,
+					"quality": 0
+				}
+			]
+		}
+	]
+}

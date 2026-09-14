@@ -1,0 +1,17 @@
+{
+	"lootType": "BLOCK",
+	"pools": [
+		{
+			"name": "loot_pool",
+			"entries": [
+				{
+					"type": "minecraft:item",
+					"kind": "item",
+					"item": "tfc:plant/red_sealing_wax_palm",
+					"weight": 1,
+					"quality": 0
+				}
+			]
+		}
+	]
+}
