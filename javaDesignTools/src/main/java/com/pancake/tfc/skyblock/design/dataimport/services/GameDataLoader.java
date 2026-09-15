@@ -36,6 +36,7 @@ public class GameDataLoader {
         Path lootTablesDirectory = jsonDataDirectory.resolve("loot_tables");
         Path recipesDirectory = jsonDataDirectory.resolve("recipes");
         Path tagsDirectory = jsonDataDirectory.resolve("tags/item");
+        Path fluidTagsDirectory = jsonDataDirectory.resolve("tags/fluids");
 
         Map<String, JsonNode> lootTables = loadJsonObjects(
                 lootTablesDirectory
@@ -49,10 +50,15 @@ public class GameDataLoader {
                 tagsDirectory
         );
 
+        Map<String, List<String>> fluidTags = loadItemTags(
+                fluidTagsDirectory
+        );
+
         return new GameData(
                 lootTables,
                 recipes,
-                itemTags
+                itemTags,
+                fluidTags
         );
     }
 
