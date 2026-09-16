@@ -32,7 +32,7 @@ public class AnvilRecipeParser implements RecipeParser {
                     gameData.itemTags()
                             .getOrDefault(
                                     ingredient.path("tag").asString(),
-                                    List.of()
+                                    Set.of()
                             )
             );
         } else {

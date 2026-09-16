@@ -18,13 +18,12 @@ public class Process {
 
     private boolean technologyRequired;
 
-    @ManyToMany
-    @JoinTable(
-            name = "process_input",
-            joinColumns = @JoinColumn(name = "process_id"),
-            inverseJoinColumns = @JoinColumn(name = "resource_id")
+    @OneToMany(
+            mappedBy = "process",
+            cascade = CascadeType.ALL,
+            orphanRemoval = true
     )
-    private Set<Resource> inputs = new HashSet<>();
+    private Set<ProcessInput> inputs = new HashSet<>();
 
     @ManyToMany
     @JoinTable(
@@ -37,7 +36,32 @@ public class Process {
     @ManyToMany(mappedBy = "unlockedProcesses")
     private Set<Technology> unlockedBy = new HashSet<>();
 
-    protected Process() {
+    public Process(){}
+
+    public Process(
+            String id,
+            String name,
+            String type,
+            boolean technologyRequired
+    ) {
+        this(id, name, type, technologyRequired, new HashSet<>(), new HashSet<>(), new HashSet<>());
+    }
+
+    public Process(
+            String id,
+            String name,
+            String type,
+            boolean technologyRequired,
+            Set<ProcessInput> inputs,
+            Set<Resource> outputs,
+            Set<Technology> unlockedBy ) {
+        this.id = id;
+        this.name = name;
+        this.type = type;
+        this.technologyRequired = technologyRequired;
+        this.inputs = inputs;
+        this.outputs = outputs;
+        this.unlockedBy = unlockedBy;
     }
 
     // getters
@@ -51,7 +75,7 @@ public class Process {
         return id;
     }
 
-    public Set<Resource> getInputs() {
+    public Set<ProcessInput> getInputs() {
         return inputs;
     }
 
@@ -70,4 +94,36 @@ public class Process {
     public Set<Technology> getUnlockedBy() {
         return unlockedBy;
     }
+
+    public void addInput(
+            int inputGroup,
+            Resource resource
+    ) {
+        inputs.add(new ProcessInput(this, inputGroup, resource));
+    }
+
+    public void addOutput(
+            Resource resource
+    ) {
+        outputs.add(resource);
+    }
+
+    public void setTechnologyRequired(boolean technologyRequired) {
+        this.technologyRequired = technologyRequired;
+    }
+
+    @Override
+    public String toString() {
+
+        StringBuilder sb = new StringBuilder();
+        sb.append("id: ").append(id).append(", ");
+        sb.append("name: ").append(name).append(", ");
+        sb.append("type: ").append(type).append(", ");
+        sb.append("technologyRequired: ").append(technologyRequired).append(", ");
+        sb.append("inputs: ").append(inputs).append(", ");
+        sb.append("outputs: ").append(outputs).append(", ");
+        sb.append("unlockedBy: ").append(unlockedBy);
+        return sb.toString();
+    }
+
 }

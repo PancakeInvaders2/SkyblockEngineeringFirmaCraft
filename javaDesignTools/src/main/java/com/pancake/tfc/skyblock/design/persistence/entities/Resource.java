@@ -12,11 +12,10 @@ public class Resource {
     @Id
     private String id;
 
-    private String name;
+    public Resource(){}
 
-    private String category;
-
-    protected Resource() {
+    public Resource(String id) {
+        this.id = id;
     }
 
     // getters
@@ -26,16 +25,8 @@ public class Resource {
         return id;
     }
 
-    public String getName() {
-        return name;
-    }
-
-    public String getCategory() {
-        return category;
-    }
-
     @Override
     public String toString() {
-        return "[" + id + "]";
+        return id ;
     }
 }

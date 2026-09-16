@@ -108,7 +108,7 @@ public class AdvancedCraftingRecipeParser implements RecipeParser {
         if (ingredient.has("tag")) {
             String tag = ingredient.get("tag").asString();
 
-            List<String> items = gameData.itemTags().get(tag);
+            Set<String> items = gameData.itemTags().get(tag);
 
             if (items == null) {
                 throw new IllegalArgumentException(

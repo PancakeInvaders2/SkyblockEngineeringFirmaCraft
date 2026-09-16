@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import tools.jackson.databind.JsonNode;
 
 import java.util.*;
+import java.util.regex.Pattern;
 
 @Service
 public class RecipeImporter {
@@ -49,23 +50,37 @@ public class RecipeImporter {
             "tfc:barrel/preserved_in_vinegar",
             "tfc:barrel/pickled",
 
-            "tfc:barrel/vinegar",
+            "tfc:knapping/feel_goat_horn_goat_horn",
+            "tfc:knapping/sing_goat_horn_goat_horn",
+            "tfc:knapping/admire_goat_horn_goat_horn",
+            "tfc:knapping/ponder_goat_horn_goat_horn",
+            "tfc:knapping/yearn_goat_horn_goat_horn",
+            "tfc:knapping/seek_goat_horn_goat_horn",
+            "tfc:knapping/dream_goat_horn_goat_horn",
+            "tfc:knapping/call_goat_horn_goat_horn",
 
-            "tfc:barrel/tannin",
+            "minecraft:cooked_porkchop_from_campfire_cooking",
+            "minecraft:cooked_chicken_from_campfire_cooking",
+            "minecraft:baked_potato_from_campfire_cooking",
+            "minecraft:cooked_salmon_from_campfire_cooking",
+            "minecraft:cooked_cod_from_campfire_cooking",
+            "minecraft:cooked_beef_from_campfire_cooking",
+            "minecraft:cooked_mutton_from_campfire_cooking",
+            "minecraft:cooked_rabbit_from_campfire_cooking",
 
-            "tfc:barrel/cider",
-            "tfc:barrel/vodka:",
-            "tfc:barrel/rye_whiskey",
-            "tfc:barrel/corn_whiskey",
-            "tfc:barrel/rum",
-            "tfc:barrel/whiskey",
-            "tfc:barrel/sake",
-            "tfc:barrel/curdled_milk",
-            "tfc:barrel/beer"
-
-
-
+            "minecraft:cooked_salmon_from_smoking",
+            "minecraft:cooked_cod_from_smoking",
+            "minecraft:cooked_rabbit_from_smoking",
+            "minecraft:cooked_mutton_from_smoking",
+            "minecraft:cooked_beef_from_smoking",
+            "minecraft:cooked_chicken_from_smoking",
+            "minecraft:baked_potato_from_smoking",
+            "minecraft:cooked_porkchop_from_smoking"
             );
+
+    private static final List<Pattern> IGNORED_RECIPE_REGEX = List.of(
+            Pattern.compile("^tfc:pot/jam_.*_canning_[1-5]$")
+    );
 
     private final List<RecipeParser> parsers;
 
@@ -76,6 +91,8 @@ public class RecipeImporter {
     public Map<String, List<ParsedProcess>> importRecipes(GameData gameData) {
 
         Map<String, List<ParsedProcess>> parsedProcessesPerType = new HashMap<>();
+
+        Map<String, Integer> recipeCountPerTypeBeforeParsing = recipeCountPerTypeBeforeParsing(gameData);
 
         for (var entry : gameData.recipes().entrySet()) {
             String recipeId = entry.getKey();
@@ -102,31 +119,35 @@ public class RecipeImporter {
                     processesOfThisType = new ArrayList<>();
                     parsedProcessesPerType.put(recipeType, processesOfThisType);
                 }
-                try{
+                try {
 
-                    ParsedProcess parsedProcess = parser.get().parse(recipeId, recipeJson, gameData);
-                    // Some recipes do not expose a concrete resource output.
-                    // They may represent destruction or state/NBT/trait modification
-                    // rather than a resource transformation, and it's not critical to model them
-                    // ex: {"type":"tfc:heating","ingredient":{"tag":"c:foods/bread"},"temperature":700}
+                    if (!isIgnoredRecipe(recipeId)) {
 
-                    if ( !IGNORED_RECIPE_IDS.contains(recipeId) && (
-                            parsedProcess == null
-                            || parsedProcess.outputs().isEmpty() )) {
-                        LOG.info("/!\\ Recipe needs to be implemented or ignored: {}: {}", recipeId, recipeJson);
-                    }
 
-                    if (parsedProcess != null && !parsedProcess.outputs().isEmpty()) {
+                        ParsedProcess parsedProcess = parser.get().parse(recipeId, recipeJson, gameData);
+                        // Some recipes do not expose a concrete resource output.
+                        // They may represent destruction or state/NBT/trait modification
+                        // rather than a resource transformation, and it's not critical to model them
+                        // ex: {"type":"tfc:heating","ingredient":{"tag":"c:foods/bread"},"temperature":700}
 
-                        if (parsedProcess.inputGroups().isEmpty()
-                                || parsedProcess.inputGroups().stream().anyMatch(Set::isEmpty)
-                                || parsedProcess.inputGroups().stream().anyMatch(set -> set.stream().anyMatch(String::isBlank))) {
-                            throw new IllegalArgumentException(
-                                    "Recipe has missing/bad inputs: " + recipeId
-                            );
+                        if (parsedProcess == null
+                                        || parsedProcess.outputs().isEmpty()) {
+                            LOG.info("/!\\ Recipe needs to be implemented or ignored: {}: {}", recipeId, recipeJson);
                         }
 
-                        processesOfThisType.add(parsedProcess);
+                        if (parsedProcess != null && !parsedProcess.outputs().isEmpty()) {
+
+                            if (parsedProcess.inputGroups().isEmpty()
+                                    || parsedProcess.inputGroups().stream().anyMatch(Set::isEmpty)
+                                    || parsedProcess.inputGroups().stream().anyMatch(set -> set.stream().anyMatch(String::isBlank))) {
+                                throw new IllegalArgumentException(
+                                        "Recipe has missing/bad inputs: " + recipeId
+                                );
+                            }
+
+                            processesOfThisType.add(parsedProcess);
+                        }
+
                     }
                 }
                 catch(Exception e){
@@ -169,5 +190,27 @@ public class RecipeImporter {
 
 
         return parsedProcessesPerType;
+    }
+
+    public Map<String, Integer> recipeCountPerTypeBeforeParsing(GameData gameData) {
+
+        Map<String, Integer> recipeCountPerType = new HashMap<>();
+        for(Map.Entry<String, JsonNode> entry: gameData.recipes().entrySet()){
+            String recipeType = entry.getValue().get("type").asString();
+
+            Integer count = recipeCountPerType.get(recipeType);
+            if(count == null){
+                count = 0;
+            }
+            recipeCountPerType.put(recipeType, count+1);
+        }
+        return recipeCountPerType;
+
+    }
+
+    private static boolean isIgnoredRecipe(String recipeId) {
+        return IGNORED_RECIPE_IDS.contains(recipeId)
+                || IGNORED_RECIPE_REGEX.stream()
+                .anyMatch(pattern -> pattern.matcher(recipeId).matches());
     }
 }

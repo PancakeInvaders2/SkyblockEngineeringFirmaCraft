@@ -54,7 +54,7 @@ public class WeldingRecipeParser implements RecipeParser {
             return Set.copyOf(
                     gameData.itemTags().getOrDefault(
                             ingredient.path("tag").asString(),
-                            List.of()
+                            Set.of()
                     )
             );
         }

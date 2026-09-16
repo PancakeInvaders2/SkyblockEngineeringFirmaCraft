@@ -66,7 +66,7 @@ public class GlassworkingRecipeParser implements RecipeParser {
         if (batch.has("tag")) {
             String tag = batch.get("tag").asString();
 
-            List<String> items = gameData.itemTags().get(tag);
+            Set<String> items = gameData.itemTags().get(tag);
 
             if (items == null) {
                 throw new IllegalArgumentException(

@@ -60,10 +60,9 @@ public class ReachabilityService {
 
             issues.forEach(issue ->
                     LOG.error(
-                            "{} {} ({}): {}",
+                            "{} {}: {}",
                             issue.type(),
                             issue.id(),
-                            issue.name(),
                             issue.issue()
                     )
             );
@@ -344,7 +343,6 @@ public class ReachabilityService {
                 issues.add(new ModelIssue(
                         "resource",
                         resource.getId(),
-                        resource.getName(),
                         "no scenario or process output"
                 ));
             }
@@ -358,7 +356,6 @@ public class ReachabilityService {
                 issues.add(new ModelIssue(
                         "process",
                         process.getId(),
-                        process.getName(),
                         "no technology unlock"
                 ));
             }
@@ -367,7 +364,6 @@ public class ReachabilityService {
                 issues.add(new ModelIssue(
                         "process",
                         process.getId(),
-                        process.getName(),
                         "no inputs"
                 ));
             }
@@ -376,7 +372,6 @@ public class ReachabilityService {
                 issues.add(new ModelIssue(
                         "process",
                         process.getId(),
-                        process.getName(),
                         "no outputs"
                 ));
             }
@@ -390,7 +385,6 @@ public class ReachabilityService {
                 issues.add(new ModelIssue(
                         "technology",
                         technology.getId(),
-                        technology.getName(),
                         "no prerequisites or process unlocks"
                 ));
             }

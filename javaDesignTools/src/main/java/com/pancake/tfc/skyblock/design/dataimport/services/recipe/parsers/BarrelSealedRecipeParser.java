@@ -1,8 +1,10 @@
 package com.pancake.tfc.skyblock.design.dataimport.services.recipe.parsers;
 
+import com.pancake.tfc.skyblock.design.dataimport.DataImportApplication;
 import com.pancake.tfc.skyblock.design.dataimport.services.GameData;
-import com.pancake.tfc.skyblock.design.dataimport.services.recipe.ParsedProcess;
-import com.pancake.tfc.skyblock.design.dataimport.services.recipe.RecipeParser;
+import com.pancake.tfc.skyblock.design.dataimport.services.recipe.*;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.stereotype.Component;
 import tools.jackson.databind.JsonNode;
 
@@ -12,8 +14,6 @@ import java.util.List;
 import java.util.Set;
 
 import com.pancake.tfc.skyblock.design.dataimport.services.GameData;
-import com.pancake.tfc.skyblock.design.dataimport.services.recipe.ParsedProcess;
-import com.pancake.tfc.skyblock.design.dataimport.services.recipe.RecipeParser;
 import tools.jackson.databind.JsonNode;
 import org.springframework.stereotype.Component;
 
@@ -31,6 +31,10 @@ public class BarrelSealedRecipeParser implements RecipeParser {
     public boolean supports(String recipeType) {
         return TYPE.equals(recipeType);
     }
+
+    private static final Logger LOG =
+            LogManager.getLogger(BarrelSealedRecipeParser.class);
+
 
     @Override
     public ParsedProcess parse(
@@ -106,15 +110,7 @@ public class BarrelSealedRecipeParser implements RecipeParser {
 
         JsonNode tag = input.get("tag");
         if (tag != null && tag.isString()) {
-            List<String> resources = gameData.fluidTags().get(tag.asString());
-
-            if (resources == null || resources.isEmpty()) {
-                throw new IllegalArgumentException(
-                        "Unknown or empty fluid tag: " + tag.asString()
-                );
-            }
-
-            groups.add(new HashSet<>(resources));
+            groups.add(TagUtils.getFluidTagResourceIds(tag.asString(), gameData));
             return groups;
         }
 
@@ -174,7 +170,7 @@ public class BarrelSealedRecipeParser implements RecipeParser {
 
         JsonNode tag = ingredient.get("tag");
         if (tag != null && tag.isTextual()) {
-            List<String> resources = gameData.itemTags().get(tag.asString());
+            Set<String> resources = gameData.itemTags().get(tag.asString());
 
             if (resources == null || resources.isEmpty()) {
                 throw new IllegalArgumentException(

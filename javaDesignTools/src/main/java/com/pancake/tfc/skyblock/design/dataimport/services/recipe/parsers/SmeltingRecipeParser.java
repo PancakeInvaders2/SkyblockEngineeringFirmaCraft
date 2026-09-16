@@ -55,7 +55,7 @@ public class SmeltingRecipeParser implements RecipeParser {
         if (ingredient.has("tag")) {
             return Set.copyOf(
                     gameData.itemTags()
-                            .getOrDefault(ingredient.path("tag").asString(), List.of())
+                            .getOrDefault(ingredient.path("tag").asString(), Set.of())
             );
         }
 

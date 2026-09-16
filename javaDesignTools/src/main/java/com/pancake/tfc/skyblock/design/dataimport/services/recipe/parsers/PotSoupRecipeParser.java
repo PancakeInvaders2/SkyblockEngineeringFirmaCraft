@@ -52,7 +52,7 @@ public class PotSoupRecipeParser implements RecipeParser {
                 } else if (child.has("tag")) {
                     String tag = child.get("tag").asString();
 
-                    List<String> items = gameData.itemTags().get(tag);
+                    Set<String> items = gameData.itemTags().get(tag);
 
                     if (items == null) {
                         throw new IllegalArgumentException(

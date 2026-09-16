@@ -30,7 +30,18 @@ public class Technology {
     )
     private Set<Process> unlockedProcesses = new HashSet<>();
 
-    protected Technology() {
+    public Technology() {
+    }
+
+    public Technology(String id,
+                      String name,
+                      Set<Resource> resourceRequirements,
+                      Set<Process> unlockedProcesses) {
+
+        this.id = id;
+        this.name = name;
+        this.resourceRequirements = resourceRequirements;
+        this.unlockedProcesses = unlockedProcesses;
     }
 
     // getters

@@ -22,7 +22,7 @@ public class ScenarioResource {
     @Column(name = "is_infinite", nullable = false)
     private boolean infinite;
 
-    protected ScenarioResource() {
+    public ScenarioResource() {
     }
 
     // getters

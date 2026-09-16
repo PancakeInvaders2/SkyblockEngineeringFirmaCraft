@@ -17,7 +17,7 @@ public class Scenario {
     @OneToMany(mappedBy = "scenario")
     private Set<ScenarioResource> resources = new HashSet<>();
 
-    protected Scenario() {
+    public Scenario() {
     }
 
     // getters

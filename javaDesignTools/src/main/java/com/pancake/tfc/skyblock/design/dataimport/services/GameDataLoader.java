@@ -10,10 +10,7 @@ import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.stream.Stream;
 
 @Service
@@ -36,7 +33,7 @@ public class GameDataLoader {
         Path lootTablesDirectory = jsonDataDirectory.resolve("loot_tables");
         Path recipesDirectory = jsonDataDirectory.resolve("recipes");
         Path tagsDirectory = jsonDataDirectory.resolve("tags/item");
-        Path fluidTagsDirectory = jsonDataDirectory.resolve("tags/fluids");
+        Path fluidTagsDirectory = jsonDataDirectory.resolve("tags/fluid");
 
         Map<String, JsonNode> lootTables = loadJsonObjects(
                 lootTablesDirectory
@@ -46,11 +43,11 @@ public class GameDataLoader {
                 recipesDirectory
         );
 
-        Map<String, List<String>> itemTags = loadItemTags(
+        Map<String, Set<String>> itemTags = loadTags(
                 tagsDirectory
         );
 
-        Map<String, List<String>> fluidTags = loadItemTags(
+        Map<String, Set<String>> fluidTags = loadTags(
                 fluidTagsDirectory
         );
 
@@ -86,8 +83,8 @@ public class GameDataLoader {
         return result;
     }
 
-    private Map<String, List<String>> loadItemTags(Path root) throws IOException {
-        Map<String, List<String>> result = new HashMap<>();
+    private Map<String, Set<String>> loadTags(Path root) throws IOException {
+        Map<String, Set<String>> result = new HashMap<>();
 
         if (!Files.exists(root)) {
             return result;
@@ -108,10 +105,10 @@ public class GameDataLoader {
                             );
                         }
 
-                        List<String> items = new ArrayList<>();
+                        Set<String> items = new HashSet<>();
 
                         json.forEach(item -> {
-                            if (!item.isTextual()) {
+                            if (!item.isString()) {
                                 throw new DataLoadException(
                                         "Expected tag entry to be a string: "
                                                 + path
@@ -120,7 +117,7 @@ public class GameDataLoader {
                                 );
                             }
 
-                            items.add(item.textValue());
+                            items.add(item.stringValue());
                         });
 
                         result.put(tagId, items);
