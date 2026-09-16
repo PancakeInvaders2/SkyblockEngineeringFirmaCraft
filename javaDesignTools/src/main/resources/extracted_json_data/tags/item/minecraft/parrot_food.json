@@ -1,8 +1,8 @@
 [
-	"minecraft:beetroot_seeds",
-	"minecraft:melon_seeds",
 	"minecraft:pitcher_pod",
-	"minecraft:wheat_seeds",
+	"minecraft:melon_seeds",
+	"minecraft:beetroot_seeds",
+	"minecraft:pumpkin_seeds",
 	"minecraft:torchflower_seeds",
-	"minecraft:pumpkin_seeds"
+	"minecraft:wheat_seeds"
 ]

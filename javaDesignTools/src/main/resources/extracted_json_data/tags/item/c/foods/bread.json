@@ -1,9 +1,9 @@
 [
 	"tfc:food/maize_bread",
-	"tfc:food/wheat_bread",
-	"minecraft:bread",
-	"tfc:food/rye_bread",
-	"tfc:food/rice_bread",
+	"tfc:food/oat_bread",
 	"tfc:food/barley_bread",
-	"tfc:food/oat_bread"
+	"tfc:food/rice_bread",
+	"tfc:food/rye_bread",
+	"minecraft:bread",
+	"tfc:food/wheat_bread"
 ]

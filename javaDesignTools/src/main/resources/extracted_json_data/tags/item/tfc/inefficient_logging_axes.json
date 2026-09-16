@@ -1,6 +1,6 @@
 [
 	"tfc:stone/axe/igneous_extrusive",
-	"tfc:stone/axe/metamorphic",
+	"tfc:stone/axe/igneous_intrusive",
 	"tfc:stone/axe/sedimentary",
-	"tfc:stone/axe/igneous_intrusive"
+	"tfc:stone/axe/metamorphic"
 ]

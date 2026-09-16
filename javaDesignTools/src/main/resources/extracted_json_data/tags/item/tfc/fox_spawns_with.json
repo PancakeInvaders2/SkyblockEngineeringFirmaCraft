@@ -1,14 +1,14 @@
 [
-	"tfc:food/strawberry",
-	"minecraft:bone",
-	"minecraft:egg",
-	"tfc:food/rabbit",
 	"tfc:food/bluegill",
-	"tfc:food/cloudberry",
-	"minecraft:rabbit_foot",
-	"tfc:food/gooseberry",
-	"tfc:small_raw_hide",
-	"minecraft:feather",
+	"tfc:food/rabbit",
+	"minecraft:egg",
+	"minecraft:bone",
+	"tfc:food/strawberry",
+	"tfc:food/salmon",
 	"minecraft:flint",
-	"tfc:food/salmon"
+	"minecraft:feather",
+	"tfc:small_raw_hide",
+	"tfc:food/gooseberry",
+	"minecraft:rabbit_foot",
+	"tfc:food/cloudberry"
 ]

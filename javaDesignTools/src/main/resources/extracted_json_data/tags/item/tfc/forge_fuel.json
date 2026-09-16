@@ -1,6 +1,6 @@
 [
-	"tfc:ore/lignite",
-	"tfc:ore/bituminous_coal",
+	"minecraft:charcoal",
 	"minecraft:coal",
-	"minecraft:charcoal"
+	"tfc:ore/bituminous_coal",
+	"tfc:ore/lignite"
 ]

@@ -1,11 +1,11 @@
 [
-	"tfc:grass/fluvisol",
-	"tfc:grass/mollisol",
-	"minecraft:grass_block",
 	"tfc:grass/alfisol",
-	"tfc:grass/andisol",
-	"tfc:grass/entisol",
-	"tfc:grass/podzol",
+	"minecraft:grass_block",
+	"tfc:grass/mollisol",
+	"tfc:grass/fluvisol",
+	"tfc:grass/oxisol",
 	"tfc:grass/aridisol",
-	"tfc:grass/oxisol"
+	"tfc:grass/podzol",
+	"tfc:grass/entisol",
+	"tfc:grass/andisol"
 ]

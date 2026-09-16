@@ -1,12 +1,12 @@
 [
-	"tfc:plant/foxglove",
-	"tfc:plant/rose",
-	"minecraft:sunflower",
 	"minecraft:rose_bush",
-	"minecraft:lilac",
-	"minecraft:peony",
-	"tfc:plant/lilac",
-	"tfc:plant/sapphire_tower",
+	"minecraft:sunflower",
+	"tfc:plant/rose",
+	"tfc:plant/foxglove",
+	"minecraft:pitcher_plant",
 	"tfc:plant/sunflower",
-	"minecraft:pitcher_plant"
+	"tfc:plant/sapphire_tower",
+	"tfc:plant/lilac",
+	"minecraft:peony",
+	"minecraft:lilac"
 ]

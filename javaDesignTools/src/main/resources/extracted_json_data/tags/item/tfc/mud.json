@@ -1,11 +1,11 @@
 [
-	"tfc:mud/fluvisol",
-	"tfc:mud/mollisol",
-	"minecraft:mud",
-	"tfc:mud/alfisol",
-	"tfc:mud/aridisol",
-	"tfc:mud/podzol",
-	"tfc:mud/andisol",
+	"tfc:mud/oxisol",
 	"tfc:mud/entisol",
-	"tfc:mud/oxisol"
+	"tfc:mud/andisol",
+	"tfc:mud/podzol",
+	"tfc:mud/aridisol",
+	"tfc:mud/alfisol",
+	"minecraft:mud",
+	"tfc:mud/mollisol",
+	"tfc:mud/fluvisol"
 ]

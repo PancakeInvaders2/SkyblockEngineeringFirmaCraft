@@ -1,8 +1,8 @@
 [
-	"minecraft:pufferfish",
-	"minecraft:salmon",
-	"minecraft:cooked_cod",
 	"minecraft:cooked_salmon",
-	"minecraft:cod",
-	"minecraft:tropical_fish"
+	"minecraft:cooked_cod",
+	"minecraft:salmon",
+	"minecraft:pufferfish",
+	"minecraft:tropical_fish",
+	"minecraft:cod"
 ]

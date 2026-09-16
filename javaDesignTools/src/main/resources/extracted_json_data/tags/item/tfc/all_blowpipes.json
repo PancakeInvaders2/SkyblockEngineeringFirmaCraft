@@ -1,6 +1,6 @@
 [
-	"tfc:blowpipe_with_glass",
-	"tfc:ceramic_blowpipe_with_glass",
+	"tfc:ceramic_blowpipe",
 	"tfc:blowpipe",
-	"tfc:ceramic_blowpipe"
+	"tfc:ceramic_blowpipe_with_glass",
+	"tfc:blowpipe_with_glass"
 ]

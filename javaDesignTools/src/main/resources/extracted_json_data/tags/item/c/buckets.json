@@ -1,16 +1,16 @@
 [
-	"minecraft:tropical_fish_bucket",
-	"tfc:metal/bucket/blue_steel",
 	"minecraft:lava_bucket",
-	"minecraft:axolotl_bucket",
-	"tfc:wooden_bucket",
-	"minecraft:powder_snow_bucket",
-	"tfc:metal/bucket/red_steel",
-	"minecraft:tadpole_bucket",
-	"minecraft:bucket",
-	"minecraft:cod_bucket",
-	"minecraft:pufferfish_bucket",
-	"minecraft:milk_bucket",
+	"tfc:metal/bucket/blue_steel",
+	"minecraft:tropical_fish_bucket",
+	"minecraft:salmon_bucket",
 	"minecraft:water_bucket",
-	"minecraft:salmon_bucket"
+	"minecraft:milk_bucket",
+	"minecraft:pufferfish_bucket",
+	"minecraft:cod_bucket",
+	"minecraft:bucket",
+	"minecraft:tadpole_bucket",
+	"tfc:metal/bucket/red_steel",
+	"minecraft:powder_snow_bucket",
+	"tfc:wooden_bucket",
+	"minecraft:axolotl_bucket"
 ]

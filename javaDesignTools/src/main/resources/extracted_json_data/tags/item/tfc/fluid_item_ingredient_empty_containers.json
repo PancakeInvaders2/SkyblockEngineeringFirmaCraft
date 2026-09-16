@@ -1,11 +1,11 @@
 [
-	"tfc:metal/bucket/blue_steel",
 	"tfc:olivine_glass_bottle",
-	"tfc:silica_glass_bottle",
-	"tfc:wooden_bucket",
-	"tfc:metal/bucket/red_steel",
-	"tfc:ceramic/jug",
-	"tfc:volcanic_glass_bottle",
+	"tfc:metal/bucket/blue_steel",
+	"tfc:hematitic_glass_bottle",
 	"minecraft:bucket",
-	"tfc:hematitic_glass_bottle"
+	"tfc:volcanic_glass_bottle",
+	"tfc:ceramic/jug",
+	"tfc:metal/bucket/red_steel",
+	"tfc:wooden_bucket",
+	"tfc:silica_glass_bottle"
 ]

@@ -1,11 +1,11 @@
 [
-	"tfc:powder/lapis_lazuli",
 	"tfc:powder/sapphire",
-	"tfc:powder/topaz",
-	"tfc:powder/emerald",
-	"tfc:powder/ruby",
-	"tfc:powder/opal",
-	"tfc:powder/diamond",
+	"tfc:powder/lapis_lazuli",
+	"tfc:powder/amethyst",
 	"tfc:powder/pyrite",
-	"tfc:powder/amethyst"
+	"tfc:powder/diamond",
+	"tfc:powder/opal",
+	"tfc:powder/ruby",
+	"tfc:powder/emerald",
+	"tfc:powder/topaz"
 ]

@@ -1,8 +1,8 @@
 [
-	"minecraft:enchanted_book",
-	"patchouli:guide_book",
 	"minecraft:book",
-	"minecraft:writable_book",
+	"patchouli:guide_book",
+	"minecraft:enchanted_book",
+	"minecraft:knowledge_book",
 	"minecraft:written_book",
-	"minecraft:knowledge_book"
+	"minecraft:writable_book"
 ]

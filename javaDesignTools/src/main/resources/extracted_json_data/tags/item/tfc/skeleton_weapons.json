@@ -1,16 +1,16 @@
 [
-	"tfc:metal/javelin/bronze",
-	"tfc:metal/javelin/black_bronze",
-	"tfc:stone/axe/igneous_extrusive",
 	"tfc:stone/javelin/metamorphic",
-	"minecraft:bow",
-	"tfc:stone/axe/metamorphic",
-	"tfc:obsidian_javelin",
-	"tfc:stone/javelin/sedimentary",
-	"tfc:stone/javelin/igneous_extrusive",
-	"tfc:stone/axe/sedimentary",
-	"tfc:metal/javelin/copper",
-	"tfc:metal/javelin/bismuth_bronze",
+	"tfc:stone/axe/igneous_extrusive",
+	"tfc:metal/javelin/black_bronze",
+	"tfc:metal/javelin/bronze",
+	"tfc:stone/javelin/igneous_intrusive",
 	"tfc:stone/axe/igneous_intrusive",
-	"tfc:stone/javelin/igneous_intrusive"
+	"tfc:metal/javelin/bismuth_bronze",
+	"tfc:metal/javelin/copper",
+	"tfc:stone/axe/sedimentary",
+	"tfc:stone/javelin/igneous_extrusive",
+	"tfc:stone/javelin/sedimentary",
+	"tfc:obsidian_javelin",
+	"tfc:stone/axe/metamorphic",
+	"minecraft:bow"
 ]

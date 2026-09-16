@@ -1,14 +1,14 @@
 [
-	"minecraft:green_shulker_box",
-	"minecraft:green_wool",
-	"minecraft:green_concrete_powder",
-	"minecraft:green_candle",
 	"minecraft:green_stained_glass_pane",
-	"minecraft:green_carpet",
-	"minecraft:green_glazed_terracotta",
-	"minecraft:green_bed",
-	"minecraft:green_banner",
-	"minecraft:green_stained_glass",
+	"minecraft:green_candle",
+	"minecraft:green_concrete_powder",
+	"minecraft:green_wool",
+	"minecraft:green_shulker_box",
+	"minecraft:green_concrete",
 	"minecraft:green_terracotta",
-	"minecraft:green_concrete"
+	"minecraft:green_stained_glass",
+	"minecraft:green_banner",
+	"minecraft:green_bed",
+	"minecraft:green_glazed_terracotta",
+	"minecraft:green_carpet"
 ]

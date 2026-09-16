@@ -1,15 +1,15 @@
 [
-	"minecraft:brewing_stand",
-	"minecraft:barrel",
-	"minecraft:cartography_table",
-	"minecraft:grindstone",
 	"minecraft:lectern",
-	"minecraft:blast_furnace",
-	"minecraft:smithing_table",
-	"minecraft:cauldron",
-	"minecraft:smoker",
-	"minecraft:loom",
-	"minecraft:fletching_table",
+	"minecraft:grindstone",
+	"minecraft:cartography_table",
+	"minecraft:barrel",
+	"minecraft:brewing_stand",
+	"minecraft:composter",
 	"minecraft:stonecutter",
-	"minecraft:composter"
+	"minecraft:fletching_table",
+	"minecraft:loom",
+	"minecraft:smoker",
+	"minecraft:cauldron",
+	"minecraft:smithing_table",
+	"minecraft:blast_furnace"
 ]

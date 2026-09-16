@@ -1,7 +1,7 @@
 [
-	"minecraft:enchanted_book",
 	"minecraft:book",
-	"minecraft:writable_book",
+	"minecraft:enchanted_book",
+	"minecraft:knowledge_book",
 	"minecraft:written_book",
-	"minecraft:knowledge_book"
+	"minecraft:writable_book"
 ]

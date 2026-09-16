@@ -1,5 +1,5 @@
 [
 	"patchouli:guide_book",
-	"minecraft:writable_book",
-	"minecraft:written_book"
+	"minecraft:written_book",
+	"minecraft:writable_book"
 ]

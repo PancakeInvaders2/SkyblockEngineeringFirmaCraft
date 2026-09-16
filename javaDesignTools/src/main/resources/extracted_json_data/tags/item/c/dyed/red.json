@@ -1,14 +1,14 @@
 [
-	"minecraft:red_candle",
-	"minecraft:red_shulker_box",
 	"minecraft:red_carpet",
-	"minecraft:red_stained_glass",
-	"minecraft:red_terracotta",
-	"minecraft:red_bed",
-	"minecraft:red_banner",
-	"minecraft:red_concrete",
-	"minecraft:red_glazed_terracotta",
-	"minecraft:red_stained_glass_pane",
+	"minecraft:red_shulker_box",
+	"minecraft:red_candle",
+	"minecraft:red_concrete_powder",
 	"minecraft:red_wool",
-	"minecraft:red_concrete_powder"
+	"minecraft:red_stained_glass_pane",
+	"minecraft:red_glazed_terracotta",
+	"minecraft:red_concrete",
+	"minecraft:red_banner",
+	"minecraft:red_bed",
+	"minecraft:red_terracotta",
+	"minecraft:red_stained_glass"
 ]

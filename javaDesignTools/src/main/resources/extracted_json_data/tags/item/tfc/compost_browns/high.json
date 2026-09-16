@@ -1,7 +1,7 @@
 [
-	"tfc:groundcover/humus",
 	"tfc:groundcover/driftwood",
-	"minecraft:paper",
+	"tfc:groundcover/humus",
+	"tfc:groundcover/pinecone",
 	"tfc:jute_fiber",
-	"tfc:groundcover/pinecone"
+	"minecraft:paper"
 ]

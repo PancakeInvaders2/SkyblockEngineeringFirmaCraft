@@ -1,11 +1,11 @@
 [
 	"tfc:metal/propick/steel",
-	"tfc:metal/propick/bismuth_bronze",
-	"tfc:metal/propick/blue_steel",
-	"tfc:metal/propick/copper",
-	"tfc:metal/propick/wrought_iron",
-	"tfc:metal/propick/black_bronze",
-	"tfc:metal/propick/black_steel",
+	"tfc:metal/propick/bronze",
 	"tfc:metal/propick/red_steel",
-	"tfc:metal/propick/bronze"
+	"tfc:metal/propick/black_steel",
+	"tfc:metal/propick/black_bronze",
+	"tfc:metal/propick/wrought_iron",
+	"tfc:metal/propick/copper",
+	"tfc:metal/propick/blue_steel",
+	"tfc:metal/propick/bismuth_bronze"
 ]

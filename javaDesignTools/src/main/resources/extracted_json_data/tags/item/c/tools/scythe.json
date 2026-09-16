@@ -1,11 +1,11 @@
 [
-	"tfc:metal/scythe/blue_steel",
-	"tfc:metal/scythe/bronze",
 	"tfc:metal/scythe/black_steel",
-	"tfc:metal/scythe/red_steel",
-	"tfc:metal/scythe/bismuth_bronze",
-	"tfc:metal/scythe/steel",
-	"tfc:metal/scythe/wrought_iron",
+	"tfc:metal/scythe/bronze",
+	"tfc:metal/scythe/blue_steel",
+	"tfc:metal/scythe/black_bronze",
 	"tfc:metal/scythe/copper",
-	"tfc:metal/scythe/black_bronze"
+	"tfc:metal/scythe/wrought_iron",
+	"tfc:metal/scythe/steel",
+	"tfc:metal/scythe/bismuth_bronze",
+	"tfc:metal/scythe/red_steel"
 ]

@@ -1,12 +1,12 @@
 [
 	"tfc:sand/red",
-	"tfc:sand/green",
-	"tfc:sand/pink",
-	"tfc:sand/black",
-	"tfc:sand/yellow",
-	"tfc:sand/white",
-	"minecraft:suspicious_sand",
-	"minecraft:red_sand",
+	"tfc:sand/brown",
 	"minecraft:sand",
-	"tfc:sand/brown"
+	"minecraft:red_sand",
+	"minecraft:suspicious_sand",
+	"tfc:sand/white",
+	"tfc:sand/yellow",
+	"tfc:sand/black",
+	"tfc:sand/pink",
+	"tfc:sand/green"
 ]

@@ -1,4 +1,4 @@
 [
-	"minecraft:gold_block",
-	"tfc:metal/block/gold"
+	"tfc:metal/block/gold",
+	"minecraft:gold_block"
 ]

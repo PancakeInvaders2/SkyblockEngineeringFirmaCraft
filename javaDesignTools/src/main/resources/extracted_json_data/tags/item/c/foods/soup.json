@@ -1,11 +1,11 @@
 [
 	"minecraft:rabbit_stew",
-	"minecraft:suspicious_stew",
-	"minecraft:mushroom_stew",
-	"tfc:food/vegetables_soup",
-	"tfc:food/dairy_soup",
-	"minecraft:beetroot_soup",
-	"tfc:food/grain_soup",
+	"tfc:food/protein_soup",
 	"tfc:food/fruit_soup",
-	"tfc:food/protein_soup"
+	"tfc:food/grain_soup",
+	"minecraft:beetroot_soup",
+	"tfc:food/dairy_soup",
+	"tfc:food/vegetables_soup",
+	"minecraft:mushroom_stew",
+	"minecraft:suspicious_stew"
 ]

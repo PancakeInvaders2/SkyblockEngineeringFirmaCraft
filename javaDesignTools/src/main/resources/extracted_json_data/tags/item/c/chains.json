@@ -1,12 +1,12 @@
 [
-	"tfc:metal/chain/bronze",
-	"tfc:metal/chain/steel",
 	"tfc:metal/chain/red_steel",
-	"tfc:metal/chain/blue_steel",
-	"minecraft:chain",
-	"tfc:metal/chain/copper",
-	"tfc:metal/chain/bismuth_bronze",
-	"tfc:metal/chain/black_steel",
+	"tfc:metal/chain/steel",
+	"tfc:metal/chain/bronze",
+	"tfc:metal/chain/black_bronze",
 	"tfc:metal/chain/wrought_iron",
-	"tfc:metal/chain/black_bronze"
+	"tfc:metal/chain/black_steel",
+	"tfc:metal/chain/bismuth_bronze",
+	"tfc:metal/chain/copper",
+	"minecraft:chain",
+	"tfc:metal/chain/blue_steel"
 ]

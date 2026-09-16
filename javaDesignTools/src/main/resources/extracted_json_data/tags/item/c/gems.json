@@ -1,12 +1,12 @@
 [
-	"minecraft:emerald",
-	"minecraft:quartz",
-	"minecraft:amethyst_shard",
 	"tfc:gem/diamond",
-	"minecraft:diamond",
-	"minecraft:prismarine_crystals",
-	"tfc:gem/amethyst",
-	"minecraft:lapis_lazuli",
+	"minecraft:amethyst_shard",
+	"minecraft:quartz",
+	"minecraft:emerald",
+	"tfc:gem/emerald",
 	"tfc:gem/lapis_lazuli",
-	"tfc:gem/emerald"
+	"minecraft:lapis_lazuli",
+	"tfc:gem/amethyst",
+	"minecraft:prismarine_crystals",
+	"minecraft:diamond"
 ]
