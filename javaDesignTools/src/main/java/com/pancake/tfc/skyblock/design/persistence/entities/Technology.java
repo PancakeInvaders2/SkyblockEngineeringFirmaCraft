@@ -4,7 +4,6 @@ import jakarta.persistence.*;
 
 import java.util.HashSet;
 import java.util.Set;
-
 @Entity
 @Table(name = "technology")
 public class Technology {
@@ -14,13 +13,13 @@ public class Technology {
 
     private String name;
 
-    @ManyToMany
-    @JoinTable(
-            name = "technology_resource_requirement",
-            joinColumns = @JoinColumn(name = "technology_id"),
-            inverseJoinColumns = @JoinColumn(name = "resource_id")
+    @OneToMany(
+            mappedBy = "technology",
+            cascade = CascadeType.ALL,
+            orphanRemoval = true
     )
-    private Set<Resource> resourceRequirements = new HashSet<>();
+    private Set<TechnologyResourceRequirement> resourceRequirements =
+            new HashSet<>();
 
     @ManyToMany
     @JoinTable(
@@ -33,19 +32,13 @@ public class Technology {
     public Technology() {
     }
 
-    public Technology(String id,
-                      String name,
-                      Set<Resource> resourceRequirements,
-                      Set<Process> unlockedProcesses) {
-
+    public Technology(
+            String id,
+            String name
+    ) {
         this.id = id;
         this.name = name;
-        this.resourceRequirements = resourceRequirements;
-        this.unlockedProcesses = unlockedProcesses;
     }
-
-    // getters
-
 
     public String getName() {
         return name;
@@ -55,11 +48,37 @@ public class Technology {
         return id;
     }
 
+    public Set<TechnologyResourceRequirement> getResourceRequirements() {
+        return resourceRequirements;
+    }
+
     public Set<Process> getUnlockedProcesses() {
         return unlockedProcesses;
     }
 
-    public Set<Resource> getResourceRequirements() {
-        return resourceRequirements;
+    public void addResourceRequirement(
+            int requirementGroup,
+            Resource resource
+    ) {
+        resourceRequirements.add(
+                new TechnologyResourceRequirement(
+                        this,
+                        requirementGroup,
+                        resource
+                )
+        );
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("Technology id:").append(id);
+        int i = 0;
+        for(TechnologyResourceRequirement resourceRequirement : resourceRequirements){
+            sb.append(", resourceRequirements ").append(i).append(" size: ").append(resourceRequirement);
+            i++;
+        }
+        sb.append(", unlockedProcesses size: ").append(unlockedProcesses.size());
+        return sb.toString();
     }
 }

@@ -1,7 +1,6 @@
 package com.pancake.tfc.skyblock.design.dataimport.services.resources;
 
-import com.pancake.tfc.skyblock.design.dataimport.services.GameData;
-import com.pancake.tfc.skyblock.design.dataimport.services.recipe.ParsedProcess;
+import com.pancake.tfc.skyblock.design.dataimport.services.process.ParsedProcess;
 import com.pancake.tfc.skyblock.design.persistence.entities.Resource;
 import org.springframework.stereotype.Component;
 

@@ -1,8 +1,10 @@
 package com.pancake.tfc.skyblock.design.persistence.entities;
 
+import com.pancake.tfc.skyblock.design.dataimport.services.process.ProcessSubtype;
 import jakarta.persistence.*;
 
 import java.util.HashSet;
+import java.util.Optional;
 import java.util.Set;
 
 @Entity
@@ -15,6 +17,9 @@ public class Process {
     private String name;
 
     private String type;
+
+    @Transient
+    private Optional<ProcessSubtype> subType;
 
     private boolean technologyRequired;
 
@@ -36,21 +41,25 @@ public class Process {
     @ManyToMany(mappedBy = "unlockedProcesses")
     private Set<Technology> unlockedBy = new HashSet<>();
 
-    public Process(){}
-
-    public Process(
-            String id,
-            String name,
-            String type,
-            boolean technologyRequired
-    ) {
-        this(id, name, type, technologyRequired, new HashSet<>(), new HashSet<>(), new HashSet<>());
+    public Process(){
+        subType = Optional.empty();
     }
 
     public Process(
             String id,
             String name,
             String type,
+            Optional<ProcessSubtype> subType,
+            boolean technologyRequired
+    ) {
+        this(id, name, type, subType, technologyRequired, new HashSet<>(), new HashSet<>(), new HashSet<>());
+    }
+
+    public Process(
+            String id,
+            String name,
+            String type,
+            Optional<ProcessSubtype> subType,
             boolean technologyRequired,
             Set<ProcessInput> inputs,
             Set<Resource> outputs,
@@ -58,6 +67,7 @@ public class Process {
         this.id = id;
         this.name = name;
         this.type = type;
+        this.subType = subType;
         this.technologyRequired = technologyRequired;
         this.inputs = inputs;
         this.outputs = outputs;
@@ -126,4 +136,7 @@ public class Process {
         return sb.toString();
     }
 
+    public Optional<ProcessSubtype> getSubType() {
+        return subType;
+    }
 }

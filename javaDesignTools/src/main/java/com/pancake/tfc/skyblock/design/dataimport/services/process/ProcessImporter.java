@@ -1,6 +1,5 @@
 package com.pancake.tfc.skyblock.design.dataimport.services.process;
 
-import com.pancake.tfc.skyblock.design.dataimport.services.recipe.ParsedProcess;
 import com.pancake.tfc.skyblock.design.persistence.entities.Resource;
 import com.pancake.tfc.skyblock.design.persistence.entities.Process;
 import org.springframework.stereotype.Component;
@@ -17,10 +16,13 @@ public class ProcessImporter {
         List<Process> processes = new ArrayList<>();
 
         for (ParsedProcess parsedProcess : parsedProcesses) {
+
+
             Process process = new Process(
                     parsedProcess.id(),
                     parsedProcess.name(),
-                    parsedProcess.type(),
+                    parsedProcess.type().processType(),
+                    parsedProcess.subtype(),
                     true
             );
 

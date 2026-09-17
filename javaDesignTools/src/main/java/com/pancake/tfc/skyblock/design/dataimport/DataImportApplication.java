@@ -2,11 +2,11 @@ package com.pancake.tfc.skyblock.design.dataimport;
 
 import com.pancake.tfc.skyblock.design.dataimport.services.GameData;
 import com.pancake.tfc.skyblock.design.dataimport.services.process.ProcessImporter;
-import com.pancake.tfc.skyblock.design.dataimport.services.recipe.inspector.CountAndExample;
-import com.pancake.tfc.skyblock.design.dataimport.services.recipe.inspector.GameDataInspector;
+import com.pancake.tfc.skyblock.design.dataimport.services.process.recipe.inspector.CountAndExample;
+import com.pancake.tfc.skyblock.design.dataimport.services.process.recipe.inspector.GameDataInspector;
 import com.pancake.tfc.skyblock.design.dataimport.services.GameDataLoader;
-import com.pancake.tfc.skyblock.design.dataimport.services.recipe.ParsedProcess;
-import com.pancake.tfc.skyblock.design.dataimport.services.recipe.RecipeImporter;
+import com.pancake.tfc.skyblock.design.dataimport.services.process.ParsedProcess;
+import com.pancake.tfc.skyblock.design.dataimport.services.process.recipe.RecipeImporter;
 import com.pancake.tfc.skyblock.design.dataimport.services.resources.ResourceImporter;
 import com.pancake.tfc.skyblock.design.dataimport.services.technology.TechnologyProcessLinker;
 import com.pancake.tfc.skyblock.design.persistence.entities.Process;
@@ -23,7 +23,6 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import java.io.IOException;
 import java.net.URISyntaxException;
 import java.util.*;
-import java.util.stream.Collectors;
 
 import static java.util.stream.Collectors.groupingBy;
 
@@ -45,31 +44,6 @@ public class DataImportApplication
     private final ProcessImporter processImporter;
     private final TechnologyProcessLinker technologyProcessLinker;
     private final Random random;
-
-    private static final Set<String> IGNORED_RECIPE_TYPES = Set.of(
-            "minecraft:crafting_special_firework_star",
-            "minecraft:crafting_special_mapextending",
-            "minecraft:crafting_special_tippedarrow",
-            "minecraft:crafting_special_firework_star_fade",
-            "minecraft:crafting_special_shulkerboxcoloring",
-            "minecraft:crafting_special_shielddecoration",
-            "minecraft:crafting_special_armordye",
-            "minecraft:crafting_special_firework_rocket",
-            "minecraft:crafting_special_bannerduplicate",
-            "minecraft:crafting_special_repairitem",
-            "minecraft:crafting_special_bookcloning",
-            "minecraft:crafting_special_mapcloning",
-            "minecraft:crafting_decorated_pot",
-            "minecraft:smithing_transform",
-            "tfc:casting_crafting",
-            "tfc:food_combining",
-            "tfc:landslide",
-            "tfc:sewing", // armor trims, no inputs specified
-            "tfc:pot_jam", // making jam isn't a necessary part of the tech tree, just noise
-            "minecraft:stonecutting", // vanilla decoration
-            "minecraft:smithing_trim"
-
-    );
 
     public DataImportApplication(
             GameDataLoader service,
@@ -124,9 +98,9 @@ public class DataImportApplication
         }
 
         List<String> noPrint = List.of(
-                "tfc:advanced_shapeless_crafting"
-                , "tfc:advanced_shaped_crafting"
-                , "minecraft:crafting_shaped"
+                //"tfc:advanced_shapeless_crafting"
+                //, "tfc:advanced_shaped_crafting"
+                "minecraft:crafting_shaped"
                 , "minecraft:crafting_shapeless"
                 , "tfc:heating"
                 , "tfc:casting"
@@ -191,13 +165,12 @@ public class DataImportApplication
         LOG.info("Process count: {}", processes.size());
         LOG.info("Process types: {}", processesByType.keySet());
 
-        List<Technology> technologies = technologyProcessLinker.linkProcessesToTechnology(processesByType);
+        LOG.info("#################################");
+
+        Map<String, Technology> technologies = technologyProcessLinker.linkProcessesToTechnology(processesByType, gameData, resources);
         LOG.info("Technology count: {}", technologies.size());
-
-
-
-        for(int i = 0; i<5; i++){
-            LOG.info("process {}", getRandomProcess(processes));
+        for(Map.Entry<String, Technology> technology : technologies.entrySet()){
+            LOG.info(technology);
         }
 
         long durationNanos = System.nanoTime() - startNanos;
