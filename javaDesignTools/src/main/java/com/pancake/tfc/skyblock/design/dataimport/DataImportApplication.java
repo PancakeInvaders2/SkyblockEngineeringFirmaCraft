@@ -98,9 +98,9 @@ public class DataImportApplication
         }
 
         List<String> noPrint = List.of(
-                //"tfc:advanced_shapeless_crafting"
-                //, "tfc:advanced_shaped_crafting"
-                "minecraft:crafting_shaped"
+                "tfc:advanced_shapeless_crafting"
+                , "tfc:advanced_shaped_crafting"
+                , "minecraft:crafting_shaped"
                 , "minecraft:crafting_shapeless"
                 , "tfc:heating"
                 , "tfc:casting"
@@ -126,6 +126,7 @@ public class DataImportApplication
                 , "tfc:chisel"
                 , "tfc:pot"
                 , "minecraft:smoking"
+                , "custom:clicking_raw_rock_with_hammer"
 
         );
 

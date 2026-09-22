@@ -3,6 +3,7 @@ package com.pancake.tfc.skyblock.design.dataimport.services.process.recipe;
 import com.pancake.tfc.skyblock.design.dataimport.services.GameData;
 import com.pancake.tfc.skyblock.design.dataimport.services.process.ParsedProcess;
 import com.pancake.tfc.skyblock.design.dataimport.services.process.ProcessType;
+import org.apache.commons.collections4.CollectionUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.stereotype.Service;
@@ -16,6 +17,13 @@ public class RecipeImporter {
 
     private static final Logger LOG =
             LogManager.getLogger(RecipeImporter.class);
+
+    private static final Set<String> igneousIntrusiveStoneTypes = Set.of("granite", "diorite", "gabbro");
+    private static final Set<String> igneousExtrusiveStoneTypes = Set.of("rhyolite", "dacite", "andesite", "basalt");
+    private static final Set<String> igneousStoneTypes = union(igneousIntrusiveStoneTypes, igneousExtrusiveStoneTypes);
+    private static final Set<String> metamorphicStoneTypes = Set.of("marble", "slate", "quartzite", "phyllite", "schist", "gneiss");
+    private static final Set<String> sedimentaryStoneTypes = Set.of( "claystone", "tuff", "shale", "conglomerate", "chalk", "chert", "limestone", "dolomite");
+    private static final Set<String> stoneTypes = union(igneousStoneTypes, metamorphicStoneTypes, sedimentaryStoneTypes);
 
 
     private static final Set<String> IGNORED_RECIPE_TYPES = Set.of(
@@ -33,6 +41,8 @@ public class RecipeImporter {
             "minecraft:crafting_special_mapcloning",
             "minecraft:crafting_decorated_pot",
             "minecraft:smithing_transform",
+            "minecraft:campfire_cooking", // the minecraft campfire is not and will not be reachable
+            "minecraft:smoking", // the minecraft smoker is not and will not be reachable
             "tfc:casting_crafting",
             "tfc:food_combining",
             "tfc:landslide",
@@ -77,6 +87,10 @@ public class RecipeImporter {
             "tfc:barrel/preserved_in_vinegar",
             "tfc:barrel/pickled",
 
+            "tfc:pot/soup_3",
+            "tfc:pot/soup_4",
+            "tfc:pot/soup_5",
+
             "tfc:knapping/feel_goat_horn_goat_horn",
             "tfc:knapping/sing_goat_horn_goat_horn",
             "tfc:knapping/admire_goat_horn_goat_horn",
@@ -85,15 +99,6 @@ public class RecipeImporter {
             "tfc:knapping/seek_goat_horn_goat_horn",
             "tfc:knapping/dream_goat_horn_goat_horn",
             "tfc:knapping/call_goat_horn_goat_horn",
-
-            "minecraft:cooked_porkchop_from_campfire_cooking",
-            "minecraft:cooked_chicken_from_campfire_cooking",
-            "minecraft:baked_potato_from_campfire_cooking",
-            "minecraft:cooked_salmon_from_campfire_cooking",
-            "minecraft:cooked_cod_from_campfire_cooking",
-            "minecraft:cooked_beef_from_campfire_cooking",
-            "minecraft:cooked_mutton_from_campfire_cooking",
-            "minecraft:cooked_rabbit_from_campfire_cooking",
 
             "minecraft:cooked_salmon_from_smoking",
             "minecraft:cooked_cod_from_smoking",
@@ -110,9 +115,12 @@ public class RecipeImporter {
     );
 
     private final List<RecipeParser> parsers;
+    private final RcpParser recipeParser;
 
-    public RecipeImporter(List<RecipeParser> parsers) {
+    public RecipeImporter(List<RecipeParser> parsers, RcpParser recipeParser) {
         this.parsers = parsers;
+        this.recipeParser = recipeParser;
+
     }
 
     public Map<String, List<ParsedProcess>> importRecipes(GameData gameData) {
@@ -130,10 +138,10 @@ public class RecipeImporter {
             if (!isIgnoredRecipe(recipeId, recipeType)) {
 
 
-                Optional<RecipeParser> parser = parsers.stream()
-                        .filter(candidate -> candidate.supports(recipeType))
-                        .findFirst()
-                        // TODO uncomment when all recipe parsers are implemented
+                //Optional<RecipeParser> parser = parsers.stream()
+                //        .filter(candidate -> candidate.supports(recipeType))
+                //        .findFirst()
+                //        // TODO uncomment when all recipe parsers are implemented
                         //.orElseThrow(() ->
                         //        new IllegalArgumentException(
                         //                "No recipe parser for recipe: "
@@ -142,11 +150,13 @@ public class RecipeImporter {
                         //)
                         ;
 
-                if (parser.isPresent()) {
 
-                    if (recipeJson.toString().contains("fluid") && !parser.get().supportsFluids()) {
-                        throw new IllegalArgumentException("The parser for this recipe type doesn't support fluids. Recipe: " + recipeJson);
-                    }
+
+                //if (parser.isPresent()) {
+
+                    //if (recipeJson.toString().contains("fluid") && !parser.get().supportsFluids()) {
+                    //    throw new IllegalArgumentException("The parser for this recipe type doesn't support fluids. Recipe: " + recipeJson);
+                    //}
 
                     List<ParsedProcess> processesOfThisType = parsedProcessesPerType.get(recipeType);
                     if (processesOfThisType == null) {
@@ -156,7 +166,8 @@ public class RecipeImporter {
                     try {
 
 
-                        ParsedProcess parsedProcess = parser.get().parse(recipeId, recipeJson, gameData);
+                        ParsedProcess parsedProcess =  recipeParser.parse(recipeId, recipeJson, gameData);
+                        //ParsedProcess parsedProcess = parser.get().parse(recipeId, recipeJson, gameData);
                         // Some recipes do not expose a concrete resource output.
                         // They may represent destruction or state/NBT/trait modification
                         // rather than a resource transformation, and it's not critical to model them
@@ -185,13 +196,13 @@ public class RecipeImporter {
                         LOG.error("Failed to parse {}", recipeJson, e);
                         throw new IllegalArgumentException(e);
                     }
-                }
+                //}
 
             }
         }
 
-        // custom processes for processes implied in the json data:
-        parsedProcessesPerType.put("custom:clicking_pot_with_bowl", List.of(new ParsedProcess(
+        // custom processes for processes implied but not present in the json data:
+        parsedProcessesPerType.put(ProcessType.CLICKING_POT_WITH_BOWL.processType, List.of(new ParsedProcess(
                 "custom:clicking_pot_with_bowl",
                 "custom:clicking_pot_with_bowl",
                 ProcessType.CLICKING_POT_WITH_BOWL,
@@ -208,7 +219,20 @@ public class RecipeImporter {
                 )
         )));
 
-        // TODO the ignored recipe tfc:crafting/flower_cutting allows duplication
+        List<ParsedProcess> stoneAnvilCreationProcesses = new ArrayList<>();
+        parsedProcessesPerType.put(ProcessType.CLICKING_RAW_ROCK_WITH_HAMMER.processType, stoneAnvilCreationProcesses);
+        for(String igneousStoneType : igneousStoneTypes){
+            String id = "custom:clicking_raw_"+igneousStoneType+"_with_hammer";
+            stoneAnvilCreationProcesses.add(new ParsedProcess(
+                    id,
+                    id,
+                    ProcessType.CLICKING_RAW_ROCK_WITH_HAMMER,
+                    List.of(Set.of("tfc:rock/raw/" + igneousStoneType), TagUtils.getItemTagResourceIds("c:tools/hammer", gameData)),
+                    Set.of(	"tfc:rock/anvil/"+igneousStoneType)
+            ));
+        }
+
+                // TODO the ignored recipe tfc:crafting/flower_cutting allows duplication
         //     of flowers if you can get a cutting from them with shears.
         //     This is irrelevant to basic reachability because it doesn't create
         //     a new resource, but it matters for determining whether flowers are
@@ -245,5 +269,14 @@ public class RecipeImporter {
                 || IGNORED_RECIPE_REGEX.stream()
                 .anyMatch(pattern -> pattern.matcher(recipeId).matches())
                 || IGNORED_RECIPE_TYPES.contains(recipeType);
+    }
+
+
+    private static <T> Set<T> union( Set<T>... setArray){
+        Set<T> result = new HashSet<>();
+        for(Set<T> set : setArray){
+            result.addAll(set);
+        }
+        return result;
     }
 }

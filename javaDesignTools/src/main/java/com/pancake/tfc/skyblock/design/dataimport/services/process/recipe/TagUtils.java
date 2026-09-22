@@ -7,7 +7,7 @@ import java.util.Set;
 
 public class TagUtils {
 
-    private static final List<String> FLUID_TAG_NAMESPACES = List.of("tfc", "c");
+    private static final List<String> TAG_NAMESPACES = List.of("tfc", "c");
 
 
     public static Set<String> getFluidTagResourceIds(String fluidTagId, GameData gameData) {
@@ -24,7 +24,7 @@ public class TagUtils {
         int colonIndex = fluidTagId.indexOf(":");
         String name = fluidTagId.substring(colonIndex+1);
 
-        for (String fluidTagNamespace : FLUID_TAG_NAMESPACES) {
+        for (String fluidTagNamespace : TAG_NAMESPACES) {
             tagResources = gameData.fluidTags().get(fluidTagNamespace + ":" + name);
 
             if (tagResources != null && !tagResources.isEmpty()) {
@@ -61,7 +61,7 @@ public class TagUtils {
 
         String name = itemTagId.substring(colonIndex + 1);
 
-        for (String namespace : List.of("tfc", "c")) {
+        for (String namespace : TAG_NAMESPACES) {
             if (namespace.equals(itemTagId.substring(0, colonIndex))) {
                 continue;
             }

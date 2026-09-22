@@ -24,11 +24,10 @@ public enum ProcessType {
     LOOM ("tfc:loom"),
     QUERN ("tfc:quern"),
     BLOOMERY ("tfc:bloomery"),
-    CAMPFIRE_COOKING ("minecraft:campfire_cooking"),
     HEATING ("tfc:heating"),
     CLICKING_POT_WITH_BOWL ("custom:clicking_pot_with_bowl"),
+    CLICKING_RAW_ROCK_WITH_HAMMER ("custom:clicking_raw_rock_with_hammer"),
     CHISEL ("tfc:chisel"),
-    SMOKING ("minecraft:smoking"),
     POT ("tfc:pot");
 
     public final String processType;
