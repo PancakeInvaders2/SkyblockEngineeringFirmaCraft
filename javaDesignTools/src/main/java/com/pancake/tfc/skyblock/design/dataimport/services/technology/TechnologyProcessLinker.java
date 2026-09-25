@@ -10,6 +10,7 @@ import com.pancake.tfc.skyblock.design.persistence.entities.Technology;
 import org.springframework.stereotype.Component;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 @Component
 public class TechnologyProcessLinker {
@@ -17,7 +18,14 @@ public class TechnologyProcessLinker {
     private Technology craftingTableTechnology = null;
     private Technology castingTechnology = null;
     private Technology alloyTechnology = null;
-    private Technology anvilTechnology = null;
+
+    private Technology stoneAnvilTechnology = null;
+    private Technology copperAnvilTechnology = null;
+    private Technology bronzeAnvilTechnology = null;
+    private Technology wroughtIronAnvilTechnology = null;
+    private Technology steelAnvilTechnology = null;
+    private Technology blackSteelAnvilTechnology = null;
+    private Technology coloredSteelAnvilTechnology = null;
     private Technology smeltingTechnology = null;
     private Technology glassworkingTechnology = null;
     private Technology scrapingTechnology = null;
@@ -27,7 +35,11 @@ public class TechnologyProcessLinker {
     private Technology loomTechnology = null;
     private Technology quernTechnology = null;
     private Technology bloomeryTechnology = null;
-    private Technology heatingTechnology = null;
+
+    private Technology firepitTechnology = null;
+    private Technology pitKilnTechnology = null;
+    private Technology bellowedForgeTechnology = null;
+
     private Technology bowlTechnology = null;
     private Technology chiselTechnology = null;
     private Technology potTechnology = null;
@@ -74,8 +86,9 @@ public class TechnologyProcessLinker {
                 }
                 yield null;
             }
+            case ANVIL, WELDING -> getOrCreateAnvilTechnology(gameData, resources, subType);
+            case HEATING -> getOrCreateHeatingTechnology(gameData, resources, subType);
             case CASTING -> getOrCreateCastingTechnology(gameData, resources);
-            case ANVIL, WELDING -> getOrCreateAnvilTechnology(gameData, resources);
             case ALLOY -> getOrCreateAlloyTechnology(gameData, resources);
             case POT_SOUP, POT -> getOrCreatePotTechnology(gameData, resources);
             case BARREL_INSTANT, BARREL_SEALED, BARREL_INSANT_FLUID -> getOrCreateBarrelTechnology(gameData, resources);
@@ -89,12 +102,27 @@ public class TechnologyProcessLinker {
             case LOOM -> getOrCreateLoomTechnology(gameData, resources);
             case QUERN -> getOrCreateQuernTechnology(gameData, resources);
             case BLOOMERY -> getOrCreateBloomeryTechnology(gameData, resources);
-            case HEATING -> getOrCreateHeatingTechnology(gameData, resources);
             case CLICKING_POT_WITH_BOWL -> getOrCreateBowlTechnology(gameData, resources);
             case CLICKING_RAW_ROCK_WITH_HAMMER -> null;
             case CHISEL -> getOrCreateChiselTechnology(gameData, resources);
+            case ENTITY_LOOT_TABLE -> null;
+            case DEPOSIT_PANNING -> getOrCreatePanningTechnology(gameData, resources);
         };
         
+    }
+
+    private Technology getOrCreatePanningTechnology(GameData gameData, Map<String, Resource> resources){
+        if(craftingTableTechnology == null){
+            craftingTableTechnology = createTechnology(
+                    "deposit_panning",
+                    "Deposit panning",
+                    Set.of(
+                        Set.of("tfc:pan/empty")
+                    ),
+                    resources
+            );
+        }
+        return craftingTableTechnology;
     }
 
     private Technology getOrCreateCraftingTableTechnology(GameData gameData, Map<String, Resource> resources){
@@ -134,25 +162,221 @@ public class TechnologyProcessLinker {
                             TagUtils.getItemTagResourceIds("tfc:vessels", gameData)
                     ),
                     resources
-            ); // TODO make sure the alloy recipes have the wood and straw for the firepit as ingredient
+            );
         }
         return alloyTechnology;
 
     }
 
-    private Technology getOrCreateAnvilTechnology(GameData gameData, Map<String, Resource> resources) {
-        if(anvilTechnology == null){
-            anvilTechnology = createTechnology(
-                    "anvil",
-                    "Anvil",
+
+    private Technology getOrCreateHeatingTechnology(GameData gameData, Map<String, Resource> resources, Optional<ProcessSubtype> subTypeOpt) {
+
+        if(subTypeOpt.isEmpty()){
+            throw new IllegalArgumentException("Missing heating subtype");
+        }
+
+        ProcessSubtype subType = subTypeOpt.get();
+
+        if(subType.getTier() == null){
+            throw new IllegalArgumentException("Missing heating temperature");
+        }
+        if(!subType.name().startsWith("HEATING_") ){
+            throw new IllegalArgumentException("Subtype " + subType + " is not an heating technology");
+        }
+        int temperature = subType.getTier();
+
+        if(temperature <= 600){
+            return findOrCreateFirepitTechnology(gameData, resources);
+        }
+        else if (temperature <= 1400) {
+            return findOrCreatePitKilnTechnology(gameData, resources);
+        }
+        else {
+            return findOrCreateBellowedForgeTechnology(gameData, resources);
+        }
+
+    }
+
+    private Technology findOrCreateFirepitTechnology(GameData gameData, Map<String, Resource> resources) {
+        if(firepitTechnology == null){
+            firepitTechnology = createTechnology(
+                    "firepit",
+                    "Firepit",
                     Set.of(
-                            TagUtils.getItemTagResourceIds("tfc:anvils", gameData)
+                            TagUtils.getItemTagResourceIds("minecraft:logs", gameData)
+                            , TagUtils.getItemTagResourceIds("tfc:firepit_sticks", gameData)
                     ),
                     resources
-            ); // TODO extract the needed anvil tier from the recipes, make an anvil technology for each tier
+            );
         }
-        return anvilTechnology;
+        return firepitTechnology;
+    }
 
+    private Technology findOrCreatePitKilnTechnology(GameData gameData, Map<String, Resource> resources) {
+        if(pitKilnTechnology == null){
+            pitKilnTechnology = createTechnology(
+                    "pit_kiln",
+                    "Pit Kiln",
+                    Set.of(
+                            TagUtils.getItemTagResourceIds("tfc:pit_kiln_logs", gameData)
+                            , TagUtils.getItemTagResourceIds("tfc:pit_kiln_straw", gameData)
+                            , TagUtils.getItemTagResourceIds("c:tools/igniter", gameData)
+                    ),
+                    resources
+            );
+        }
+        return pitKilnTechnology;
+    }
+
+    private Technology findOrCreateBellowedForgeTechnology(GameData gameData, Map<String, Resource> resources) {
+        if(bellowedForgeTechnology == null){
+            bellowedForgeTechnology = createTechnology(
+                    "bellowed_forge",
+                    "Bellowed Forge",
+                    Set.of(
+                            Set.of("tfc:bellows")
+                            , Set.of("minecraft:charcoal")
+                            , TagUtils.getItemTagResourceIds("c:tools/igniter", gameData)
+                    ),
+                    resources
+            );
+        }
+        return bellowedForgeTechnology;
+    }
+
+    private Technology getOrCreateAnvilTechnology(GameData gameData, Map<String, Resource> resources, Optional<ProcessSubtype> subTypeOpt) {
+
+        int tier = getAnvilTier(subTypeOpt);
+
+        if(tier <= 0){
+            return getOrCreateStoneAnvilTechnology(gameData, resources);
+        } else if (tier == 1) {
+            return getOrCreateCopperAnvilTechnology(gameData, resources);
+        } else if (tier == 2) {
+            return getOrCreateBronzeAnvilTechnology(gameData, resources);
+        } else if (tier == 3) {
+            return getOrCreateWroughtIronAnvilTechnology(gameData, resources);
+        } else if (tier == 4) {
+            return getOrCreateSteelAnvilTechnology(gameData, resources);
+        } else if (tier == 5) {
+            return getOrCreateBlackSteelAnvilTechnology(gameData, resources);
+        } else if (tier == 6) {
+            return getOrCreateColoredSteelAnvilTechnology(gameData, resources);
+        } else {
+            throw new IllegalArgumentException("Unrecognized anvil tier: " + tier);
+        }
+
+    }
+
+    private static int getAnvilTier(Optional<ProcessSubtype> subTypeOpt) {
+        if(subTypeOpt.isEmpty()){
+            // some recipes don't have a tier attached, we'll assume they can be done on any anvil
+            return 0;
+        }
+        ProcessSubtype subType = subTypeOpt.get();
+        if(!subType.name().startsWith("ANVIL_") && !subType.name().startsWith("WELDING_") ){
+            throw new IllegalArgumentException("Subtype " + subType + " is not an anvil technology");
+        }
+        if(subType.getTier() == null){
+            throw new IllegalArgumentException("Subtype " + subType + " doesn't have a tier");
+        }
+
+        return subType.getTier();
+    }
+
+    private Technology getOrCreateStoneAnvilTechnology(GameData gameData, Map<String, Resource> resources) {
+        if(stoneAnvilTechnology == null){
+            stoneAnvilTechnology = createTechnology(
+                    "stone_anvil",
+                    "Stone Anvil",
+                    Set.of(
+                            TagUtils.getItemTagResourceIds("tfc:anvils", gameData)
+                                    .stream()
+                                    .filter(id -> id.startsWith("tfc:rock/anvil/"))
+                                    .collect(Collectors.toSet())
+                    ),
+                    resources
+            );
+        }
+        return stoneAnvilTechnology;
+    }
+    private Technology getOrCreateCopperAnvilTechnology(GameData gameData, Map<String, Resource> resources) {
+        if(copperAnvilTechnology == null){
+            copperAnvilTechnology = createTechnology(
+                    "copper_anvil",
+                    "Copper  Anvil",
+                    Set.of(
+                            Set.of("tfc:metal/anvil/copper")
+                    ),
+                    resources
+            );
+        }
+        return copperAnvilTechnology;
+    }
+    private Technology getOrCreateBronzeAnvilTechnology(GameData gameData, Map<String, Resource> resources) {
+        if(bronzeAnvilTechnology == null){
+            bronzeAnvilTechnology = createTechnology(
+                    "bronze_anvil",
+                    "Bronze Anvil",
+                    Set.of(
+                            Set.of("tfc:metal/anvil/bronze", "tfc:metal/anvil/black_bronze", "tfc:metal/anvil/bismuth_bronze")
+                    ),
+                    resources
+            );
+        }
+        return bronzeAnvilTechnology;
+    }
+    private Technology getOrCreateWroughtIronAnvilTechnology(GameData gameData, Map<String, Resource> resources) {
+        if(wroughtIronAnvilTechnology == null){
+            wroughtIronAnvilTechnology = createTechnology(
+                    "wrought_iron_anvil",
+                    "Wrought Iron Anvil",
+                    Set.of(
+                            Set.of("tfc:metal/anvil/wrought_iron")
+                    ),
+                    resources
+            );
+        }
+        return wroughtIronAnvilTechnology;
+    }
+    private Technology getOrCreateSteelAnvilTechnology(GameData gameData, Map<String, Resource> resources) {
+        if(steelAnvilTechnology == null){
+            steelAnvilTechnology = createTechnology(
+                    "steel_anvil",
+                    "Steel Anvil",
+                    Set.of(
+                            Set.of("tfc:metal/anvil/steel")
+                    ),
+                    resources
+            );
+        }
+        return steelAnvilTechnology;
+    }
+    private Technology getOrCreateBlackSteelAnvilTechnology(GameData gameData, Map<String, Resource> resources) {
+        if(blackSteelAnvilTechnology == null){
+            blackSteelAnvilTechnology = createTechnology(
+                    "black_steel_anvil",
+                    "Black Steel Anvil",
+                    Set.of(
+                            Set.of("tfc:metal/anvil/black_steel")
+                    ),
+                    resources
+            );
+        }
+        return blackSteelAnvilTechnology;
+    }
+    private Technology getOrCreateColoredSteelAnvilTechnology(GameData gameData, Map<String, Resource> resources) {
+        if(coloredSteelAnvilTechnology == null){
+            coloredSteelAnvilTechnology = createTechnology(
+                    "blue_red_steel_anvil",
+                    "Blue/Red steel anvil",
+                    Set.of(
+                            Set.of("tfc:metal/anvil/blue_steel", "tfc:metal/anvil/red_steel")
+                    ),
+                    resources
+            );
+        }
+        return coloredSteelAnvilTechnology;
     }
 
     private Technology getOrCreateSmeltingTechnology(GameData gameData, Map<String, Resource> resources) {
@@ -164,7 +388,7 @@ public class TechnologyProcessLinker {
                             TagUtils.getItemTagResourceIds("c:player_workstations/furnaces", gameData)
                     ),
                     resources
-            ); // TODO not quite sure which tfc aparatus can do minecraft:smelting recipe, if any
+            );
         }
         return smeltingTechnology;
 
@@ -213,23 +437,23 @@ public class TechnologyProcessLinker {
                             Set.of("minecraft:blast_furnace")
                     ),
                     resources
-            ); // TODO see if any tfc aparatus can do minecraft blasting
+            );
         }
         return blastingTechnology;
 
     }
 
     private Technology getOrCreateBlastFurnaceTechnology(GameData gameData, Map<String, Resource> resources) {
-        // TODO make sure the blast furnace processes have a tuyere as
-        //   an ingredient since it breaks over time when using the blast furnace
-        //   and the charcoal/fuel and the flux should also be ingredients
         if(blastFurnaceTechnology == null){
             blastFurnaceTechnology = createTechnology(
                     "blast_furnace",
                     "Blast furnace",
                     Set.of(
                             Set.of("tfc:blast_furnace"),
-                            Set.of("tfc:reinforced_fire_bricks")
+                            Set.of("tfc:reinforced_fire_bricks"),
+                            Set.of("tfc:bellows"),
+                            Set.of("tfc:crucible"),
+                            TagUtils.getItemTagResourceIds("c:tools/igniter", gameData)
                     ),
                     resources
             );
@@ -280,13 +504,12 @@ public class TechnologyProcessLinker {
                     ),
                     resources
             );
-        } // TODO make sure the handstone is part of the process ingredients, since it breaks over time
+        }
         return quernTechnology;
 
     }
 
     private Technology getOrCreateBloomeryTechnology(GameData gameData, Map<String, Resource> resources) {
-        // TODO make sure the bloomery processes have the charcoal as an ingredient
         if(bloomeryTechnology == null){
             bloomeryTechnology = createTechnology(
                     "bloomery",
@@ -302,13 +525,6 @@ public class TechnologyProcessLinker {
 
     }
 
-    private Technology getOrCreateHeatingTechnology(GameData gameData, Map<String, Resource> resources) {
-        if(heatingTechnology == null){
-            heatingTechnology = null; // TODO 4 technologies depending on the required temperature: firepit, pit_kiln, charcoal_forge, bellowed_forge
-        } // TODO parse the required temperature, and add the fuels as ingredients
-        return heatingTechnology;
-
-    }
 
     private Technology getOrCreateBowlTechnology(GameData gameData, Map<String, Resource> resources) {
         if(bowlTechnology == null){
@@ -351,7 +567,7 @@ public class TechnologyProcessLinker {
                             Set.of("minecraft:stick")
                     ),
                     resources
-            ); // TODO make sure pot recipes have the log fuel as an ingredient
+            );
 
         }
         return potTechnology;

@@ -28,7 +28,10 @@ public enum ProcessType {
     CLICKING_POT_WITH_BOWL ("custom:clicking_pot_with_bowl"),
     CLICKING_RAW_ROCK_WITH_HAMMER ("custom:clicking_raw_rock_with_hammer"),
     CHISEL ("tfc:chisel"),
-    POT ("tfc:pot");
+    POT ("tfc:pot"),
+
+    ENTITY_LOOT_TABLE("entity_loot_table"),
+    DEPOSIT_PANNING("deposit_panning");
 
     public final String processType;
 

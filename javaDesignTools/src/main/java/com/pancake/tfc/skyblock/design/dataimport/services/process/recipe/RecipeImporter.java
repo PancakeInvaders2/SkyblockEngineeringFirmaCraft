@@ -87,10 +87,6 @@ public class RecipeImporter {
             "tfc:barrel/preserved_in_vinegar",
             "tfc:barrel/pickled",
 
-            "tfc:pot/soup_3",
-            "tfc:pot/soup_4",
-            "tfc:pot/soup_5",
-
             "tfc:knapping/feel_goat_horn_goat_horn",
             "tfc:knapping/sing_goat_horn_goat_horn",
             "tfc:knapping/admire_goat_horn_goat_horn",
@@ -129,7 +125,7 @@ public class RecipeImporter {
 
         Map<String, Integer> recipeCountPerTypeBeforeParsing = recipeCountPerTypeBeforeParsing(gameData);
 
-        for (var entry : gameData.recipes().entrySet()) {
+        for (Map.Entry<String, JsonNode>entry : gameData.recipes().entrySet()) {
             String recipeId = entry.getKey();
             JsonNode recipeJson = entry.getValue();
 
@@ -137,66 +133,43 @@ public class RecipeImporter {
 
             if (!isIgnoredRecipe(recipeId, recipeType)) {
 
-
-                //Optional<RecipeParser> parser = parsers.stream()
-                //        .filter(candidate -> candidate.supports(recipeType))
-                //        .findFirst()
-                //        // TODO uncomment when all recipe parsers are implemented
-                        //.orElseThrow(() ->
-                        //        new IllegalArgumentException(
-                        //                "No recipe parser for recipe: "
-                        //                        + recipeId
-                        //        )
-                        //)
-                        ;
+                List<ParsedProcess> processesOfThisType = parsedProcessesPerType.get(recipeType);
+                if (processesOfThisType == null) {
+                    processesOfThisType = new ArrayList<>();
+                    parsedProcessesPerType.put(recipeType, processesOfThisType);
+                }
+                try {
 
 
+                    ParsedProcess parsedProcess =  recipeParser.parse(recipeId, recipeJson, gameData);
+                    // Some recipes do not expose a concrete resource output.
+                    // They may represent destruction or state/NBT/trait modification
+                    // rather than a resource transformation, and it's not critical to model them
+                    // ex: {"type":"tfc:heating","ingredient":{"tag":"c:foods/bread"},"temperature":700}
 
-                //if (parser.isPresent()) {
-
-                    //if (recipeJson.toString().contains("fluid") && !parser.get().supportsFluids()) {
-                    //    throw new IllegalArgumentException("The parser for this recipe type doesn't support fluids. Recipe: " + recipeJson);
-                    //}
-
-                    List<ParsedProcess> processesOfThisType = parsedProcessesPerType.get(recipeType);
-                    if (processesOfThisType == null) {
-                        processesOfThisType = new ArrayList<>();
-                        parsedProcessesPerType.put(recipeType, processesOfThisType);
+                    if (parsedProcess == null
+                            || parsedProcess.outputs().isEmpty()) {
+                        LOG.info("/!\\ Recipe needs to be implemented or ignored: {}: {}", recipeId, recipeJson);
                     }
-                    try {
 
+                    if (parsedProcess != null && !parsedProcess.outputs().isEmpty()) {
 
-                        ParsedProcess parsedProcess =  recipeParser.parse(recipeId, recipeJson, gameData);
-                        //ParsedProcess parsedProcess = parser.get().parse(recipeId, recipeJson, gameData);
-                        // Some recipes do not expose a concrete resource output.
-                        // They may represent destruction or state/NBT/trait modification
-                        // rather than a resource transformation, and it's not critical to model them
-                        // ex: {"type":"tfc:heating","ingredient":{"tag":"c:foods/bread"},"temperature":700}
-
-                        if (parsedProcess == null
-                                || parsedProcess.outputs().isEmpty()) {
-                            LOG.info("/!\\ Recipe needs to be implemented or ignored: {}: {}", recipeId, recipeJson);
+                        if (parsedProcess.inputGroups().isEmpty()
+                                || parsedProcess.inputGroups().stream().anyMatch(Set::isEmpty)
+                                || parsedProcess.inputGroups().stream().anyMatch(set -> set.stream().anyMatch(String::isBlank))) {
+                            throw new IllegalArgumentException(
+                                    "Recipe has missing/bad inputs: " + recipeId
+                            );
                         }
 
-                        if (parsedProcess != null && !parsedProcess.outputs().isEmpty()) {
-
-                            if (parsedProcess.inputGroups().isEmpty()
-                                    || parsedProcess.inputGroups().stream().anyMatch(Set::isEmpty)
-                                    || parsedProcess.inputGroups().stream().anyMatch(set -> set.stream().anyMatch(String::isBlank))) {
-                                throw new IllegalArgumentException(
-                                        "Recipe has missing/bad inputs: " + recipeId
-                                );
-                            }
-
-                            processesOfThisType.add(parsedProcess);
-                        }
-
-
-                    } catch (Exception e) {
-                        LOG.error("Failed to parse {}", recipeJson, e);
-                        throw new IllegalArgumentException(e);
+                        processesOfThisType.add(parsedProcess);
                     }
-                //}
+
+
+                } catch (Exception e) {
+                    LOG.error("Failed to parse {}", recipeJson, e);
+                    throw new IllegalArgumentException(e);
+                }
 
             }
         }
@@ -239,10 +212,6 @@ public class RecipeImporter {
         //     renewable/infinite.
         //     This is hard to model alongside world-generated finite resources
         //     such as trees, so revisit when implementing resource renewability.
-
-        // TODO the blowpipe and glass blowing pathway uses a lot of NBT, a manual process will
-        //     more appropriate than trying to coerce the json into giving us what we need
-
 
 
         return parsedProcessesPerType;

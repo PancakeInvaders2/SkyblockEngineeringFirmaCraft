@@ -33,27 +33,30 @@ public enum ProcessSubtype {
     KNAPPING_TFC_LEATHER,
     KNAPPING_TFC_ROCK,
     KNAPPING_TFC_FIRE_CLAY,
-    ANVIL_1,
-    ANVIL_2,
-    ANVIL_3,
-    ANVIL_4,
-    ANVIL_5,
-    ANVIL_6,
-    WELDING_MINUS1,
-    WELDING_1,
-    WELDING_2,
-    WELDING_3,
-    WELDING_4,
-    WELDING_5;
+    ANVIL_1(1),
+    ANVIL_2(2),
+    ANVIL_3(3),
+    ANVIL_4(4),
+    ANVIL_5(6),
+    ANVIL_6(6),
+    WELDING_MINUS1(-1),
+    WELDING_1(1),
+    WELDING_2(2),
+    WELDING_3(3),
+    WELDING_4(4),
+    WELDING_5(5);
 
-    private final Integer temperature;
+    private final Integer tier;
 
     ProcessSubtype(){
-        this.temperature = null;
+        this.tier = null;
     }
 
-    ProcessSubtype(int temperature){
-        this.temperature = temperature;
+    ProcessSubtype(int tier){
+        this.tier = tier;
     }
 
+    public Integer getTier() {
+        return tier;
+    }
 }

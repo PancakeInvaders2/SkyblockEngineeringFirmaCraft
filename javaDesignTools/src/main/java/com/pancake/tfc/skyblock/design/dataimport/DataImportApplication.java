@@ -1,17 +1,24 @@
 package com.pancake.tfc.skyblock.design.dataimport;
 
+import com.pancake.tfc.skyblock.design.dataimport.services.DataImporter;
 import com.pancake.tfc.skyblock.design.dataimport.services.GameData;
 import com.pancake.tfc.skyblock.design.dataimport.services.process.ProcessImporter;
+import com.pancake.tfc.skyblock.design.dataimport.services.process.loottable.LootTableImporter;
 import com.pancake.tfc.skyblock.design.dataimport.services.process.recipe.inspector.CountAndExample;
 import com.pancake.tfc.skyblock.design.dataimport.services.process.recipe.inspector.GameDataInspector;
 import com.pancake.tfc.skyblock.design.dataimport.services.GameDataLoader;
 import com.pancake.tfc.skyblock.design.dataimport.services.process.ParsedProcess;
 import com.pancake.tfc.skyblock.design.dataimport.services.process.recipe.RecipeImporter;
 import com.pancake.tfc.skyblock.design.dataimport.services.resources.ResourceImporter;
+import com.pancake.tfc.skyblock.design.dataimport.services.scenario.ScenarioResourceAssigner;
 import com.pancake.tfc.skyblock.design.dataimport.services.technology.TechnologyProcessLinker;
 import com.pancake.tfc.skyblock.design.persistence.entities.Process;
 import com.pancake.tfc.skyblock.design.persistence.entities.Resource;
 import com.pancake.tfc.skyblock.design.persistence.entities.Technology;
+import com.pancake.tfc.skyblock.design.persistence.repositories.ProcessRepository;
+import com.pancake.tfc.skyblock.design.persistence.repositories.ResourceRepository;
+import com.pancake.tfc.skyblock.design.persistence.repositories.ScenarioResourceRepository;
+import com.pancake.tfc.skyblock.design.persistence.repositories.TechnologyRepository;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.boot.CommandLineRunner;
@@ -43,7 +50,10 @@ public class DataImportApplication
     private final ResourceImporter resourceImporter;
     private final ProcessImporter processImporter;
     private final TechnologyProcessLinker technologyProcessLinker;
-    private final Random random;
+    private final DataImporter dataImporter;
+    private final LootTableImporter lootTableImporter;
+
+
 
     public DataImportApplication(
             GameDataLoader service,
@@ -51,14 +61,17 @@ public class DataImportApplication
             RecipeImporter recipeImporter,
             ResourceImporter resourceImporter,
             ProcessImporter processImporter,
-            TechnologyProcessLinker technologyProcessLinker) {
+            TechnologyProcessLinker technologyProcessLinker,
+            LootTableImporter lootTableImporter,
+            DataImporter dataImporter) {
         this.service = service;
         this.inspector = inspector;
         this.recipeImporter = recipeImporter;
         this.resourceImporter = resourceImporter;
         this.processImporter = processImporter;
         this.technologyProcessLinker = technologyProcessLinker;
-        this.random = new Random();
+        this.lootTableImporter = lootTableImporter;
+        this.dataImporter = dataImporter;
 
     }
 
@@ -87,6 +100,8 @@ public class DataImportApplication
         Map<String, CountAndExample> recipeCountsAndExamplesPerType = inspector.inspectRecipeTypes(gameData);
 
         Map<String, List<ParsedProcess>> parsedProcessesPerType = recipeImporter.importRecipes(gameData);
+
+        parsedProcessesPerType.putAll(lootTableImporter.importLootTables(gameData));
 
         for(Map.Entry<String, List<ParsedProcess>> entry : parsedProcessesPerType.entrySet()){
 
@@ -127,6 +142,7 @@ public class DataImportApplication
                 , "tfc:pot"
                 , "minecraft:smoking"
                 , "custom:clicking_raw_rock_with_hammer"
+                , "entity_loot_table"
 
         );
 
@@ -174,21 +190,16 @@ public class DataImportApplication
             LOG.info(technology);
         }
 
+        dataImporter.importData(resources, processes, technologies);
+
+
         long durationNanos = System.nanoTime() - startNanos;
 
         LOG.debug(
-                "Data parsed in {} ms",
+                "Data parsed and persisted in {} ms",
                 durationNanos / 1_000_000.0
         );
     }
 
-    private Process getRandomProcess(List<Process> processes) {
 
-        int min = 0;
-        int max = processes.size() - 1;
-
-        int index = random.nextInt(max - min + 1) + min;
-        return processes.get(index);
-
-    }
 }

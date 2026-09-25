@@ -61,6 +61,32 @@ public class RcpParser {
                 }
 
             }
+            else if( ProcessType.BLAST_FURNACE.equals( processInConstruction.type() ) ){
+                // the tuyere loses durability and fuel is consumed
+                processInConstruction.inputGroups().add(TagUtils.getItemTagResourceIds("tfc:blast_furnace_tuyeres", gameData));
+                processInConstruction.inputGroups().add(TagUtils.getItemTagResourceIds("tfc:blast_furnace_fuel", gameData));
+
+            }
+            else if( ProcessType.QUERN.equals( processInConstruction.type() ) ){
+                // handstone loses durability
+                processInConstruction.inputGroups().add(TagUtils.getItemTagResourceIds("tfc:quern_handstones", gameData));
+            }
+            else if( ProcessType.POT.equals( processInConstruction.type()) ){
+                // fuel
+                processInConstruction.inputGroups().add(TagUtils.getItemTagResourceIds("minecraft:logs", gameData));
+            }
+            else if (ProcessType.POT_SOUP.equals( processInConstruction.type() ) ){
+                // fuel
+                processInConstruction.inputGroups().add(TagUtils.getItemTagResourceIds("minecraft:logs", gameData));
+                // output not present in the json file
+                processInConstruction.outputs().add("custom:soup_in_pot");
+            }
+            else if( ProcessType.ALLOY.equals( processInConstruction.type() ) ){
+                // wood and straw for constructing the pit kiln
+                processInConstruction.inputGroups().add(TagUtils.getItemTagResourceIds("minecraft:logs", gameData));
+                processInConstruction.inputGroups().add(TagUtils.getItemTagResourceIds("tfc:pit_kiln_straw", gameData));
+            }
+
 
             if(StringUtils.isBlank(processInConstruction.id()) ){
                 throw new IllegalArgumentException("no process id");
