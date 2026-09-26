@@ -1,0 +1,13 @@
+{
+  "itemGroup.skyblockengineeringfirmacraftgluemod": "Example Mod Tab",
+  "block.skyblockengineeringfirmacraftgluemod.example_block": "Example Block",
+  "item.skyblockengineeringfirmacraftgluemod.example_item": "Example Item",
+
+  "skyblockengineeringfirmacraftgluemod.configuration.title": "SkyblockEngineeringFirmaCraft Glue Mod Configs",
+  "skyblockengineeringfirmacraftgluemod.configuration.section.skyblockengineeringfirmacraftgluemod.common.toml": "SkyblockEngineeringFirmaCraft Glue Mod Configs",
+  "skyblockengineeringfirmacraftgluemod.configuration.section.skyblockengineeringfirmacraftgluemod.common.toml.title": "SkyblockEngineeringFirmaCraft Glue Mod Configs",
+  "skyblockengineeringfirmacraftgluemod.configuration.items": "Item List",
+  "skyblockengineeringfirmacraftgluemod.configuration.logDirtBlock": "Log Dirt Block",
+  "skyblockengineeringfirmacraftgluemod.configuration.magicNumberIntroduction": "Magic Number Text",
+  "skyblockengineeringfirmacraftgluemod.configuration.magicNumber": "Magic Number"
+}
