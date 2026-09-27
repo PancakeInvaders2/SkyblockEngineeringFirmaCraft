@@ -1,0 +1,13 @@
+{
+  "required": true,
+  "minVersion": "0.8",
+  "package": "com.pancake.tfc.skyblock.mixin",
+  "compatibilityLevel": "JAVA_21",
+  "mixins": [
+    "TFCChunkGeneratorMixin",
+    "ChunkNoiseFillerMixin"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}

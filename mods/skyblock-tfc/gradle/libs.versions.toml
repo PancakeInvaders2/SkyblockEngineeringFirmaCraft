@@ -6,7 +6,7 @@ parchment = "2024.07.07"
 parchmentMinecraft = "1.21"
 # Plugins
 githubPackages = "1.2.2"
-modDevGradle = "2.0.78"
+modDevGradle = "2.0.107"
 # Dependencies
 minecraft = "1.21.1"
 # You can find the latest versions here: https://projects.neoforged.net/neoforged/neoforge
@@ -48,7 +48,6 @@ junit-jupiter = { group = "org.junit.jupiter", name = "junit-jupiter", version.r
 guava = { module = "com.google.guava:guava", version.ref = "guava" }
 
 [plugins]
-githubPackages = { id = "io.github.apdevteam.github-packages", version.ref = "githubPackages" }
 modDevGradle = { id = "net.neoforged.moddev", version.ref = "modDevGradle" }
 
 [bundles]

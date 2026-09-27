@@ -1,4 +1,3 @@
-import io.github.apdevteam.githubPackage
 import org.gradle.api.tasks.testing.logging.TestLogEvent
 import org.slf4j.event.Level
 
@@ -9,7 +8,6 @@ plugins {
     idea
 //    id("net.neoforged.licenser") version "0.7.2"
     id("net.neoforged.moddev") version "2.0.107"
-    alias(libs.plugins.githubPackages)
 }
 
 // Mod stuff
