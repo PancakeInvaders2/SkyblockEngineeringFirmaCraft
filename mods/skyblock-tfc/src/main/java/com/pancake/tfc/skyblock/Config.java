@@ -12,31 +12,65 @@ import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.fml.event.config.ModConfigEvent;
 import net.neoforged.neoforge.common.ModConfigSpec;
 
-// An example config class. This is not required, but it's a good idea to have one to keep your config organized.
-// Demonstrates how to use Neo's config APIs
 public class Config {
     private static final ModConfigSpec.Builder BUILDER = new ModConfigSpec.Builder();
 
-    public static final ModConfigSpec.BooleanValue LOG_DIRT_BLOCK = BUILDER
-            .comment("Whether to log the dirt block on common setup")
-            .define("logDirtBlock", true);
+    public static final ModConfigSpec.IntValue STARTER_SPAWN_X = BUILDER
+            .comment("X offset of the player spawn relative to the starter island origin.")
+            .defineInRange("starterSpawnX", 4, -100, 100);
 
-    public static final ModConfigSpec.IntValue MAGIC_NUMBER = BUILDER
-            .comment("A magic number")
-            .defineInRange("magicNumber", 42, 0, Integer.MAX_VALUE);
+    public static final ModConfigSpec.IntValue STARTER_SPAWN_Y = BUILDER
+            .comment("Y offset of the player spawn relative to the starter island origin.")
+            .defineInRange("starterSpawnY", 1, -100, 100);
 
-    public static final ModConfigSpec.ConfigValue<String> MAGIC_NUMBER_INTRODUCTION = BUILDER
-            .comment("What you want the introduction message to be for the magic number")
-            .define("magicNumberIntroduction", "The magic number is... ");
+    public static final ModConfigSpec.IntValue STARTER_SPAWN_Z = BUILDER
+            .comment("Z offset of the player spawn relative to the starter island origin.")
+            .defineInRange("starterSpawnZ", 4, -100, 100);
 
-    // a list of strings that are treated as resource locations for items
-    public static final ModConfigSpec.ConfigValue<List<? extends String>> ITEM_STRINGS = BUILDER
-            .comment("A list of items to log on common setup.")
-            .defineListAllowEmpty("items", List.of("minecraft:iron_ingot"), () -> "", Config::validateItemName);
+
+    public static final ModConfigSpec.ConfigValue<List<? extends String>> STARTER_ISLAND_VARIANTS = BUILDER
+            .comment(
+                    "Starter island structures are selected according to the average annual temperature at the spawn location.",
+                    "Each entry has the format: structure_id:max_average_temperature",
+                    "Entries must be ordered from lowest to highest max temperature.",
+                    "The last entry cannot have a max_average_temperature",
+                    "ex: [\"starter_island_cold:5\", \"starter_island_temperate:18\",\"starter_island_hot\"]",
+                    "to use starter_island_cold.nbt for spawns with < 5°C average temperature, starter_island_temperate.nbt for spawns < 18°C average temperature, and starter_island_hot.nbt otherwise"
+            )
+            .defineListAllowEmpty(
+                    "starterIslandVariants",
+                    List.of(
+                            "starter_island_cold:5",
+                            "starter_island_temperate:18",
+                            "starter_island_hot"
+                    ),
+                    () -> "",
+                    Config::validateStarterIslandVariant
+            );
 
     static final ModConfigSpec SPEC = BUILDER.build();
 
-    private static boolean validateItemName(final Object obj) {
-        return obj instanceof String itemName && BuiltInRegistries.ITEM.containsKey(ResourceLocation.parse(itemName));
+
+    private static boolean validateStarterIslandVariant(Object value) {
+        if (!(value instanceof String entry)) {
+            return false;
+        }
+
+        String[] parts = entry.split(":", 2);
+
+        if (parts[0].isBlank()) {
+            return false;
+        }
+
+        if (parts.length == 1) {
+            return true;
+        }
+
+        try {
+            Float.parseFloat(parts[1]);
+            return true;
+        } catch (NumberFormatException e) {
+            return false;
+        }
     }
 }

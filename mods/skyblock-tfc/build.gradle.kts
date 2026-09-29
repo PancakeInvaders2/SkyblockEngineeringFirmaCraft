@@ -201,7 +201,13 @@ dependencies {
     compileOnly(libs.bundles.jei.api)
     runtimeOnly(libs.jei)
 
+
+    // JADE
+    runtimeOnly(libs.jade)
+
     compileOnly("org.slf4j:slf4j-api:1.7.36")
+
+
 
     runtimeOnly(libs.cyanide)
 

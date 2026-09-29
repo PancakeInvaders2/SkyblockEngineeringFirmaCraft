@@ -11,7 +11,7 @@ modDevGradle = "2.0.107"
 minecraft = "1.21.1"
 # You can find the latest versions here: https://projects.neoforged.net/neoforged/neoforge
 # The Minecraft version must agree with the Neo version to get a valid artifact
-neoforge = "21.1.251"
+neoforge = "21.1.250"
 emi = "1.1.10+1.21"
 jei = "19.25.0.321"
 top = "1.21_neo-12.0.4-6"
