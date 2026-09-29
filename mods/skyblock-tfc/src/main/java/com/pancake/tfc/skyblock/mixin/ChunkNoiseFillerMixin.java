@@ -1,6 +1,7 @@
 package com.pancake.tfc.skyblock.mixin;
 
 
+import com.pancake.tfc.skyblock.SkyblockTFC;
 import net.dries007.tfc.world.ChunkNoiseFiller;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.chunk.LevelChunkSection;
@@ -18,7 +19,7 @@ public abstract class ChunkNoiseFillerMixin
                     target = "Lnet/minecraft/world/level/chunk/LevelChunkSection;setBlockState(IIILnet/minecraft/world/level/block/state/BlockState;Z)Lnet/minecraft/world/level/block/state/BlockState;"
             )
     )
-    private BlockState skyblockengineeringfirmacraft$preventTerrainBlockPlacement(
+    private BlockState skyblocktfc$preventTerrainBlockPlacement(
             LevelChunkSection section,
             int x,
             int y,
@@ -27,7 +28,11 @@ public abstract class ChunkNoiseFillerMixin
             boolean lock
     )
     {
-
-        return section.getBlockState(x, y, z);
+        if (SkyblockTFC.isSkyblockWorld()) {
+            return section.getBlockState(x, y, z);
+        }
+        else{
+            return section.setBlockState(x, y, z, state, lock);
+        }
     }
 }

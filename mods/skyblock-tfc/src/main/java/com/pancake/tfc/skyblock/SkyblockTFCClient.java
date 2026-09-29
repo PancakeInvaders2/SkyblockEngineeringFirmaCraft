@@ -11,11 +11,11 @@ import net.neoforged.neoforge.client.gui.ConfigurationScreen;
 import net.neoforged.neoforge.client.gui.IConfigScreenFactory;
 
 // This class will not load on dedicated servers. Accessing client side code from here is safe.
-@Mod(value = SkyblockEngineeringFirmaCraftGlueMod.MODID, dist = Dist.CLIENT)
+@Mod(value = SkyblockTFC.MODID, dist = Dist.CLIENT)
 // You can use EventBusSubscriber to automatically register all static methods in the class annotated with @SubscribeEvent
-@EventBusSubscriber(modid = SkyblockEngineeringFirmaCraftGlueMod.MODID, value = Dist.CLIENT)
-public class SkyblockEngineeringFirmaCraftGlueModClient {
-    public SkyblockEngineeringFirmaCraftGlueModClient(ModContainer container) {
+@EventBusSubscriber(modid = SkyblockTFC.MODID, value = Dist.CLIENT)
+public class SkyblockTFCClient {
+    public SkyblockTFCClient(ModContainer container) {
         // Allows NeoForge to create a config screen for this mod's configs.
         // The config screen is accessed by going to the Mods screen > clicking on your mod > clicking on config.
         // Do not forget to add translations for your config options to the en_us.json file.
@@ -25,7 +25,7 @@ public class SkyblockEngineeringFirmaCraftGlueModClient {
     @SubscribeEvent
     static void onClientSetup(FMLClientSetupEvent event) {
         // Some client setup code
-        SkyblockEngineeringFirmaCraftGlueMod.LOGGER.info("HELLO FROM CLIENT SETUP");
-        SkyblockEngineeringFirmaCraftGlueMod.LOGGER.info("MINECRAFT NAME >> {}", Minecraft.getInstance().getUser().getName());
+        SkyblockTFC.LOGGER.info("HELLO FROM CLIENT SETUP");
+        SkyblockTFC.LOGGER.info("MINECRAFT NAME >> {}", Minecraft.getInstance().getUser().getName());
     }
 }

@@ -1,0 +1,16 @@
+{
+  "itemGroup.skyblocktfc": "Example Mod Tab",
+  "block.skyblocktfc.example_block": "Example Block",
+  "item.skyblocktfc.example_item": "Example Item",
+
+  "skyblocktfc.configuration.title": "SkyblockTFC Configs",
+  "skyblocktfc.configuration.section.skyblocktfc.common.toml": "SkyblockTFC Configs",
+  "skyblocktfc.configuration.section.skyblocktfc.common.toml.title": "SkyblockTFC Configs",
+  "skyblocktfc.configuration.items": "Item List",
+  "skyblocktfc.configuration.logDirtBlock": "Log Dirt Block",
+  "skyblocktfc.configuration.magicNumberIntroduction": "Magic Number Text",
+  "skyblocktfc.configuration.magicNumber": "Magic Number",
+
+  "generator.skyblocktfc.overworld": "TFC Skyblock"
+
+}

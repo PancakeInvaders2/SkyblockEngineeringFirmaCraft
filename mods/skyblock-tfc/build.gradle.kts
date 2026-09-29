@@ -209,7 +209,7 @@ dependencies {
 
 
 
-    runtimeOnly(libs.cyanide)
+    //runtimeOnly(libs.cyanide)
 
 }
 

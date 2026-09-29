@@ -1,8 +1,7 @@
 package com.pancake.tfc.skyblock.mixin;
 
-import com.mojang.logging.LogUtils;
 import com.pancake.tfc.skyblock.Config;
-import com.pancake.tfc.skyblock.SkyblockEngineeringFirmaCraftGlueMod;
+import com.pancake.tfc.skyblock.SkyblockTFC;
 import net.dries007.tfc.ForgeEventHandler;
 import net.dries007.tfc.world.ChunkGeneratorExtension;
 import net.dries007.tfc.world.chunkdata.ChunkData;
@@ -18,15 +17,13 @@ import net.minecraft.world.level.levelgen.structure.templatesystem.StructureTemp
 import net.minecraft.world.level.levelgen.structure.templatesystem.StructureTemplateManager;
 import net.minecraft.world.level.storage.ServerLevelData;
 import net.neoforged.neoforge.event.level.LevelEvent;
-import org.slf4j.Logger;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
-import org.spongepowered.asm.mixin.injection.Redirect;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.LocalCapture;
 
-import static com.pancake.tfc.skyblock.SkyblockEngineeringFirmaCraftGlueMod.LOGGER;
+import static com.pancake.tfc.skyblock.SkyblockTFC.LOGGER;
 
 @Mixin(ForgeEventHandler.class)
 public class ForgeEventHandlerMixin {
@@ -42,7 +39,7 @@ public class ForgeEventHandlerMixin {
             cancellable = true,
             locals = LocalCapture.CAPTURE_FAILHARD
     )
-    private static void skyblock$createStarterIsland(
+    private static void skyblocktfc$createStarterIsland(
             LevelEvent.CreateSpawnPosition event,
             CallbackInfo ci,
             ServerLevel level,
@@ -52,27 +49,31 @@ public class ForgeEventHandlerMixin {
             RandomSource random,
             ChunkPos chunkPos
     ) {
-        BlockPos anchor = chunkPos.getWorldPosition()
-                .offset(8, generator.getSpawnHeight(level), 8);
+        if(SkyblockTFC.isSkyblockWorld()){
+            BlockPos anchor = chunkPos.getWorldPosition()
+                    .offset(8, generator.getSpawnHeight(level), 8);
 
-        BlockPos spawnPos = placeStarterIsland(level, anchor);
+            BlockPos spawnPos = placeStarterIsland(level, anchor);
 
-        levelData.setSpawn(spawnPos, 0.0F);
+            levelData.setSpawn(spawnPos, 0.0F);
 
-        event.setCanceled(true);
-        ci.cancel();
+            event.setCanceled(true);
+            ci.cancel();
+        }
     }
 
     private static BlockPos placeStarterIsland(ServerLevel level, BlockPos anchor) {
+
+
 
         ResourceLocation structureId = selectStarterIsland(level, anchor);
 
         StructureTemplateManager structureManager = level.getStructureManager();
         StructureTemplate structure = structureManager.getOrCreate(structureId);
 
-        LOGGER.debug("[Skyblock] placing starter island at {}", anchor);
-        LOGGER.debug("[Skyblock] structure size = {}", structure.getSize());
-        LOGGER.debug("[Skyblock] chunk loaded = {}", level.hasChunkAt(anchor));
+        LOGGER.debug("[SkyblockTFC] placing starter island at {}", anchor);
+        LOGGER.debug("[SkyblockTFC] structure size = {}", structure.getSize());
+        LOGGER.debug("[SkyblockTFC] chunk loaded = {}", level.hasChunkAt(anchor));
 
         StructurePlaceSettings settings = new StructurePlaceSettings();
 
@@ -91,8 +92,8 @@ public class ForgeEventHandlerMixin {
                 Config.STARTER_SPAWN_Z.get()
         );
 
-        LOGGER.debug("[Skyblock] placeInWorld returned {}", placed);
-        LOGGER.debug("[Skyblock] spawning player at {}", spawnPos);
+        LOGGER.debug("[SkyblockTFC] placeInWorld returned {}", placed);
+        LOGGER.debug("[SkyblockTFC] spawning player at {}", spawnPos);
 
         return spawnPos;
     }
@@ -105,23 +106,14 @@ public class ForgeEventHandlerMixin {
 
             String structureName = parts[0];
 
-            // no : means no maximum temperature
-            if (parts.length == 1) {
-                LOGGER.debug("[Skyblock] Selecting structure {} for temperature = {}°C", structureName, temperature);
+
+            float maximumTemperature;
+            if (parts.length == 1 // no ':' means no maximum temperature
+                || temperature < (maximumTemperature = Float.parseFloat(parts[1])) ) {
+                LOGGER.debug("[SkyblockTFC] Selecting structure {} for temperature = {}°C", structureName, temperature);
 
                 return ResourceLocation.fromNamespaceAndPath(
-                        "skyblockengineeringfirmacraft",
-                        structureName
-                );
-            }
-
-            float maximumTemperature = Float.parseFloat(parts[1]);
-
-            if (temperature < maximumTemperature) {
-                LOGGER.debug("[Skyblock] Selecting structure {} for temperature = {}°C", structureName, temperature);
-
-                return ResourceLocation.fromNamespaceAndPath(
-                        "skyblockengineeringfirmacraft",
+                        SkyblockTFC.MODID,
                         structureName
                 );
             }

@@ -6,7 +6,9 @@
   "mixins": [
     "TFCChunkGeneratorMixin",
     "ChunkNoiseFillerMixin",
-    "ForgeEventHandlerMixin"
+    "ForgeEventHandlerMixin",
+    "RegistryDataLoaderMixin",
+    "client.CreateWorldScreenMixin"
   ],
   "injectors": {
     "defaultRequire": 1
