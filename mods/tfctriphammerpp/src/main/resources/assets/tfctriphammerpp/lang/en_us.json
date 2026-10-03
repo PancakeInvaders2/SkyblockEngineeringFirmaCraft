@@ -1,0 +1,13 @@
+{
+  "itemGroup.tfctriphammerpp": "Example Mod Tab",
+  "block.tfctriphammerpp.example_block": "Example Block",
+  "item.tfctriphammerpp.example_item": "Example Item",
+
+  "tfctriphammerpp.configuration.title": "TFC Trip Hammer ++ Configs",
+  "tfctriphammerpp.configuration.section.tfctriphammerpp.common.toml": "TFC Trip Hammer ++ Configs",
+  "tfctriphammerpp.configuration.section.tfctriphammerpp.common.toml.title": "TFC Trip Hammer ++ Configs",
+  "tfctriphammerpp.configuration.items": "Item List",
+  "tfctriphammerpp.configuration.logDirtBlock": "Log Dirt Block",
+  "tfctriphammerpp.configuration.magicNumberIntroduction": "Magic Number Text",
+  "tfctriphammerpp.configuration.magicNumber": "Magic Number"
+}

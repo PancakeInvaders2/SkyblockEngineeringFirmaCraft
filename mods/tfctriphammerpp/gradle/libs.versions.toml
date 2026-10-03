@@ -19,6 +19,9 @@ patchouli = "1.21.1-92-NEOFORGE"
 # IMPORTANT change both this and the tfc file id for things to update correclty
 tfc = "4.2.10"
 tfcFileId = "8831715"
+# tfc Fast Trip Hammer
+tfcfasttriphammer="1.2.1"
+tfcfasttriphammerFileId = "8885059"
 # cyanide!
 cyanide = "1.21.1-5.0.0"
 cyanId = "5782674"
@@ -43,6 +46,9 @@ jade = { group = "curse.maven", name = "jade-324717", version.ref = "jadeFileId"
 
 modernfix = { group = "curse.maven", name = "modernfix-790626", version.ref = "modernfixFileId" }
 tfc = { group = "curse.maven", name = "TerraFirmaCraft-302973", version.ref = "tfcFileId" }
+
+tfcfasttriphammer = { group = "curse.maven", name = "tfcfasttriphammer-1584883", version.ref = "tfcfasttriphammerFileId" }
+
 # Test libs
 junit-platform = { group = "org.junit.platform", name = "junit-platform-launcher", version.ref = "junit-platform-launcher" }
 junit-jupiter = { group = "org.junit.jupiter", name = "junit-jupiter", version.ref = "junit-jupiter" }

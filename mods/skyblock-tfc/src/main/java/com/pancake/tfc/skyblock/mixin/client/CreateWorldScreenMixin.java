@@ -18,17 +18,10 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.Optional;
 
+import static com.pancake.tfc.skyblock.SkyblockTFC.SKYBLOCK_PRESET;
+
 @Mixin(CreateWorldScreen.class)
 public abstract class CreateWorldScreenMixin {
-
-    private static final ResourceKey<WorldPreset> SKYBLOCK_PRESET =
-            ResourceKey.create(
-                    net.minecraft.core.registries.Registries.WORLD_PRESET,
-                    ResourceLocation.fromNamespaceAndPath(
-                            SkyblockTFC.MODID,
-                            "overworld"
-                    )
-            );
 
     @Inject(
             method = "createNewWorldDirectory",

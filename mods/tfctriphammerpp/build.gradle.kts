@@ -32,7 +32,8 @@ val generateModMetadata = tasks.register<ProcessResources>("generateModMetadata"
         "minecraft_version_range" to "[${libs.versions.minecraft.get()}]",
         "loader_version_range" to "[1,)",
         "neo_version_range" to "[${libs.versions.neoforge.get()},)",
-        "tfc_version_range" to "[${libs.versions.tfc.get()},)"
+        "tfc_version_range" to "[${libs.versions.tfc.get()},)",
+        "tfcfasttriphammer_version_range" to "[${libs.versions.tfcfasttriphammer.get()},)"
     )
     inputs.properties(modReplacementProperties)
     expand(modReplacementProperties)
@@ -130,11 +131,11 @@ neoForge {
 
         //     sourceSet = sourceSets["data"]
         //     programArguments.addAll("--all",
-        // 	 "--mod", modId,
-        // 	 "--output", file(datagenOutput).absolutePath,
-        // 	 "--existing",  file("src/main/resources").absolutePath,
-        // 	 "--existing-mod",
-        // 	 "tfc")
+        //   "--mod", modId,
+        //   "--output", file(datagenOutput).absolutePath,
+        //   "--existing",  file("src/main/resources").absolutePath,
+        //   "--existing-mod",
+        //   "tfc")
 
         //}
 
@@ -196,6 +197,9 @@ dependencies {
     // TFC!
     implementation(libs.tfc)
 
+    // TFC Fast Trip Hammer
+    implementation(libs.tfcfasttriphammer)
+
     // Patchouli
     compileOnly(libs.patchouli) { artifact { classifier = "api" } }
     runtimeOnly(libs.patchouli)
@@ -207,6 +211,8 @@ dependencies {
 
     // JADE
     runtimeOnly(libs.jade)
+
+
 
     compileOnly("org.slf4j:slf4j-api:1.7.36")
 

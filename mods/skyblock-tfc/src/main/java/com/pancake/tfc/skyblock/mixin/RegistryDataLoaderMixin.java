@@ -21,6 +21,8 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import java.util.Map;
 import java.util.Optional;
 
+import static com.pancake.tfc.skyblock.SkyblockTFC.SKYBLOCK_PRESET;
+
 @Mixin(RegistryDataLoader.class)
 public abstract class RegistryDataLoaderMixin {
 
@@ -30,14 +32,6 @@ public abstract class RegistryDataLoaderMixin {
                     ResourceLocation.fromNamespaceAndPath("tfc", "overworld")
             );
 
-    private static final ResourceKey<WorldPreset> SKYBLOCK_PRESET =
-            ResourceKey.create(
-                    Registries.WORLD_PRESET,
-                    ResourceLocation.fromNamespaceAndPath(
-                            SkyblockTFC.MODID,
-                            "overworld"
-                    )
-            );
 
 
     @Inject(

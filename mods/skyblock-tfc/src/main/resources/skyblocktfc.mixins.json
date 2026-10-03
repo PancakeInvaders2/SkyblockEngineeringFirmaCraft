@@ -8,6 +8,9 @@
     "ChunkNoiseFillerMixin",
     "ForgeEventHandlerMixin",
     "RegistryDataLoaderMixin",
+    "DedicatedServerAccessor",
+    "DedicatedServerSettingsAccessor",
+    "DedicatedServerPropertiesAccessor",
     "client.CreateWorldScreenMixin"
   ],
   "injectors": {
