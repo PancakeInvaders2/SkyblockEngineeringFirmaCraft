@@ -1,9 +1,8 @@
 package com.pancake.tfc.triphammerpp;
 
-import com.pancake.tfc.triphammerpp.mixin.TFCTripHammerBlockEntityAccessor;
-import net.dries007.tfc.client.TFCSounds;
 import net.dries007.tfc.common.TFCTags;
 import net.dries007.tfc.common.blockentities.rotation.TripHammerBlockEntity;
+import net.dries007.tfc.common.blocks.TripHammerBlock;
 import net.dries007.tfc.util.Helpers;
 import net.dries007.tfc.util.rotation.Rotation;
 import net.minecraft.core.BlockPos;
@@ -12,7 +11,6 @@ import net.minecraft.core.Vec3i;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
-import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.stats.Stats;
 import net.minecraft.tags.TagKey;
@@ -44,22 +42,20 @@ import java.util.function.Consumer;
 
 public class TripHammerPP {
 
-    public static final int MAX_PROGRESS = 10;
-
-    public static final float STANDARD_PROGRESS_PER_HIT = 20f;
+    // 0: not broken at all, 10: max level of displayable crack, 11: break the block
+    public static final float MAX_PROGRESS = 11f;
 
     public static final Vec3 CENTER_OF_ORIGIN = new Vec3(.5, .5, .5);
 
-
-
     private static final TagKey<Item> PICKAXES = TagKey.create(Registries.ITEM, ResourceLocation.fromNamespaceAndPath("minecraft", "pickaxes"));
 
-    public static boolean isTargetEmpty(Level level, BlockPos targetPos, BlockEntity target) {
+
+    public static boolean isTargetEmpty(Level level, BlockPos targetPos) {
         BlockState targetBlockState = level.getBlockState(targetPos);
         return targetBlockState.isAir();
     }
 
-    public static boolean isTargetRock(Level level, BlockPos targetPos, BlockEntity targetEntity) {
+    public static boolean isTargetRock(Level level, BlockPos targetPos) {
 
         BlockState targetBlockState = level.getBlockState(targetPos);
 
@@ -68,15 +64,31 @@ public class TripHammerPP {
                 || Helpers.isBlock(targetBlockState, TFCTags.Blocks.STONES_SMOOTH);
     }
 
-    public static boolean canItemWorkAnvil(ItemStack item) {
+    public static boolean isItemAHammer(ItemStack item) {
         return Helpers.isItem(item, TFCTags.Items.TOOLS_HAMMER);
     }
 
-    public static boolean canItemBreakRock(ItemStack item) {
+    public static boolean isItemAPickaxe(ItemStack item) {
         return Helpers.isItem(item, PICKAXES);
     }
 
-    public static void handleRock(Level level,
+    public static BlockPos getTargetPosition(TripHammerBlockEntity hammer){
+        return hammer.getBlockPos().relative(hammer.getBlockState().getValue(TripHammerBlock.FACING));
+    }
+
+    public static void resetProgressIfTargetIsMissing(Level level, TripHammerBlockEntity hammer){
+
+        BlockPos targetPos = getTargetPosition(hammer);
+
+        if (getDestroyProgress(hammer) > 0 && isTargetEmpty(level, targetPos)) {
+            resetDestroyProgress(level, hammer, targetPos);
+        }
+    }
+
+    /**
+     * @return true if the rock has been destroyed
+     */
+    public static boolean handleRock(Level level,
                                   BlockPos pos,
                                   BlockPos targetPos,
                                   TripHammerBlockEntity tripHammer,
@@ -84,76 +96,70 @@ public class TripHammerPP {
                                   Rotation rotation) {
 
 
-        TFCTripHammer.LOGGER.debug("[TFCTripHammer++] handling rock target");
-
         BlockState targetBlockState = level.getBlockState(targetPos);
 
-        // ROCK SMASH isn't the right sound, it's for knapping I think, we need the vanilla mining sound maybe ?
-        level.playSound(null, pos, TFCSounds.ROCK_SMASH.get(), SoundSource.BLOCKS, 0.4f, 0.2f);
+        boolean rockDestroyed = workOnBreakingTheRock(level, targetPos, targetBlockState, tripHammer, toolItem);
 
-        if (workOnBreakingTheRock(level, targetPos, targetBlockState, tripHammer))
-        {
-            Helpers.damageItem(toolItem, level);
-            tripHammer.markForSync();
+        return rockDestroyed;
+
+    }
+
+    public static float getDestroyProgress(TripHammerBlockEntity tripHammer){
+        return ((TripHammerProgressAccess) tripHammer)
+                .tfctriphammerpp$getDestroyProgress();
+    }
+
+    public static void setDestroyProgress(Level level, TripHammerBlockEntity tripHammer, BlockPos breakingPos, float newDestroyProgress){
+        ((TripHammerProgressAccess) tripHammer)
+                .tfctriphammerpp$setDestroyProgress(newDestroyProgress);
+        int tripHammerBreakerId = ((TripHammerProgressAccess) tripHammer).tfctriphammerpp$getBreakerId();
+
+        int displayedCracking = ((int) newDestroyProgress - 1 );
+        // if displayedCracking > 9, the block is about to be destroyed, no need to update
+        if(displayedCracking <= 9){
+            // -1 : not destroyed at all
+            // 0: lowest crack level displayable
+            // 9: highest crack level displayable
+            level.destroyBlockProgress(tripHammerBreakerId, breakingPos, displayedCracking);
         }
-        if (toolItem.isEmpty())
-        {
-            level.playSound(null, pos, SoundEvents.ITEM_BREAK, SoundSource.BLOCKS);
-        }
-        ((TFCTripHammerBlockEntityAccessor) tripHammer).tfctriphammerpp$setCooldownTicks(
-                Mth.ceil(0.8f * Mth.TWO_PI / rotation.positiveSpeed())
-        );
-
-        // Update client if the hammer broke
-        tripHammer.checkForLastTickSync();
 
 
     }
 
-    public static int getDestroyProgress(TripHammerBlockEntity tripHammer){
-        TFCTripHammerBlockEntityAccessor accessor =
-                (TFCTripHammerBlockEntityAccessor) tripHammer;
-
-        return accessor.tfctriphammerpp$getDestroyProgress();
+    public static void incrementDestroyProgress(Level level, TripHammerBlockEntity tripHammer, BlockPos breakingPos, float amount){
+        setDestroyProgress(level, tripHammer, breakingPos, getDestroyProgress(tripHammer) + amount);
     }
 
-    public static void setDestroyProgress(TripHammerBlockEntity tripHammer, int newDestroyProgress){
-        TFCTripHammerBlockEntityAccessor accessor =
-                (TFCTripHammerBlockEntityAccessor) tripHammer;
-
-        accessor.tfctriphammerpp$setDestroyProgress(newDestroyProgress);
+    public static void resetDestroyProgress(Level level, TripHammerBlockEntity tripHammer, BlockPos breakingPos){
+        setDestroyProgress(level, tripHammer, breakingPos, 0f);
     }
 
-    public static void incrementDestroyProgress(TripHammerBlockEntity tripHammer, int amount){
-        setDestroyProgress(tripHammer, getDestroyProgress(tripHammer) + amount);
-    }
-
+    /**
+     * @return true if the rock has been broken, false otherwise
+     */
     private static boolean workOnBreakingTheRock(
             Level level,
             BlockPos breakingPos,
             BlockState stateToBreak,
-            TripHammerBlockEntity tripHammer
-    ) {
+            TripHammerBlockEntity tripHammer,
+            ItemStack toolItem) {
 
-        int tripHammerBreakerId = 0; // TODO
+        float blockHardness = stateToBreak.getDestroySpeed(level, breakingPos); // ~8 for hardened stone, 6 for raw stone
 
-        float blockHardness = stateToBreak.getDestroySpeed(level, breakingPos);
-        TFCTripHammer.LOGGER.debug("[TFCTripHammer++] blockHardness: {}", blockHardness);
+        float itemSpeed = toolItem.getDestroySpeed(stateToBreak); // 5.25 for copper pickaxe, 12.0 for red steel pickaxe
 
-        TFCTripHammer.LOGGER.debug("[TFCTripHammer++] current progress: {}", getDestroyProgress(tripHammer));
-        incrementDestroyProgress(tripHammer, Mth.clamp((int) (STANDARD_PROGRESS_PER_HIT / blockHardness), 1, MAX_PROGRESS - getDestroyProgress(tripHammer)));
-        TFCTripHammer.LOGGER.debug("[TFCTripHammer++] current progress incremented: {}", getDestroyProgress(tripHammer));
-        level.destroyBlockProgress(tripHammerBreakerId, breakingPos, getDestroyProgress(tripHammer));
+
+        float progress = (Config.PROGRESS_MULTIPLIER.getAsInt() * itemSpeed) / blockHardness;
+
+        incrementDestroyProgress(level, tripHammer, breakingPos, Mth.clamp(progress, 1f, MAX_PROGRESS - getDestroyProgress(tripHammer)));
 
         level.playSound(null, breakingPos, stateToBreak.getSoundType()
                 .getHitSound(), SoundSource.BLOCKS, .25f, 1);
 
         if (getDestroyProgress(tripHammer) >= MAX_PROGRESS) {
             breakBlock(level, stateToBreak, breakingPos);
-            TFCTripHammer.LOGGER.debug("[TFCTripHammer++] Rock broken ");
 
-            setDestroyProgress(tripHammer, 0);
-            level.destroyBlockProgress(tripHammerBreakerId, breakingPos, -1);
+            resetDestroyProgress(level, tripHammer, breakingPos);
             return true;
         }
 
@@ -162,15 +168,17 @@ public class TripHammerPP {
     }
 
     public static void breakBlock(Level level, BlockState stateToBreak, BlockPos breakingPos) {
-        if (!optimiseCobbleGen(stateToBreak))
-            onBlockBroken(level, stateToBreak, breakingPos);
-
+        onBlockBroken(level, stateToBreak, breakingPos);
     }
 
-    public static boolean optimiseCobbleGen(BlockState stateToBreak){
-        return false; // TODO
-    }
-
+    /**
+     * Taken from Create's BlockBreakingKineticBlockEntity
+     * (Create's code is MIT licenced)
+     *
+     * @param level
+     * @param stateToBreak
+     * @param breakingPos
+     */
     public static void onBlockBroken(Level level, BlockState stateToBreak, BlockPos breakingPos) {
         Vec3 vec = vecHelperOffsetRandomly(vecHelperGetCenterOf(breakingPos), level.random, .125f);
         blockHelperDestroyBlock(level, breakingPos, 1f, (stack) -> {

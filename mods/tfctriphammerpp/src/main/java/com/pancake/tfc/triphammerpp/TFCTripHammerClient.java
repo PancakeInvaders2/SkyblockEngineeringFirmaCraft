@@ -25,7 +25,5 @@ public class TFCTripHammerClient {
     @SubscribeEvent
     static void onClientSetup(FMLClientSetupEvent event) {
         // Some client setup code
-        TFCTripHammer.LOGGER.info("HELLO FROM CLIENT SETUP");
-        TFCTripHammer.LOGGER.info("MINECRAFT NAME >> {}", Minecraft.getInstance().getUser().getName());
     }
 }

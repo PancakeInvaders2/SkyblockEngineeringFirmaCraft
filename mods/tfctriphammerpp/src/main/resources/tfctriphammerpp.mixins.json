@@ -3,8 +3,9 @@
   "package": "com.pancake.tfc.triphammerpp.mixin",
   "compatibilityLevel": "JAVA_21",
   "mixins": [
-    "TFCTripHammerBlockEntityAccessor",
-    "TFCTripHammerBlockEntityMixin"
+    "TFCFastTripHammerBlockEntityMixin",
+    "client.TripHammerBlockEntityRendererMixin",
+    "client.TripHammerBlockEntityRendererAccessor"
   ],
   "injectors": {
     "defaultRequire": 1
