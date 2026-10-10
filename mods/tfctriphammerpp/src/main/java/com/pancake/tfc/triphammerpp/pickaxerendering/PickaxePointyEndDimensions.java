@@ -2,6 +2,6 @@ package com.pancake.tfc.triphammerpp.pickaxerendering;
 
 public record PickaxePointyEndDimensions(
         int length,
-        int backwardSlopePixels,
+        float backwardSlopePixels,
         int tipWidth // square
 ) {}

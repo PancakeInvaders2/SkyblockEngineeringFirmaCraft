@@ -95,23 +95,21 @@ public class TFCFastTripHammerBlockEntityMixin implements TripHammerProgressAcce
             Operation<Void> original
     ) {
         /*
-         * Fast Trip Hammer only performs target work when the hammer is
+         * Trip Hammer only performs target work when the hammer is
          * rotating in its positive direction. Preserve its existing
          * negative-direction behavior by letting it run.
          */
         boolean isPositive =
                 rotation.positiveDirection()
                         == state.getValue(TripHammerBlock.FACING).getClockWise();
-
         if (!isPositive)
         {
             original.call(level,pos, state, hammer, rotation, item, accessor, isCrossBlade);
             return;
         }
 
-        BlockPos targetPos =
-                pos.relative(state.getValue(TripHammerBlock.FACING));
 
+        BlockPos targetPos = TripHammerPP.getTargetPosition(hammer);
         boolean worked = false;
 
         BlockEntity target = level.getBlockEntity(targetPos);

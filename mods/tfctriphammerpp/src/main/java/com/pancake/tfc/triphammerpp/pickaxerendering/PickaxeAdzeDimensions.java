@@ -3,7 +3,7 @@ package com.pancake.tfc.triphammerpp.pickaxerendering;
 
 public record PickaxeAdzeDimensions(
         int length,
-        int backwardSlopePixels,
+        float backwardSlopePixels,
         int bladeWidth, // x width
-        int bladeThickness // z thickness
+        float bladeThickness // z thickness
 ) {}

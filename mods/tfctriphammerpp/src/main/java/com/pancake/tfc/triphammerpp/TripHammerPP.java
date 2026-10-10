@@ -6,6 +6,7 @@ import net.dries007.tfc.common.blocks.TripHammerBlock;
 import net.dries007.tfc.util.Helpers;
 import net.dries007.tfc.util.rotation.Rotation;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
 import net.minecraft.core.Registry;
 import net.minecraft.core.Vec3i;
 import net.minecraft.core.registries.Registries;
@@ -72,8 +73,25 @@ public class TripHammerPP {
         return Helpers.isItem(item, PICKAXES);
     }
 
+    public static ItemStack getTool(TripHammerBlockEntity hammer){
+        return hammer.getInventory().getStackInSlot(0);
+    }
+
     public static BlockPos getTargetPosition(TripHammerBlockEntity hammer){
-        return hammer.getBlockPos().relative(hammer.getBlockState().getValue(TripHammerBlock.FACING));
+
+        if( isItemAPickaxe(getTool(hammer))){
+
+            // to make the rendering of the pickaxe not collide into the bladed axle as it spins and the pickaxe is lifted,
+            // we had to extend and bend up the handle, targeting the side of this block
+            return hammer.getBlockPos()
+                    .relative(hammer.getBlockState().getValue(TripHammerBlock.FACING))
+                    .relative(hammer.getBlockState().getValue(TripHammerBlock.FACING))
+                    .relative(hammer.getBlockState().getValue(TripHammerBlock.FACING))
+                    .relative(Direction.UP);
+        }
+        else {
+            return hammer.getBlockPos().relative(hammer.getBlockState().getValue(TripHammerBlock.FACING));
+        }
     }
 
     public static void resetProgressIfTargetIsMissing(Level level, TripHammerBlockEntity hammer){

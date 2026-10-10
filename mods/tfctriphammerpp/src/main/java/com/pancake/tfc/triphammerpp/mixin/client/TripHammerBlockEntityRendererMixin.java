@@ -30,6 +30,7 @@ import java.util.Map;
 @Mixin(TripHammerBlockEntityRenderer.class)
 public class TripHammerBlockEntityRendererMixin
 {
+    private static final float PX = 1f / 16f;
 
     // The interface point touching both the shaft and the eye, at the center of the shaft
     // X: lateral, should be symmetrical
@@ -39,31 +40,36 @@ public class TripHammerBlockEntityRendererMixin
     // -Z: towards the target
     private static final float PICKAXE_SHAFT_EYE_INTERFACE_X = 8f;
     private static final float PICKAXE_SHAFT_EYE_INTERFACE_Y = 14f;
-    private static final float PICKAXE_SHAFT_EYE_INTERFACE_Z = -10f;
+    private static final float PICKAXE_SHAFT_EYE_INTERFACE_Z = -12f;
+
+    private static final PickaxeHolderDimensions PICKAXE_HOLDER = new PickaxeHolderDimensions(
+            3,
+            30
+    );
 
     private static final PickaxeDimensions PICKAXE_HEAD =
             new PickaxeDimensions(
                     4,
                     new PickaxeShaftDimensions(
-                            3,  // width
-                            20,  // length
+                            2,  // width
+                            29,  // length
                             1 // lengthAfterTheEye
                     ),
                     new PickaxeEyeDimensions(
-                            1, // thicknessAroundTheShaft
+                            1f, // thicknessAroundTheShaft
                             2 // length
                     ),
                     new PickaxePointyEndDimensions(
                             //
-                            7, // length
-                            2, // backwardSlopePixels
+                            8, // length
+                            2f, // backwardSlopePixels
                             1  // tipWidth (a square)
                     ),
                     new PickaxeAdzeDimensions(
                             7, // length,
-                            1, // backwardSlopePixels,
-                            6, // adzeBladeWidth (x width)
-                            1 // adzeBladeThickness (z thickness)
+                            2f, // backwardSlopePixels,
+                            4, // adzeBladeWidth (x width)
+                            0.5f // adzeBladeThickness (z thickness)
                     )
             );
 
@@ -137,7 +143,6 @@ public class TripHammerBlockEntityRendererMixin
         }
 
         final VertexConsumer buffer = buffers.getBuffer(RenderType.cutout());
-        final float px = 1f / 16f;
 
         stack.pushPose();
 
@@ -150,9 +155,9 @@ public class TripHammerBlockEntityRendererMixin
         float pivotAngle = TripHammerBlockEntityRendererAccessor.tfctriphammerpp$invokeGetPivotAngle(
                 isNegative, angle, 50, 180, 3);
 
-        final float pivotX = 8f * px;
-        final float pivotY = 14f * px;
-        final float pivotZ = 3f * px;
+        final float pivotX = 8f * PX;
+        final float pivotY = 14f * PX;
+        final float pivotZ = 3f * PX;
 
         if (pivotAngle != 0f && rotation != null && rotation.positiveDirection() == state.getValue(TripHammerBlock.FACING).getClockWise())
         {
@@ -162,12 +167,15 @@ public class TripHammerBlockEntityRendererMixin
         }
 
 
-        renderPickaxe(
+
+
+        renderPickaxeAndHolder(
                 stack,
                 buffer,
                 packedLight,
                 packedOverlay,
                 pickaxeTexture,
+                PICKAXE_HOLDER,
                 PICKAXE_HEAD
         );
 
@@ -177,14 +185,38 @@ public class TripHammerBlockEntityRendererMixin
     }
 
 
-    private static void renderPickaxe(
+    private static void renderPickaxeAndHolder(
             PoseStack stack,
             VertexConsumer buffer,
             int packedLight,
             int packedOverlay,
             ResourceLocation texture,
+            PickaxeHolderDimensions pickaxeHolder,
             PickaxeDimensions dimensions
     ) {
+        // the pickaxe hits the side of the block that is 2 blocks away horizontally, and one block up vertically
+
+        // the horizontal section of the shaft, on which the bladed axle pushes down to lift the pickaxe
+        renderPickaxeHolder(
+                stack,
+                buffer,
+                packedLight,
+                packedOverlay,
+                pickaxeHolder
+        );
+
+
+        // make a bend in the handle so that the pick doesn't clip into the rock
+        stack.pushPose();
+        stack.translate(0f * PX, 22f * PX, -34f * PX);
+        stack.mulPose(Axis.XN.rotationDegrees(-60)); // rotate the whole pickaxe
+        stack.translate(-0f * PX, -0f * PX, 7.5f * PX);
+
+        // TODO the 2 sections of handle are not connecting right now,
+        //  need to adjust the lengths and take the angle into account
+        //  Maybe even create a pickaxe holder so that the shaft isn't so absurdly long and bent
+
+        // the handle going through the eye
         renderPickaxeShaft(
                 stack,
                 buffer,
@@ -220,8 +252,6 @@ public class TripHammerBlockEntityRendererMixin
                 dimensions
         );
 
-        // TODO Adze will go here later.
-
         renderPickaxeShaftNose(
                 stack,
                 buffer,
@@ -230,9 +260,49 @@ public class TripHammerBlockEntityRendererMixin
                 dimensions
         );
 
+        stack.popPose();
+
     }
 
+    // the horizontal shaft on which the bladed axle pushes down
+    private static void renderPickaxeHolder(PoseStack stack,
+                                            VertexConsumer buffer,
+                                            int packedLight,
+                                            int packedOverlay,
+                                            PickaxeHolderDimensions holder) {
 
+        int remainingLength = holder.length();
+
+        // we can't go past 16 px, or the rod texture becomes a different wood for some reason ?
+        int cuboidLength = remainingLength%16;
+        float minX = PICKAXE_SHAFT_EYE_INTERFACE_X - ((holder.thickness())/2f);
+        float maxX = PICKAXE_SHAFT_EYE_INTERFACE_X + ((holder.thickness())/2f);
+        float minY = PICKAXE_SHAFT_EYE_INTERFACE_Y - ((holder.thickness())/2f);
+        float maxY = PICKAXE_SHAFT_EYE_INTERFACE_Y + ((holder.thickness())/2f);
+
+        float maxZ = 10f;
+        float minZ = maxZ - cuboidLength;
+
+        while(remainingLength > 0) {
+
+
+            RenderHelpers.renderTexturedCuboid(stack, buffer, RenderHelpers.blockTexture(TripHammerBlockEntityRenderer.ROD_TEXTURE), packedLight, packedOverlay,
+                    minX * PX,
+                    minY * PX,
+                    minZ * PX,
+                    maxX * PX,
+                    maxY * PX,
+                    maxZ * PX,
+                    true);
+            maxZ = minZ;
+            minZ -= cuboidLength;
+            remainingLength -= 16;
+            cuboidLength = remainingLength %16; // next iteration
+        }
+
+    }
+
+    // the angled portion of the shaft, going from the horizontal portion to the pickaxe eye
     private static void renderPickaxeShaft(
             PoseStack stack,
             VertexConsumer buffer,
@@ -240,36 +310,41 @@ public class TripHammerBlockEntityRendererMixin
             int packedOverlay,
             PickaxeDimensions dimensions
     ) {
-        final float px = 1f / 16f;
 
-        // at the pickaxe head
-        float minX = PICKAXE_SHAFT_EYE_INTERFACE_X - ((dimensions.shaft().width()+0.0f)/2);
-        float minY = PICKAXE_SHAFT_EYE_INTERFACE_Y - ((dimensions.shaft().width()+0.0f)/2);
+        PickaxeShaftDimensions shaft = dimensions.shaft();
+
+        int remainingLength = shaft.length();
+
+        // we can't go past 16 px, or the rod texture becomes a different wood for some reason ?
+        int cuboidLength = remainingLength%16;
+        float minX = PICKAXE_SHAFT_EYE_INTERFACE_X - ((shaft.width())/2f);
+        float maxX = PICKAXE_SHAFT_EYE_INTERFACE_X + ((shaft.width())/2f);
+        float minY = PICKAXE_SHAFT_EYE_INTERFACE_Y - ((shaft.width())/2f);
+        float maxY = PICKAXE_SHAFT_EYE_INTERFACE_Y + ((shaft.width())/2f);
+
         float minZ = PICKAXE_SHAFT_EYE_INTERFACE_Z ;
-        // at the trip hammer
-        float maxX = PICKAXE_SHAFT_EYE_INTERFACE_X + ((dimensions.shaft().width()+0.0f)/2);
-        float maxY = PICKAXE_SHAFT_EYE_INTERFACE_Y + ((dimensions.shaft().width()+0.0f)/2);
-        float maxZ = PICKAXE_SHAFT_EYE_INTERFACE_Z + dimensions.shaft().length();
+        float maxZ = minZ + cuboidLength ; // dimensions.shaft().length();
 
-        RenderHelpers.renderTexturedCuboid(
-                stack,
-                buffer,
-                RenderHelpers.blockTexture(
-                        TripHammerBlockEntityRenderer.ROD_TEXTURE
-                ),
-                packedLight,
-                packedOverlay,
 
-                minX * px,
-                minY * px,
-                minZ * px,
+        while(remainingLength > 0) {
 
-                maxX * px,
-                maxY * px,
-                maxZ * px,
 
-                false
-        );
+            RenderHelpers.renderTexturedCuboid(stack, buffer, RenderHelpers.blockTexture(TripHammerBlockEntityRenderer.ROD_TEXTURE), packedLight, packedOverlay,
+                    minX * PX,
+                    minY * PX,
+                    minZ * PX,
+                    maxX * PX,
+                    maxY * PX,
+                    maxZ * PX,
+                    true);
+
+            minZ = maxZ;
+            maxZ += cuboidLength;
+            remainingLength -= 16;
+            cuboidLength = remainingLength %16; // next iteration
+        }
+
+
     }
 
     // The bit of wood that sticks out after the pickaxe eye
@@ -280,15 +355,14 @@ public class TripHammerBlockEntityRendererMixin
             int packedOverlay,
             PickaxeDimensions dimensions
     ) {
-        final float px = 1f / 16f;
 
         // at the end
-        float minX = PICKAXE_SHAFT_EYE_INTERFACE_X - ((dimensions.shaft().width()+0.0f)/2);
-        float minY = PICKAXE_SHAFT_EYE_INTERFACE_Y - ((dimensions.shaft().width()+0.0f)/2);
+        float minX = PICKAXE_SHAFT_EYE_INTERFACE_X - ((dimensions.shaft().width())/2f);
+        float minY = PICKAXE_SHAFT_EYE_INTERFACE_Y - ((dimensions.shaft().width())/2f);
         float minZ = PICKAXE_SHAFT_EYE_INTERFACE_Z - dimensions.eye().length() - dimensions.shaft().lengthAfterTheEye();
         // closer to the trip hammer
-        float maxX = PICKAXE_SHAFT_EYE_INTERFACE_X + ((dimensions.shaft().width()+0.0f)/2);
-        float maxY = PICKAXE_SHAFT_EYE_INTERFACE_Y + ((dimensions.shaft().width()+0.0f)/2);
+        float maxX = PICKAXE_SHAFT_EYE_INTERFACE_X + ((dimensions.shaft().width())/2f);
+        float maxY = PICKAXE_SHAFT_EYE_INTERFACE_Y + ((dimensions.shaft().width())/2f);
         float maxZ = PICKAXE_SHAFT_EYE_INTERFACE_Z - dimensions.eye().length();
 
         RenderHelpers.renderTexturedCuboid(
@@ -300,15 +374,15 @@ public class TripHammerBlockEntityRendererMixin
                 packedLight,
                 packedOverlay,
 
-                minX * px,
-                minY * px,
-                minZ * px,
+                minX * PX,
+                minY * PX,
+                minZ * PX,
 
-                maxX * px,
-                maxY * px,
-                maxZ * px,
+                maxX * PX,
+                maxY * PX,
+                maxZ * PX,
 
-                false
+                true
         );
     }
 
@@ -320,7 +394,6 @@ public class TripHammerBlockEntityRendererMixin
             ResourceLocation texture,
             PickaxeDimensions dimensions
     ) {
-        final float px = 1f / 16f;
 
         final PickaxeShaftDimensions shaft =
                 dimensions.shaft();
@@ -349,15 +422,15 @@ public class TripHammerBlockEntityRendererMixin
                 packedLight,
                 packedOverlay,
 
-                minX * px,
-                minY * px,
-                minZ * px,
+                minX * PX,
+                minY * PX,
+                minZ * PX,
 
-                maxX * px,
-                maxY * px,
-                maxZ * px,
+                maxX * PX,
+                maxY * PX,
+                maxZ * PX,
 
-                false
+                true
         );
     }
 
@@ -369,7 +442,6 @@ public class TripHammerBlockEntityRendererMixin
             ResourceLocation texture,
             PickaxeDimensions dimensions
     ) {
-        final float px = 1f / 16f;
 
         final PickaxePointyEndDimensions point =
                 dimensions.pointyEnd();
@@ -381,9 +453,9 @@ public class TripHammerBlockEntityRendererMixin
         stack.pushPose();
 
         stack.translate(
-                PICKAXE_SHAFT_EYE_INTERFACE_X * px,
-                eyeBottomY * px,
-                PICKAXE_SHAFT_EYE_INTERFACE_Z * px
+                PICKAXE_SHAFT_EYE_INTERFACE_X * PX,
+                eyeBottomY * PX,
+                PICKAXE_SHAFT_EYE_INTERFACE_Z * PX
         );
 
         RenderHelpers.renderTexturedTrapezoidalCuboid(
@@ -394,19 +466,19 @@ public class TripHammerBlockEntityRendererMixin
                 packedOverlay,
 
                 // P = narrow tip
-                -point.tipWidth()/2f * px,
-                point.tipWidth()/2f * px,
-                ( point.backwardSlopePixels() - point.tipWidth() )* px,
-                ( point.backwardSlopePixels() )*px,
+                -point.tipWidth()/2f * PX,
+                point.tipWidth()/2f * PX,
+                ( point.backwardSlopePixels() - point.tipWidth() )* PX,
+                ( point.backwardSlopePixels() )*PX,
 
                 // Q = wide base
-                -eyeHalfThickness * px,
-                (eyeHalfThickness) * px,
-                (0f - dimensions.eye().length()) * px,
-                (0f ) * px,
+                -eyeHalfThickness * PX,
+                (eyeHalfThickness) * PX,
+                (0f - dimensions.eye().length()) * PX,
+                (0f ) * PX,
 
                 // Base -> tip
-                -point.length() * px,
+                -point.length() * PX,
                 0f,
 
                 2 * eyeHalfThickness,
@@ -428,7 +500,6 @@ public class TripHammerBlockEntityRendererMixin
             ResourceLocation texture,
             PickaxeDimensions dimensions
     ) {
-        final float px = 1f / 16f;
 
         final PickaxeAdzeDimensions adze =
                 dimensions.adze();
@@ -440,9 +511,9 @@ public class TripHammerBlockEntityRendererMixin
         stack.pushPose();
 
         stack.translate(
-                PICKAXE_SHAFT_EYE_INTERFACE_X * px,
-                eyeTopY * px,
-                PICKAXE_SHAFT_EYE_INTERFACE_Z * px
+                PICKAXE_SHAFT_EYE_INTERFACE_X * PX,
+                eyeTopY * PX,
+                PICKAXE_SHAFT_EYE_INTERFACE_Z * PX
         );
 
         RenderHelpers.renderTexturedTrapezoidalCuboid(
@@ -453,20 +524,20 @@ public class TripHammerBlockEntityRendererMixin
                 packedOverlay,
 
                 // P = wide base
-                -eyeHalfThickness * px,
-                (eyeHalfThickness) * px,
-                (0f - dimensions.eye().length()) * px,
-                (0f ) * px,
+                -eyeHalfThickness * PX,
+                (eyeHalfThickness) * PX,
+                (0f - dimensions.eye().length()) * PX,
+                (0f ) * PX,
 
                 // Q = narrow blade
-                -adze.bladeWidth()/2f * px,
-                adze.bladeWidth()/2f * px,
-                ( adze.backwardSlopePixels() - adze.bladeThickness() )* px,
-                ( adze.backwardSlopePixels() )*px,
+                -adze.bladeWidth()/2f * PX,
+                adze.bladeWidth()/2f * PX,
+                ( adze.backwardSlopePixels() - adze.bladeThickness() )* PX,
+                ( adze.backwardSlopePixels() )*PX,
 
                 // Base -> tip
                 0f,
-                adze.length() * px,
+                adze.length() * PX,
 
                 2 * eyeHalfThickness,
                 adze.length(),
