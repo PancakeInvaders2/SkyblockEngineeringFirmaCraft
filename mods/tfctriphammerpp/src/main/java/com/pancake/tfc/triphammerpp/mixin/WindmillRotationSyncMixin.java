@@ -34,7 +34,6 @@ public abstract class WindmillRotationSyncMixin {
 
         int offset = Math.floorMod(pos.hashCode(), SYNC_INTERVAL);
         if (Math.floorMod(level.getGameTime() + offset, SYNC_INTERVAL) == 0) {
-            TFCTripHammer.LOGGER.info("Syncing windmill angle");
             // synchronize the angle once in a while even if not obstructed
             // so that server and client rotation angles are in-phase
             // and the pickaxe hit (server side) can happen when the
