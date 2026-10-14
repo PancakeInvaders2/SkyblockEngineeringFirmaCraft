@@ -3,8 +3,7 @@ package com.pancake.tfc.triphammerpp.mixin;
 
 import com.llamalad7.mixinextras.injector.wrapmethod.WrapMethod;
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
-import com.pancake.tfc.triphammerpp.TFCTripHammer;
-import com.pancake.tfc.triphammerpp.TripHammerPP;
+import com.pancake.tfc.triphammerpp.logic.server.TripHammerPP;
 import com.pancake.tfc.triphammerpp.TripHammerProgressAccess;
 import com.z1z1y2.tfcfasttriphammer.mixin.TripHammerBlockEntityAccessor;
 import net.dries007.tfc.common.blockentities.AnvilBlockEntity;
@@ -26,7 +25,6 @@ import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
-import org.spongepowered.asm.mixin.injection.callback.LocalCapture;
 
 import java.util.concurrent.atomic.AtomicInteger;
 
@@ -71,7 +69,7 @@ public class TFCFastTripHammerBlockEntityMixin implements TripHammerProgressAcce
             method = "serverTick",
             at = @At("HEAD")
     )
-    private static void tfctriphammerpp$validateBreakingTarget(
+    private static void tfctriphammerpp$validateBreakingTarget (
             Level level,
             BlockPos pos,
             BlockState state,
@@ -80,6 +78,7 @@ public class TFCFastTripHammerBlockEntityMixin implements TripHammerProgressAcce
     ) {
         // checks on every tick, so that if another source breaks the block, the progress can correctly start from 0
         TripHammerPP.resetProgressIfTargetIsMissing( level, hammer);
+
     }
 
     @WrapMethod(method = "triggerWork")
@@ -94,6 +93,7 @@ public class TFCFastTripHammerBlockEntityMixin implements TripHammerProgressAcce
             boolean isCrossBlade,
             Operation<Void> original
     ) {
+
         /*
          * Trip Hammer only performs target work when the hammer is
          * rotating in its positive direction. Preserve its existing
@@ -140,12 +140,9 @@ public class TFCFastTripHammerBlockEntityMixin implements TripHammerProgressAcce
             level.playSound((Player)null, pos, SoundEvents.ITEM_BREAK, SoundSource.BLOCKS);
         }
 
-        int cooldown = Mth.ceil(5.0265484F / rotation.positiveSpeed());
-        if (isCrossBlade) {
-            cooldown = (cooldown + 3) / 4;
-        }
-
-        accessor.setCooldownTicks(cooldown);
+        float multiplier = isCrossBlade ? 0.2f : 0.8f;
+        int cooldownTicks = Mth.ceil(multiplier * Mth.TWO_PI / rotation.positiveSpeed());
+        accessor.setCooldownTicks(cooldownTicks);
 
     }
 }

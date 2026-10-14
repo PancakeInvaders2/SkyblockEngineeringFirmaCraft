@@ -1,4 +1,4 @@
-package com.pancake.tfc.triphammerpp.pickaxerendering;
+package com.pancake.tfc.triphammerpp.rendering;
 
 // square shaft width x width x length
 public record PickaxeShaftDimensions(

@@ -1,5 +1,7 @@
-package com.pancake.tfc.triphammerpp;
+package com.pancake.tfc.triphammerpp.logic.server;
 
+import com.pancake.tfc.triphammerpp.Config;
+import com.pancake.tfc.triphammerpp.TripHammerProgressAccess;
 import net.dries007.tfc.common.TFCTags;
 import net.dries007.tfc.common.blockentities.rotation.TripHammerBlockEntity;
 import net.dries007.tfc.common.blocks.TripHammerBlock;

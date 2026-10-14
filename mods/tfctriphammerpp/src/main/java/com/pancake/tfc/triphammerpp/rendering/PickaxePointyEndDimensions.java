@@ -1,4 +1,4 @@
-package com.pancake.tfc.triphammerpp.pickaxerendering;
+package com.pancake.tfc.triphammerpp.rendering;
 
 public record PickaxePointyEndDimensions(
         int length,

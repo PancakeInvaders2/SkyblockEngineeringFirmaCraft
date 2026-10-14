@@ -1,4 +1,4 @@
-package com.pancake.tfc.triphammerpp.pickaxerendering;
+package com.pancake.tfc.triphammerpp.rendering;
 
 public record PickaxeDimensions(
         int distanceFromShaftEnd, // how much the shaft sticks past the head, in pixels

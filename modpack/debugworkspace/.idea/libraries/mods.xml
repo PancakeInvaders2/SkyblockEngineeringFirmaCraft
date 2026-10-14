@@ -1,0 +1,18 @@
+<component name="libraryTable">
+  <library name="mods">
+    <CLASSES>
+      <root url="file://$PROJECT_DIR$/../../../../instances/1.21.1_dev_neoforge/minecraft/mods" />
+      <root url="file://$USER_HOME$/.var/app/org.prismlauncher.PrismLauncher/data/PrismLauncher/libraries/com/mojang/minecraft/1.21.1" />
+      <root url="file://$USER_HOME$/.var/app/org.prismlauncher.PrismLauncher/data/PrismLauncher/libraries/net/minecraft/client/1.21.1-20240808.144430" />
+      <root url="file://$USER_HOME$/.var/app/org.prismlauncher.PrismLauncher/data/PrismLauncher/libraries/com/mojang/minecraft/1.21.1" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="file://$USER_HOME$/.var/app/org.prismlauncher.PrismLauncher/data/PrismLauncher/libraries/com/mojang/minecraft/1.21.1" />
+    </SOURCES>
+    <jarDirectory url="file://$USER_HOME$/.var/app/org.prismlauncher.PrismLauncher/data/PrismLauncher/libraries/com/mojang/minecraft/1.21.1" recursive="false" />
+    <jarDirectory url="file://$USER_HOME$/.var/app/org.prismlauncher.PrismLauncher/data/PrismLauncher/libraries/com/mojang/minecraft/1.21.1" recursive="false" />
+    <jarDirectory url="file://$USER_HOME$/.var/app/org.prismlauncher.PrismLauncher/data/PrismLauncher/libraries/net/minecraft/client/1.21.1-20240808.144430" recursive="false" />
+    <jarDirectory url="file://$PROJECT_DIR$/../../../../instances/1.21.1_dev_neoforge/minecraft/mods" recursive="false" />
+  </library>
+</component>
