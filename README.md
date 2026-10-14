@@ -1,32 +1,9 @@
 # SkyblockEngineeringFirmaCraft
 
+All the stuff developped for the SkyblockEngineeringFirmaCraft modpack
 
-# TFC Skyblock Design Database
+The code of the mods developped for this pack is in the `mods` folder. 
 
-A small PostgreSQL + Liquibase database for designing the TFC Skyblock resource, technology, and progression graphs.
+You can raise issues, make sure you specify if you're talking about a specific mod or the modpack as a whole.
 
-Start PostgreSQL
-
-```bash
-docker compose up -d
-```
-
-Apply the schema
-
-```bash
-liquibase   --defaultsFile=liquibase.properties   update
-```
-
-To inspect the SQL Liquibase would execute:
-
-```bash
-liquibase   --defaultsFile=liquibase.properties   update-sql
-```
-
-The database separates:
-
-- **resources** — things that exist or are consumed
-- **sources** — ways resources enter the system
-- **processes** — transformations of resources
-- **technologies** — capabilities available to the player
-- **progression goals** — intended player-facing milestones
+All the content of the repo is MIT licensed
