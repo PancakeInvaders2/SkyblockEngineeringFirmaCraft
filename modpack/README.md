@@ -7,24 +7,23 @@ as JARs.
 
 Install the Packwiz CLI, then run `./modpack/dev.sh` from the repository root.
 It builds `skyblock-tfc` and `tfctriphammerpp`, stages their JARs, refreshes the
-Packwiz index, and starts the local server. Keep it running while launching the
-Prism instance.
+Packwiz index, and installs the updated pack directly into the local Prism
+instance. No Packwiz HTTP server is needed.
 
 CurseForge excludes the installed Immersive Crate View and TFC Nitrary files
 from its API. Their JARs are therefore local-only and ignored by Git. To seed
-them from another instance the first time, set `PACKWIZ_SOURCE_MODS` to that
-instance's `minecraft/mods` directory when running `dev.sh`.
+them from another directory the first time, set `PACKWIZ_SOURCE_MODS` to that
+directory. It defaults to `/mnt/LinuxSSD/Games/Minecraft/dev/modCache`.
+`PACKWIZ_INSTANCE_DIR` can override the default Prism instance's `minecraft`
+directory for both `dev.sh` and `tools/start-world.sh`. The instance must have
+`packwiz-installer-bootstrap.jar` in that directory.
 
-For the Prism instance, place `packwiz-installer-bootstrap.jar` in its
-`minecraft` directory and set this as its pre-launch command. Prism runs
-custom commands directly, so invoke a shell explicitly for `cd` and `&&`.
-Use double quotes to pass the shell script as one argument to `-c`:
-
-```sh
-PreLaunchCommand=/bin/sh -c \"cd $INST_MC_DIR && exec $INST_JAVA -jar packwiz-installer-bootstrap.jar http://localhost:8080/pack.toml\"
-```
-
-Packwiz installs the pinned mods and pack files before each launch. Changes to
-configs and scripts are synced on the next launch; mods still need a game
-restart. The launcher's existing Java and debugger settings are independent of
-this setup.
+Remove the old `PreLaunchCommand` that fetched `http://localhost:8080/pack.toml`
+from the Prism instance; run `dev.sh` to sync changes before launching instead.
+Start the test world with `./modpack/tools/start-world.sh`. Use the same script
+with `status` to see concise loading milestones, an in-progress state for up to
+10 minutes, and a successful result once a player has joined. The `wait`
+command accepts an optional timeout in seconds (default 10 minutes) and exits
+nonzero on startup failure or timeout. Use `logs` to show recent relevant log
+lines, or `stop` to request a graceful game shutdown (waits up to 30 seconds;
+it does not force-kill Minecraft).

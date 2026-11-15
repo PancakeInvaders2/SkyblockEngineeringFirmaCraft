@@ -5,18 +5,25 @@ set -euo pipefail
 root_dir="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")/.." && pwd)"
 pack_dir="$root_dir/modpack"
 packwiz_bin="${PACKWIZ_BIN:-packwiz}"
-mod_cache="/mnt/LinuxSSD/Games/Minecraft/dev/modCache"
+instance_dir="${PACKWIZ_INSTANCE_DIR:-/mnt/LinuxSSD/Games/Minecraft/instances/1.21.1_dev_packwiz/minecraft}"
+source_mods="${PACKWIZ_SOURCE_MODS:-/mnt/LinuxSSD/Games/Minecraft/dev/modCache}"
+bootstrap_jar="$instance_dir/packwiz-installer-bootstrap.jar"
+
+if [[ ! -f "$bootstrap_jar" ]]; then
+    printf 'Packwiz installer bootstrap not found: %s\n' "$bootstrap_jar" >&2
+    exit 1
+fi
 
 for filename in \
     'Immersive Crate View (WIMC) Mod Porting-0.1.39.jar' \
     'tfcnitrary-1.21.1-0.1.2.jar'; do
     target="$pack_dir/mods/$filename"
     if [[ ! -f "$target" ]]; then
-        if [[ -z "$mod_cache" || ! -f "$mod_cache/$filename" ]]; then
-            printf 'Missing CurseForge-excluded JAR "%s". Add it to $mod_cache' "$filename" >&2
+        if [[ ! -f "$source_mods/$filename" ]]; then
+            printf 'Missing CurseForge-excluded JAR "%s" in %s\n' "$filename" "$source_mods" >&2
             exit 1
         fi
-        cp -- "$mod_cache/$filename" "$target"
+        cp -- "$source_mods/$filename" "$target"
     fi
 done
 
@@ -56,4 +63,7 @@ stage_mod "$root_dir/mods/tfctriphammerpp" "TFCTripHammer++" "TFCTripHammerPP-lo
 
 cd "$pack_dir"
 "$packwiz_bin" refresh
-exec "$packwiz_bin" serve
+
+pack_url="$(python3 -c 'from pathlib import Path; import sys; print(Path(sys.argv[1]).resolve().as_uri())' "$pack_dir/pack.toml")"
+cd "$instance_dir"
+exec java -jar "$bootstrap_jar" -g "$pack_url"
