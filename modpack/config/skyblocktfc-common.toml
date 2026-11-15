@@ -1,0 +1,19 @@
+#X offset of the player spawn relative to the starter island origin.
+# Default: 4
+# Range: -100 ~ 100
+starterSpawnX = 4
+#Y offset of the player spawn relative to the starter island origin.
+# Default: 1
+# Range: -100 ~ 100
+starterSpawnY = 1
+#Z offset of the player spawn relative to the starter island origin.
+# Default: 4
+# Range: -100 ~ 100
+starterSpawnZ = 4
+#Starter island structures are selected according to the average annual temperature at the spawn location.
+#Each entry has the format: structure_id:max_average_temperature
+#Entries must be ordered from lowest to highest max temperature.
+#The last entry cannot have a max_average_temperature
+#ex: ["starter_island_cold:5", "starter_island_temperate:18","starter_island_hot"]
+#to use starter_island_cold.nbt for spawns with < 5°C average temperature, starter_island_temperate.nbt for spawns < 18°C average temperature, and starter_island_hot.nbt otherwise
+starterIslandVariants = ["cold_island:5", "temperate_island"]

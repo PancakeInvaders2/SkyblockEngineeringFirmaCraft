@@ -1,0 +1,13 @@
+name = "Skyblock Engineering FirmaCraft"
+author = "PancakeInvaders"
+version = "0.1.0"
+pack-format = "packwiz:1.1.0"
+
+[index]
+file = "index.toml"
+hash-format = "sha256"
+hash = "17fa9846fd8bd9f177eaf0be1f82b52f2998d1a65e11db6ccd03c4a9d60e85dc"
+
+[versions]
+minecraft = "1.21.1"
+neoforge = "21.1.250"

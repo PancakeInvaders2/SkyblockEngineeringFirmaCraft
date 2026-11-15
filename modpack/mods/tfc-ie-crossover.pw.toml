@@ -1,0 +1,13 @@
+name = "TFC + IE Crossover"
+filename = "TFC-IE-Crossover-NeoForge-1.21.1-2.1.3.jar"
+side = "both"
+
+[download]
+hash-format = "sha1"
+hash = "1c77553695ad6327faaabe1cf62156642eaefd1e"
+mode = "metadata:curseforge"
+
+[update]
+[update.curseforge]
+file-id = 7961560
+project-id = 830886

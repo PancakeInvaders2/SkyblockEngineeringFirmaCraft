@@ -1,0 +1,39 @@
+	[machines.ball_mill]
+		#A modifier to apply to the energy costs of every ball mill recipe
+		# Default: 1.0
+		# Range: 0.001 ~ 1000.0
+		energyModifier = 1.0
+		#A modifier to apply to the time of every ball mill recipe
+		# Default: 1.0
+		# Range: 0.001 ~ 1000.0
+		timeModifier = 1.0
+
+	[machines.hydrocyclone]
+		#A modifier to apply to the energy costs of every hydrocyclone recipe
+		# Default: 1.0
+		# Range: 0.001 ~ 1000.0
+		energyModifier = 1.0
+		#A modifier to apply to the time of every hydrocyclone recipe
+		# Default: 1.0
+		# Range: 0.001 ~ 1000.0
+		timeModifier = 1.0
+
+	[machines.flotation_cell]
+		#A modifier to apply to the energy costs of every flotation cell recipe
+		# Default: 1.0
+		# Range: 0.001 ~ 1000.0
+		energyModifier = 1.0
+		#A modifier to apply to the time of every flotation cell recipe
+		# Default: 1.0
+		# Range: 0.001 ~ 1000.0
+		timeModifier = 1.0
+
+	[machines.thickener]
+		#A modifier to apply to the energy costs of every thickener recipe
+		# Default: 1.0
+		# Range: 0.001 ~ 1000.0
+		energyModifier = 1.0
+		#A modifier to apply to the time of every thickener recipe
+		# Default: 1.0
+		# Range: 0.001 ~ 1000.0
+		timeModifier = 1.0

@@ -1,0 +1,4 @@
+#Progress Multiplier
+# Default: 3
+# Range: 1 ~ 10
+progressMultiplier = 3

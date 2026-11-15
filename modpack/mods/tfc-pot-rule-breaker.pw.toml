@@ -1,0 +1,13 @@
+name = "TFC Pot Rule Breaker"
+filename = "tfcpotrulebreaker-neoforge-0.1.0.jar"
+side = "both"
+
+[download]
+hash-format = "sha1"
+hash = "72611ab384475cefe94766f59ed33a6aeec290d2"
+mode = "metadata:curseforge"
+
+[update]
+[update.curseforge]
+file-id = 8075591
+project-id = 1540770

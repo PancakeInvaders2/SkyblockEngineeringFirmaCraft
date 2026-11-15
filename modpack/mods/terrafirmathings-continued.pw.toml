@@ -1,0 +1,13 @@
+name = "TerraFirmaThings Continued"
+filename = "tfcthings-2.0.1-Beta.jar"
+side = "both"
+
+[download]
+hash-format = "sha1"
+hash = "335f8e3b15a236c588035d5ee79e819a892cb488"
+mode = "metadata:curseforge"
+
+[update]
+[update.curseforge]
+file-id = 7964918
+project-id = 1479788

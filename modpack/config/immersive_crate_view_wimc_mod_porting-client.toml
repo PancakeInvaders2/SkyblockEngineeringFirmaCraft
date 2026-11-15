@@ -1,0 +1,15 @@
+[cratePreview]
+	#Enables client-only inventory previews for supported crate items.
+	enableCratePreview = true
+	#When true, the preview is shown only while Shift is held.
+	requireShiftForPreview = false
+	#Maximum grid rows to render in a tooltip preview.
+	# Default: 6
+	# Range: 1 ~ 12
+	maxPreviewRows = 6
+	#Draws empty slot backgrounds so crate shape remains visible.
+	showEmptySlots = true
+	#Enables exact detection for Immersive Engineering crates and reinforced crates.
+	enableImmersiveEngineeringCrates = true
+	#Enables WIMC-compatible crate detectors and tag-based industrial crate opt-ins.
+	enableOwnModCrates = true

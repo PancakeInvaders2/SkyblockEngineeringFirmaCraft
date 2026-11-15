@@ -1,0 +1,10 @@
+/README.md
+/dev.sh
+/.gitignore
+/.packwizignore
+/debugworkspace/
+/kubejs/README.txt
+/kubejs/package.json
+/kubejs/**/jsconfig.json
+/kubejs/debug/
+/config/jei/world/local/

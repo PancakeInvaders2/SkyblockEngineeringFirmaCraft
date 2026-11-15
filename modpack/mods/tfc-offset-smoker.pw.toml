@@ -1,0 +1,13 @@
+name = "TFC Offset Smoker"
+filename = "tfcoffsetsmoker-neoforge-1.1.1.jar"
+side = "both"
+
+[download]
+hash-format = "sha1"
+hash = "0f68801977e4abe11adcb578a4e4816fd3020e76"
+mode = "metadata:curseforge"
+
+[update]
+[update.curseforge]
+file-id = 8816258
+project-id = 1546772

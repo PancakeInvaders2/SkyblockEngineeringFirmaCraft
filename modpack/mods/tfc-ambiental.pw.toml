@@ -1,0 +1,13 @@
+name = "TFC Ambiental"
+filename = "tfcambiental-3.0.0.jar"
+side = "both"
+
+[download]
+hash-format = "sha1"
+hash = "49a57948242809be581e800d107279f7f7a19d98"
+mode = "metadata:curseforge"
+
+[update]
+[update.curseforge]
+file-id = 7458762
+project-id = 398442

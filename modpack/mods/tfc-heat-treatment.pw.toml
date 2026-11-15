@@ -1,0 +1,13 @@
+name = "TFC Heat Treatment"
+filename = "tfcheattreatment-neoforge-1.1.jar"
+side = "both"
+
+[download]
+url = "https://cdn.modrinth.com/data/g38R4dpR/versions/JnTwoCvr/tfcheattreatment-neoforge-1.1.jar"
+hash-format = "sha512"
+hash = "35305395294535e383715f3d58560eb8f4ce0e865a1eeb05bb06ed4571be90a770256e522468877028d2fa2b9febcdc711a4e9dc5c33ad6db9dfbf9c5bea2503"
+
+[update]
+[update.modrinth]
+mod-id = "g38R4dpR"
+version = "JnTwoCvr"

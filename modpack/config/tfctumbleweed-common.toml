@@ -1,0 +1,58 @@
+#Should tumbleweeds utilize TFC's own wind system?
+useTFCWindSystem = true
+#Ticks between tumbleweed spawn attempts.
+# Default: 10
+# Range: > 1
+ticksBetween = 10
+#How many attempts tumbleweeds have to spawn.
+# Default: 15
+# Range: > 0
+spawnAttempts = 15
+#Maximum chunk distance away from a player tumbleweeds can spawn.
+# Default: 2
+# Range: > 1
+maxSpawnDistance = 2
+#Maximum number of tumbleweeds existing per player (technically per 17x17 loaded chunks).
+# Default: 64
+# Range: > 0
+maxPerPlayer = 64
+#Should tumbleweeds destroy crops they land upon.
+damageCrops = true
+#Should tumbleweeds drop items upon destroying.
+#
+#The drop list is configurable using loot tables (Datapack!).
+enableDrops = true
+#Drop items only when destroyed by player (normally also drops on lava and cactus damage, for example).
+dropOnlyByPlayer = true
+#Minimum rainfall for tumbleweed to spawn.
+# Default: 0.0
+# Range: -1.7976931348623157E308 ~ 1.7976931348623157E308
+minRainfall = 0.0
+#Maximum rainfall for tumbleweed to spawn.
+# Default: 100.0
+# Range: -1.7976931348623157E308 ~ 1.7976931348623157E308
+maxRainfall = 100.0
+#Minimum temperature for tumbleweed to spawn.
+# Default: 10.0
+# Range: -1.7976931348623157E308 ~ 1.7976931348623157E308
+minTemperature = 10.0
+#Maximum temperature for tumbleweed to spawn.
+# Default: 100.0
+# Range: -1.7976931348623157E308 ~ 1.7976931348623157E308
+maxTemperature = 100.0
+#Factor that is multiplied to the wind speed applied to the tumbleweed.
+#
+#Higher value results in faster moving tumbleweed, while lower results in slower.
+#
+#If negative, the tumbleweed will move opposite the wind direction.
+# Default: 1.5
+# Range: -1.7976931348623157E308 ~ 1.7976931348623157E308
+windSpeedFactor = 1.5
+#The minimum required wind speed for tumbleweeds to start tumbling about.
+# Default: 0.1
+# Range: -1.7976931348623157E308 ~ 1.7976931348623157E308
+windTumbleThreshold = 0.1
+#The minimum required wind speed for tumbleweeds to able to spawn.
+# Default: 0.05
+# Range: -1.7976931348623157E308 ~ 1.7976931348623157E308
+windSpawnThreshold = 0.05
