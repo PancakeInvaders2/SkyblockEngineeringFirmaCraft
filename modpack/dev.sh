@@ -1,21 +1,22 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
+
 root_dir="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")/.." && pwd)"
 pack_dir="$root_dir/modpack"
 packwiz_bin="${PACKWIZ_BIN:-packwiz}"
-source_mods="${PACKWIZ_SOURCE_MODS:-}"
+mod_cache="/mnt/LinuxSSD/Games/Minecraft/dev/modCache"
 
 for filename in \
     'Immersive Crate View (WIMC) Mod Porting-0.1.39.jar' \
     'tfcnitrary-1.21.1-0.1.2.jar'; do
     target="$pack_dir/mods/$filename"
     if [[ ! -f "$target" ]]; then
-        if [[ -z "$source_mods" || ! -f "$source_mods/$filename" ]]; then
-            printf 'Missing CurseForge-excluded JAR %s; set PACKWIZ_SOURCE_MODS to an instance mods directory.\n' "$filename" >&2
+        if [[ -z "$mod_cache" || ! -f "$mod_cache/$filename" ]]; then
+            printf 'Missing CurseForge-excluded JAR "%s". Add it to $mod_cache' "$filename" >&2
             exit 1
         fi
-        cp -- "$source_mods/$filename" "$target"
+        cp -- "$mod_cache/$filename" "$target"
     fi
 done
 

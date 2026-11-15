@@ -1,16 +1,8 @@
 hash-format = "sha256"
 
 [[files]]
-file = "config/DistantHorizons.toml"
-hash = "4cf6079b1ed27607d626690d8b12998a89dc3729e2811e7a3fba42567c842c8b"
-
-[[files]]
 file = "config/alltheleaks.json"
 hash = "2437057bda7e53d91e7a8c400da308a8d848fbdcc80ed845a9c8dbdabd071482"
-
-[[files]]
-file = "config/almostunified/debug.json"
-hash = "435ad46870d033c8652097d64c6ec592907e5ab6f1877240532a6a1743d4fca5"
 
 [[files]]
 file = "config/almostunified/duplicates.json"
@@ -253,10 +245,6 @@ file = "config/neoforge-server.toml"
 hash = "0f1415d7fef6d7f6194275501d500b633dd3310aea40d64128edd1b096372f60"
 
 [[files]]
-file = "config/oculus.properties"
-hash = "0ff40f986f92bf10256496ab3fed912cd69c66e12d334171aeb40aafe00a320b"
-
-[[files]]
 file = "config/oritech-client.toml"
 hash = "1052942f7b43695db6c5ff80283d17a65c38e12f0ea746842fb0b20671cfaefd"
 
@@ -443,22 +431,6 @@ hash = "3db3e936a6d770f7aaa6bb7c9ed69ae9cf890c86a3533b647ef1c807ba2b28a8"
 [[files]]
 file = "config/worldedit/worldedit.properties"
 hash = "52350440ba8c218a5c26ebec3a6ad26a75623c5e753e7377b8e699fda4f2bd9e"
-
-[[files]]
-file = "defaultconfig/DistantHorizons.toml"
-hash = "03ef697646c30fe0c3a1838a3cd01b876879b95866b8afe3b16bcf0b353de445"
-
-[[files]]
-file = "defaultconfig/cold_island.nbt"
-hash = "6b6ec01ea076ab09056ac067d319fcd6019c466bc37d704e5c266d2f5f524a99"
-
-[[files]]
-file = "defaultconfig/tfc-server.toml"
-hash = "05378d5d06390168b153145f52ebb74e3c353a6180b59b495918552ea8bd07f8"
-
-[[files]]
-file = "defaultconfigs/DistantHorizons.toml"
-hash = "fc0990c1dcc34df1dc397630f03770a51bc572e5c3291efc3d7406fc5eb9bb0d"
 
 [[files]]
 file = "defaultconfigs/tfc-server.toml"
@@ -760,11 +732,6 @@ hash = "1813b429f0782edb4d0c428f00da0c760acea32ede566656588af99c6ad10a11"
 metafile = true
 
 [[files]]
-file = "mods/neoculus.pw.toml"
-hash = "47bf43b1382c3df649c7c7db0c43ffdf61fb80b642d59e98743db61fab11961d"
-metafile = true
-
-[[files]]
 file = "mods/oracle-index.pw.toml"
 hash = "0dbda340647b52d2e499c15356e71e433dac17d53a64b46ffcc0f4ce384acc96"
 metafile = true
@@ -887,3 +854,7 @@ metafile = true
 file = "mods/wooden-hopper.pw.toml"
 hash = "c094a009dcc888c055b6f1f2db6b71329f044c5b3ed0940f4264dc71fcff7795"
 metafile = true
+
+[[files]]
+file = "tools/start-world.sh"
+hash = "a008949928129090292d506d104d678475765c608af054322601156df1577fd0"
