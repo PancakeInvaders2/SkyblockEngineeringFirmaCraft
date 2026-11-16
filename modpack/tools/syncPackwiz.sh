@@ -2,7 +2,7 @@
 set -euo pipefail
 
 
-root_dir="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")/.." && pwd)"
+root_dir="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")/../.." && pwd)"
 pack_dir="$root_dir/modpack"
 packwiz_bin="${PACKWIZ_BIN:-packwiz}"
 instance_dir="${PACKWIZ_INSTANCE_DIR:-/mnt/LinuxSSD/Games/Minecraft/instances/1.21.1_dev_packwiz/minecraft}"

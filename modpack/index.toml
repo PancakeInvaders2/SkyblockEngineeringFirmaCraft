@@ -854,7 +854,3 @@ metafile = true
 file = "mods/wooden-hopper.pw.toml"
 hash = "c094a009dcc888c055b6f1f2db6b71329f044c5b3ed0940f4264dc71fcff7795"
 metafile = true
-
-[[files]]
-file = "tools/start-world.sh"
-hash = "7aa21ef3bf744f8b211b856ca22d535c71ef5f7eeeb57e06378155946fca103c"

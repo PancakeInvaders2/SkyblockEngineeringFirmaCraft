@@ -42,7 +42,7 @@ Always inspect the actual repository configuration before assuming a version. Th
 - grep, sed, bash scripts, python3, etc
 - ~/bin/prism, a wrapper script to call prismlauncher via CLI
 - the content of the modpack/tools folder: reusable development scripts, coded in bash or python3
-- ./modpack/dev.sh builds local mods and syncs the Packwiz pack directly to the test instance; it does not need a local HTTP server
+- ./modpack/tools/syncPackwiz.sh builds local mods and syncs the Packwiz pack directly to the test instance; it does not need a local HTTP server
 - ./modpack/tools/start-world.sh [start|status|logs|stop] manages the test world and reports concise startup progress
 
 ## Design principles
@@ -84,7 +84,7 @@ Identify which mod owns the relevant mechanic, and check it's code if needed. Re
 
 Create a git worktree if you have changes to make
 
-When testing in Minecraft, run ./modpack/dev.sh to build and sync the pack, then use ./modpack/tools/start-world.sh to launch the test world. Use ./modpack/tools/start-world.sh wait to wait for the player to join and get a pass/fail exit status; status is only a snapshot and can still report startup in progress. Check progress with status or recent milestones with logs; use stop to request a graceful shutdown. Avoid reading the whole log; use focused filters and limited output.
+When testing in Minecraft, run ./modpack/tools/syncPackwiz.sh to build and sync the pack, then use ./modpack/tools/start-world.sh to launch the test world. Use ./modpack/tools/start-world.sh wait to wait for the player to join and get a pass/fail exit status; status is only a snapshot and can still report startup in progress. Check progress with status or recent milestones with logs; use stop to request a graceful shutdown. Avoid reading the whole log; use focused filters and limited output.
 
 ## Research and scientific plausibility
 
