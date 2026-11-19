@@ -26,3 +26,10 @@ command accepts an optional timeout in seconds (default 10 minutes) and exits
 nonzero on startup failure or timeout. Use `logs` to show recent relevant log
 lines, or `stop` to request a graceful game shutdown (waits up to 30 seconds;
 it does not force-kill Minecraft).
+
+For server-side KubeJS changes, run `./modpack/tools/reload-kubejs.py` while the
+test world is open. It mirrors `kubejs/server_scripts` and `kubejs/data` into
+the instance, invokes KubeJS's authenticated local `/reload` endpoint, waits
+for resource reload completion, and reports server script errors. It does not
+reload startup scripts, client scripts, or assets; those still need their
+respective restart or client resource-reload workflow.

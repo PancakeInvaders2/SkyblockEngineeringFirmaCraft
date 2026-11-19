@@ -15,9 +15,13 @@ usage() {
 }
 
 game_pids() {
-    ps -eo pid=,comm=,args= |
-        awk -v marker="-Djava.library.path=$instance_dir/natives" \
-            '$2 == "java" && index($0, marker) { print $1 }'
+    local instance_parent
+    instance_parent="$(dirname -- "$instance_dir")"
+    ps -ww -eo pid=,comm=,args= |
+        awk \
+            -v instance_marker="-Djava.library.path=$instance_dir/natives" \
+            -v parent_marker="-Djava.library.path=$instance_parent/natives" \
+            '$2 == "java" && (index($0, instance_marker) || index($0, parent_marker)) { print $1 }'
 }
 
 current_run_log() {
@@ -160,7 +164,8 @@ case "$command" in
                 [[ -z "$game_failures" ]] || printf '%s\n' "$game_failures" >&2
                 exit 1
             fi
-            if age="$(launch_age)" && (( age >= startup_timeout )); then
+            pids="$(game_pids)"
+            if [[ -z "$pids" ]] && age="$(launch_age)" && (( age >= startup_timeout )); then
                 printf 'Minecraft did not start within %s seconds; no game process or joined player was detected.\n' "$startup_timeout" >&2
                 progress_lines >&2
                 exit 1
@@ -169,7 +174,13 @@ case "$command" in
             sleep 2
         done
 
-        printf 'Timed out after %s seconds waiting for the player to join the world.\n' "$timeout" >&2
+        pids="$(game_pids)"
+        if [[ -n "$pids" ]]; then
+            printf 'Timed out after %s seconds waiting for the player to join the world; Minecraft is still running (PID(s): %s).\n' \
+                "$timeout" "${pids//$'\n'/, }" >&2
+        else
+            printf 'Timed out after %s seconds waiting for the player to join the world.\n' "$timeout" >&2
+        fi
         progress_lines >&2
         exit 1
         ;;
