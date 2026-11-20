@@ -449,7 +449,7 @@ file = "kubejs/assets/kubejs/textures/item/legume_ash.png"
 hash = "aafd37f332733c9082a4bb6838ccb858ec03f343c39f96167a2dd9f753091652"
 
 [[files]]
-file = "kubejs/assets/kubejs/textures/item/legume_solids.png"
+file = "kubejs/assets/kubejs/textures/item/soy_solids.png"
 hash = "3f2bcfa111c105582ae1e2653382eb1a821b39ed872a957fd2ce17995a81bedf"
 
 [[files]]
@@ -475,6 +475,10 @@ hash = "be4238bdfd8829e4a0c6dcdd7185cdd995f856865fc39f4559b9b04b0e1f0cef"
 [[files]]
 file = "kubejs/config/web_server.json"
 hash = "fd79a06c812377ae9bb7bd47bd192ce7c8be440828d0629208470e2443005abe"
+
+[[files]]
+file = "kubejs/data/kubejs/tags/item/legume_foods.json"
+hash = "c7e389f46e71d471aa0b83ab1460696d573d12db1c0d23be1ed77adf0b10847b"
 
 [[files]]
 file = "kubejs/data/skyblocktfc/structure/cold_island.nbt"
@@ -526,7 +530,7 @@ hash = "dae099ae3be7f033c0c190ee8c3b023b42f6b235d9d0591be5926e8435dbd67f"
 
 [[files]]
 file = "kubejs/server_scripts/recipes.js"
-hash = "e5d78aefccc9e19bcb44b204e6f1b8aeb52a71fd6670e2e58635a0e56b0414d8"
+hash = "d0121a8c5b61f8823702fd719a03d57cb94f4e6d5eb681f2a28ce275313eeb12"
 
 [[files]]
 file = "kubejs/server_scripts/stone_generation.js"
@@ -542,7 +546,7 @@ hash = "5c4659e7bb368960801ccfce24ac3493fa14aae88a7e17b2a9cdfe1931985ffe"
 
 [[files]]
 file = "kubejs/startup_scripts/newItems.js"
-hash = "998aa78e76413e522c2e72b82519cae52c7f71aa321afe28387c0531d06aaf00"
+hash = "4fcf75404f9d46f04bd0714ba6682aaf4a58e399b4bc5d117f0626d0e339726f"
 
 [[files]]
 file = "mods/Immersive Crate View (WIMC) Mod Porting-0.1.39.jar"

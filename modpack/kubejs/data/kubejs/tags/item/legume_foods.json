@@ -1,0 +1,9 @@
+{
+  "replace": false,
+  "values": [
+    "tfc:food/green_bean",
+    "tfc:food/lentil",
+    "tfc:food/peanut",
+    "tfc:food/soybean"
+  ]
+}

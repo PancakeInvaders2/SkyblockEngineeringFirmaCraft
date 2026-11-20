@@ -177,7 +177,7 @@ ServerEvents.recipes(event => {
 
 
     //// iron production
-    // legume_solids production from firmalife soybean paste
+    // soy_solids production from firmalife soybean paste
     event.remove({
         id: 'firmalife:barrel_sealed/soybean_oil'
     })
@@ -201,11 +201,68 @@ ServerEvents.recipes(event => {
             id: 'firmalife:soybean_oil'
         },
         output_item: {
-            id: 'kubejs:legume_solids',
+            id: 'kubejs:soy_solids',
             count: 1
         }
-    }).id('firmalife:barrel_sealed/soybean_oil')
+    }).id('kubejs:barrel_sealed/soybean_oil_and_soy_solids')
 
+    // Legume ash washing and iron extraction
+    event.custom({
+        type: 'tfc:heating',
+        ingredient: {
+            type: 'tfc:and',
+            children: [
+                { tag: 'kubejs:legume_foods' },
+                { type: 'tfc:not_rotten' }
+            ]
+        },
+        result_item: {
+            count: 1,
+            id: 'kubejs:legume_ash'
+        },
+        temperature: 700
+    }).id('kubejs:heating/legume_foods_to_ash')
+
+    event.custom({
+        type: 'tfc:heating',
+        ingredient: {
+            item: 'kubejs:soy_solids'
+        },
+        result_item: {
+            count: 1,
+            id: 'kubejs:legume_ash'
+        },
+        temperature: 700
+    }).id('kubejs:heating/soy_solids')
+
+    event.custom({
+        type: 'tfc:barrel_sealed',
+        duration: 7200,
+        input_fluid: {
+            amount: 200,
+            fluid: 'minecraft:water'
+        },
+        input_item: {
+            count: 1,
+            item: 'kubejs:legume_ash'
+        },
+        output_item: {
+            count: 1,
+            id: 'kubejs:washed_legume_ash'
+        }
+    }).id('kubejs:barrel_sealed/wash_legume_ash')
+
+    event.custom({
+        type: 'tfc:heating',
+        ingredient: {
+            item: 'kubejs:washed_legume_ash'
+        },
+        result_fluid: {
+            amount: 5,
+            id: 'tfc:metal/cast_iron'
+        },
+        temperature: 1535
+    }).id('kubejs:heating/washed_legume_ash')
 
 })
 
